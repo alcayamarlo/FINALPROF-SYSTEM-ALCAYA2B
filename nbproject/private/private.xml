@@ -3,12 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/alcay/OneDrive/Documents/NetBeansProjects/alcaya-2B-GUI/src/admin/addpatient.java</file>
+            <file>file:/C:/Users/alcay/OneDrive/Documents/NetBeansProjects/alcaya-2B-GUI/src/admin/updatpatient.java</file>
             <file>file:/C:/Users/alcay/OneDrive/Documents/NetBeansProjects/alcaya-2B-GUI/src/alcaya/pkg2b/gui/loginForm.java</file>
             <file>file:/C:/Users/alcay/OneDrive/Documents/NetBeansProjects/alcaya-2B-GUI/src/config/dbConnect.java</file>
             <file>file:/C:/Users/alcay/OneDrive/Documents/NetBeansProjects/alcaya-2B-GUI/src/admin/adminUsers.java</file>
+            <file>file:/C:/Users/alcay/OneDrive/Documents/NetBeansProjects/alcaya-2B-GUI/src/cashier/cashierDashboard.java</file>
             <file>file:/C:/Users/alcay/OneDrive/Documents/NetBeansProjects/alcaya-2B-GUI/src/admin/adminDashboard.java</file>
             <file>file:/C:/Users/alcay/OneDrive/Documents/NetBeansProjects/alcaya-2B-GUI/src/alcaya/pkg2b/gui/registrationForm.java</file>
-            <file>file:/C:/Users/alcay/OneDrive/Documents/NetBeansProjects/alcaya-2B-GUI/src/admin/editUser.java</file>
+            <file>file:/C:/Users/alcay/OneDrive/Documents/NetBeansProjects/alcaya-2B-GUI/src/admin/dashBoard.java</file>
         </group>
     </open-files>
 </project-private>

@@ -101,7 +101,7 @@ public class editUser extends javax.swing.JFrame {
         getContentPane().add(em, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 430, 360, 40));
 
         jLabel8.setText("Please enter your personal info!");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 120, 230, 20));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 110, 230, 20));
 
         un.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         un.addActionListener(new java.awt.event.ActionListener() {
@@ -159,7 +159,7 @@ public class editUser extends javax.swing.JFrame {
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jLabel13.setText("EDIT USERFORM");
-        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 60, 400, 60));
+        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 50, 400, 60));
 
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/weweew-removebg-preview.png"))); // NOI18N
         getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 70, 70));
@@ -185,7 +185,7 @@ public class editUser extends javax.swing.JFrame {
         getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 0, 110, 20));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/image.background2.jpg"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -40, 1010, 640));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 560));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

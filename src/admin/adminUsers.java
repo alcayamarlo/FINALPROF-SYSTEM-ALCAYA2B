@@ -5,9 +5,11 @@
  */
 package admin;
 
+import alcaya.pkg2b.gui.loginForm;
 import config.dbConnect;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
 /**
@@ -30,7 +32,7 @@ public class adminUsers extends javax.swing.JFrame {
         try{
             dbConnect dbc = new dbConnect();
             ResultSet rs = dbc.getData("SELECT * FROM patient");
-            patient_table.setModel(DbUtils.resultSetToTableModel(rs));
+            table.setModel(DbUtils.resultSetToTableModel(rs));
              rs.close();
         }catch(SQLException ex){
             System.out.println("Errors: "+ex.getMessage());
@@ -50,60 +52,239 @@ public class adminUsers extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        patient_table = new javax.swing.JTable();
+        table = new javax.swing.JTable();
+        pa = new javax.swing.JLabel();
+        pc = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        jSeparator3 = new javax.swing.JSeparator();
+        jLabel22 = new javax.swing.JLabel();
+        jSeparator4 = new javax.swing.JSeparator();
+        jLabel23 = new javax.swing.JLabel();
+        doc = new javax.swing.JLabel();
+        jSeparator5 = new javax.swing.JSeparator();
+        staff = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jSeparator6 = new javax.swing.JSeparator();
+        ta = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        ct = new javax.swing.JLabel();
+        userty = new javax.swing.JLabel();
+        ut = new javax.swing.JLabel();
+        eme = new javax.swing.JLabel();
+        un = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel3.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel3.setForeground(new java.awt.Color(204, 204, 204));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(142, 233, 238));
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/menu.png"))); // NOI18N
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
+
+        jLabel5.setBackground(new java.awt.Color(153, 153, 153));
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel5.setText("I");
+        jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, -1));
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI Semilight", 0, 18)); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/person.png"))); // NOI18N
+        jLabel9.setText("Hello Admin");
+        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 0, -1, -1));
+
+        jLabel18.setFont(new java.awt.Font("Segoe UI Semilight", 0, 25)); // NOI18N
+        jLabel18.setText("DASHBOARD");
+        jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, -1, -1));
+
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 80));
+
+        jPanel2.setBackground(new java.awt.Color(51, 51, 51));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton2.setText("DELETE");
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 500, 270, 90));
+        jLabel10.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8-home-50.png"))); // NOI18N
+        jLabel10.setText("Users");
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 590, -1, -1));
 
-        jButton3.setText("UPDATE");
-        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 270, 90));
+        jLabel11.setBackground(new java.awt.Color(204, 204, 204));
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel11.setText("Features");
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
 
-        jButton4.setText("USERS");
-        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 270, 90));
+        jLabel12.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8-home-50.png"))); // NOI18N
+        jLabel12.setText("Home ");
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
+            }
+        });
+        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
 
-        jButton1.setText("ADD");
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 270, 90));
+        jLabel13.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/patientt.png"))); // NOI18N
+        jLabel13.setText("Patients");
+        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel13MouseClicked(evt);
+            }
+        });
+        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, -1));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 710));
+        jLabel14.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/208-2087991-community-service-ic.png"))); // NOI18N
+        jLabel14.setText("Services");
+        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, -1, -1));
 
-        patient_table.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        patient_table.setModel(new javax.swing.table.DefaultTableModel(
+        jLabel15.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/billllengs.png"))); // NOI18N
+        jLabel15.setText("Bills");
+        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, -1, -1));
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8-home-50.png"))); // NOI18N
+        jLabel16.setText("Payments Method");
+        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, -1, -1));
+
+        jLabel17.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8-home-50.png"))); // NOI18N
+        jLabel17.setText("Appointments");
+        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 510, -1, -1));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 230, 660));
+
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        table.setFont(new java.awt.Font("Segoe UI Semilight", 0, 12)); // NOI18N
+        table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-
+                "Full Name", "City & Address", "Date of Birth", "Email", "Contact Number", "Username", "Password", "UserType", "Status"
             }
         ));
-        jScrollPane1.setViewportView(patient_table);
+        jScrollPane1.setViewportView(table);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 170, 850, 530));
+        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 850, 440));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel3.setText("WELCOME TO ADMIN DASHBBOARD");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 40, 640, 80));
+        pa.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        pa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/pending.png"))); // NOI18N
+        jPanel4.add(pa, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 120, 60));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-5, 0, 1120, 700));
+        pc.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        pc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/patienticon.png"))); // NOI18N
+        jPanel4.add(pc, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 100, 60));
+
+        jLabel19.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        jLabel19.setText("Pending Accounts");
+        jPanel4.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 140, 30));
+
+        jLabel20.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        jLabel20.setText("Accounts");
+        jPanel4.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 80, 30));
+
+        jLabel21.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        jLabel21.setText("Staff");
+        jPanel4.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 460, 90, 20));
+        jPanel4.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 130, 10));
+        jPanel4.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 130, 20));
+        jPanel4.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 140, 10));
+
+        jLabel22.setFont(new java.awt.Font("Segoe UI Semilight", 2, 19)); // NOI18N
+        jLabel22.setText("ACCOUNT REGISTERED :");
+        jPanel4.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 300, -1));
+        jPanel4.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 300, 20));
+
+        jLabel23.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        jLabel23.setText("Patients");
+        jPanel4.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 60, 30));
+
+        doc.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        doc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/docccc.png"))); // NOI18N
+        jPanel4.add(doc, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 140, 60));
+        jPanel4.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 140, 30));
+
+        staff.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        staff.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/staff.png"))); // NOI18N
+        jPanel4.add(staff, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 70, -1));
+
+        jLabel24.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        jLabel24.setText("Doctors");
+        jPanel4.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 90, 20));
+        jPanel4.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 490, 140, 10));
+
+        ta.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        ta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/acc.png"))); // NOI18N
+        jPanel4.add(ta, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 120, -1));
+
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 220, 1050, 520));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI Semilight", 0, 25)); // NOI18N
+        jLabel3.setText("HOSPITAL BILLING SYSTEM");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 90, -1, -1));
+
+        ct.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        ct.setText("City and Address :");
+        getContentPane().add(ct, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 190, -1, -1));
+
+        userty.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        userty.setText(" ");
+        getContentPane().add(userty, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 170, 230, 20));
+
+        ut.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        ut.setText("UserType :");
+        getContentPane().add(ut, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 150, -1, -1));
+
+        eme.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        eme.setText("Email :");
+        getContentPane().add(eme, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 170, -1, -1));
+
+        un.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        un.setText("Account Username :");
+        getContentPane().add(un, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+        new adminDashboard().setVisible(true);
+    }//GEN-LAST:event_jLabel12MouseClicked
+
+    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
+        adminUsers adu = new adminUsers();
+        adu.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel13MouseClicked
 
     /**
      * @param args the command line arguments
@@ -141,14 +322,45 @@ public class adminUsers extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JLabel ct;
+    private javax.swing.JLabel doc;
+    private javax.swing.JLabel eme;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable patient_table;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JLabel pa;
+    private javax.swing.JLabel pc;
+    private javax.swing.JLabel staff;
+    private javax.swing.JLabel ta;
+    private javax.swing.JTable table;
+    private javax.swing.JLabel un;
+    private javax.swing.JLabel userty;
+    private javax.swing.JLabel ut;
     // End of variables declaration//GEN-END:variables
 }

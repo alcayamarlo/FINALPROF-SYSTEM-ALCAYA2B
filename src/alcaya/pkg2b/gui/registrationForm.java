@@ -7,9 +7,19 @@ package alcaya.pkg2b.gui;
 
 import config.dbConnect;
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.table.DefaultTableModel;
+import net.proteanit.sql.DbUtils;
 
 
 public class registrationForm extends javax.swing.JFrame {
@@ -19,9 +29,24 @@ public class registrationForm extends javax.swing.JFrame {
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+        this.icon2.setVisible(false);
+        displayData();
     }
-        Color hover = new Color (204,255,255);
-        Color defaultcolor = new Color (0,204,255);
+        Color hover = new Color (102,102,102);
+        Color defaultcolor = new Color (51,51,51);
+        Set<String> existingUsernames = new HashSet<>();
+        Set<String> existingEmails = new HashSet<>();
+        
+        public void displayData() {
+        try {
+            dbConnect dbc = new dbConnect();
+            ResultSet rs = dbc.getData("SELECT * FROM patient");
+            table.setModel(DbUtils.resultSetToTableModel(rs));
+            rs.close();
+        } catch (SQLException ex) {
+            System.out.println("Errors: " + ex.getMessage());
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,94 +56,42 @@ public class registrationForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel3 = new javax.swing.JLabel();
-        cn = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        table = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
         fn = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        dt = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         ct = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        dt = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         em = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        un = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        confirmpass = new javax.swing.JPasswordField();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        jLabel3 = new javax.swing.JLabel();
+        cn = new javax.swing.JTextField();
+        login = new javax.swing.JButton();
+        utype = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        icon1 = new javax.swing.JLabel();
+        icon2 = new javax.swing.JLabel();
         pass = new javax.swing.JPasswordField();
         jLabel10 = new javax.swing.JLabel();
-        login = new javax.swing.JButton();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        un = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setText("Contact No. :");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 490, 110, 20));
-
-        cn.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        getContentPane().add(cn, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 510, 360, 40));
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel4.setText("Confirm Password :");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 330, 110, 20));
-
-        fn.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        getContentPane().add(fn, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, 360, 40));
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel5.setText("Date of Birth :");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 320, 150, 20));
-
-        dt.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        getContentPane().add(dt, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 350, 360, 40));
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel6.setText("City & Address :");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, 100, 20));
-
-        ct.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        ct.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ctActionPerformed(evt);
-            }
-        });
-        getContentPane().add(ct, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 270, 360, 40));
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel7.setText("Email :");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 400, 60, 20));
-
-        em.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        getContentPane().add(em, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 430, 360, 40));
-
-        jLabel8.setText("Please enter your personal info!");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 120, 230, 20));
-
-        un.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        un.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                unActionPerformed(evt);
-            }
-        });
-        getContentPane().add(un, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 180, 380, 40));
-
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel9.setText("Enter Username :");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 160, 150, 20));
-
-        confirmpass.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        getContentPane().add(confirmpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 350, 380, 40));
 
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,20 +100,95 @@ public class registrationForm extends javax.swing.JFrame {
         });
         getContentPane().add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 270, -1, 0));
 
-        pass.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        pass.addActionListener(new java.awt.event.ActionListener() {
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/weweew-removebg-preview.png"))); // NOI18N
+        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 70, 70));
+
+        jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel17.setText("HOSPITAL BILLS");
+        getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 260, 60));
+
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel2.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        table.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Patient Full Name", "City & Address", "DateofBirth", "Email", "Contact No.", "Username", "Password", "Usertype"
+            }
+        ));
+        jScrollPane1.setViewportView(table);
+
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 1140, 250));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("REGISTERED OVERVIEW ");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 230, 30));
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 500, 1160, 290));
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel13.setText("WELCOME!");
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 0, 280, 60));
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI Semilight", 0, 15)); // NOI18N
+        jLabel8.setText("Please enter your personal info!");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 60, 220, -1));
+
+        jLabel18.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        jLabel18.setText("Patient Full Name :");
+        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 150, 20));
+
+        fn.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        fn.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel1.add(fn, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, 360, 50));
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        jLabel6.setText("City & Address :");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 170, 100, 20));
+
+        ct.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        ct.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passActionPerformed(evt);
+                ctActionPerformed(evt);
             }
         });
-        getContentPane().add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 270, 380, 40));
+        jPanel1.add(ct, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 200, 360, 50));
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel10.setText("Enter Password :");
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 250, 150, 20));
+        jLabel5.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        jLabel5.setText("Date of Birth :");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 250, 150, 20));
 
-        login.setBackground(new java.awt.Color(0, 204, 255));
+        dt.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        dt.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel1.add(dt, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, 360, 50));
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        jLabel7.setText("Email :");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 330, 60, 20));
+
+        em.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        em.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel1.add(em, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 360, 360, 50));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        jLabel3.setText("Contact No. :");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 420, 110, 20));
+
+        cn.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        cn.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel1.add(cn, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 440, 360, 50));
+
+        login.setBackground(new java.awt.Color(51, 51, 51));
         login.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        login.setForeground(new java.awt.Color(255, 255, 255));
         login.setText("Submit");
         login.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -155,46 +203,90 @@ public class registrationForm extends javax.swing.JFrame {
                 loginActionPerformed(evt);
             }
         });
-        getContentPane().add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 420, 140, 60));
+        jPanel1.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 390, 380, 60));
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel11.setText("Already have an account ? Login");
+        utype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Usertype :", "Doctor", "Staff", "Patient" }));
+        jPanel1.add(utype, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 300, 380, 60));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        jLabel4.setText("User Type :");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 280, 110, 20));
+
+        icon1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/eyeee.png"))); // NOI18N
+        icon1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                icon1MousePressed(evt);
+            }
+        });
+        icon1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                icon1KeyPressed(evt);
+            }
+        });
+        jPanel1.add(icon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 220, -1, 40));
+
+        icon2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/eyehide.png"))); // NOI18N
+        icon2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                icon2MousePressed(evt);
+            }
+        });
+        jPanel1.add(icon2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 210, -1, 60));
+
+        pass.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        pass.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        pass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passActionPerformed(evt);
+            }
+        });
+        jPanel1.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 210, 380, 60));
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        jLabel10.setText("Enter Password :");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 190, 150, 20));
+
+        un.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        un.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        un.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                unActionPerformed(evt);
+            }
+        });
+        un.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                unKeyReleased(evt);
+            }
+        });
+        jPanel1.add(un, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 120, 380, 60));
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        jLabel9.setText("Enter Username :");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 100, 150, 20));
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel16.setText("CONTACT US");
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 10, 110, 20));
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel12.setText("ABOUT US");
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 10, 90, 20));
+
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel15.setText("HOME ");
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 10, 60, 20));
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI Semilight", 1, 18)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel11.setText("Already have an account ?Login");
         jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel11MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 480, 300, 40));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 450, 290, 40));
 
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        jLabel13.setText("WELCOME!");
-        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 50, 280, 60));
-
-        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/weweew-removebg-preview.png"))); // NOI18N
-        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 70, 70));
-
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel12.setText("ABOUT US");
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 10, 90, 20));
-
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel15.setText("HOME ");
-        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 10, 60, 20));
-
-        jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel16.setText("CONTACT US");
-        getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 10, 110, 20));
-
-        jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel17.setText("GLOBAL HOSPITALS");
-        getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 260, 60));
-
-        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel18.setText("Patient Full Name :");
-        getContentPane().add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, 150, 20));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/image.background2.jpg"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -50, 1070, 660));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 810));
 
         pack();
         setLocationRelativeTo(null);
@@ -205,89 +297,111 @@ public class registrationForm extends javax.swing.JFrame {
     }//GEN-LAST:event_ctActionPerformed
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
-  if (fn.getText().isEmpty() ||
-    ct.getText().isEmpty() ||
-    dt.getText().isEmpty() ||
-    em.getText().isEmpty() ||
-    cn.getText().isEmpty() ||
-    un.getText().isEmpty() ||
-    pass.getPassword().length == 0 || 
-    confirmpass.getPassword().length == 0) { 
+
+if (fn.getText().isEmpty() || ct.getText().isEmpty() || dt.getText().isEmpty() || em.getText().isEmpty() || cn.getText().isEmpty() || un.getText().isEmpty() || pass.getPassword().length == 0 || utype.getSelectedItem() == null || utype.getSelectedItem().toString().isEmpty()) {
     JOptionPane.showMessageDialog(null, "All Fields Are Required");
-    return;
-}
+} else {
+    // Validate individual fields
+    if (fn.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Full Name is required");
+        fn.setText("");
+        return;
+    }
+    if (ct.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "City & Address is required");
+        ct.setText("");
+        return;
+    }
+    if (dt.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Contact Number is required");
+        dt.setText("");
+        return;
+    }
+    if (em.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Email is required");
+        em.setText("");
+        return;
+    }
 
-if (fn.getText().isEmpty()) {
-    JOptionPane.showMessageDialog(null, "Patient Name is required");
-    fn.setText("");
-    return;
-}
+    String input = cn.getText();
+    if (!input.matches("[0-9]{11}")) {
+        JOptionPane.showMessageDialog(null, "Please enter a valid contact number (11 digits only)");
+        cn.setText("");
+        return;
+    }
 
-if (ct.getText().isEmpty()) {
-    JOptionPane.showMessageDialog(null, "City & Address is required");
-    ct.setText("");
-    return;
-}
+    String email = em.getText();
+    String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+    Pattern pattern = Pattern.compile(emailRegex);
+    Matcher matcher = pattern.matcher(email);
 
-if (dt.getText().isEmpty()) {
-    JOptionPane.showMessageDialog(null, "Date of Birth is required");
-    dt.setText("");
-    return;
-}
+    if (!matcher.matches()) {
+        JOptionPane.showMessageDialog(null, "Please enter a valid email ");
+        em.setText("");
+        return;
+    }
 
-String email = em.getText();
-String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-Pattern pattern = Pattern.compile(emailRegex);
-Matcher matcher = pattern.matcher(email);
+    if (un.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Username is required");
+        un.setText("");
+        return;
+    }
 
-if (!matcher.matches()) {
-    JOptionPane.showMessageDialog(null, "Please enter a valid email!");
-    em.setText("");
-    return;
-}
+    JPasswordField passwordField = (JPasswordField) pass;
+    char[] passwordChars = passwordField.getPassword();
 
-if (un.getText().isEmpty()) {
-    JOptionPane.showMessageDialog(null, "Username is required");
-    un.setText("");
-    return;
-}
+    if (passwordChars.length == 0) {
+        JOptionPane.showMessageDialog(null, "Password is required");
+        return;
+    }
+    if (passwordChars.length < 8) {
+        JOptionPane.showMessageDialog(null, "Password should have at least 8 characters");
+        return;
+    }
 
+    String selectedUserType = (String) utype.getSelectedItem();
+    if (!("Patients".equals(selectedUserType) || "Doctors".equals(selectedUserType)|| "Staff".equals(selectedUserType) )) {
+        JOptionPane.showMessageDialog(null, "Please select a User Type ");
+        return;
+    }
 
-String input = cn.getText();
-if (!input.matches("[0-9]{11}")) {
-    JOptionPane.showMessageDialog(null, "ENTER A VALID CONTACT NUMBER!");
-    cn.setText("");
-    return;
-}
+    dbConnect dbc = new dbConnect();
+    String checkUsernameQuery = "SELECT COUNT(*) FROM patient WHERE username = '" + un.getText() + "'";
+    int usernameCount = dbc.executeQueryForCount(checkUsernameQuery);
+    if (usernameCount > 0) {
+        JOptionPane.showMessageDialog(null, "Username is already taken");
+        return;
+    }
 
-String password = new String(pass.getPassword());
-String confirmPassword = new String(confirmpass.getPassword());
+    String checkEmailQuery = "SELECT COUNT(*) FROM patient WHERE email = '" + em.getText() + "'";
+    int emailCount = dbc.executeQueryForCount(checkEmailQuery);
+    if (emailCount > 0) {
+        JOptionPane.showMessageDialog(null, "Email is already registered");
+        return;
+    }
 
-if (password.length() < 8) { 
-    JOptionPane.showMessageDialog(null, "Password should have at least 8 characters");
-    pass.setText("");
-    return;
-}
+    String insertQuery = "INSERT INTO patient(fn, cityAddress, dateofBirth, email, contactNo, username, password, usertype, status)"
+            + "VALUES('" + fn.getText() + "', '" + ct.getText() + "', '" + dt.getText() + "', '" + em.getText() + "', '" + cn.getText() + "', '" + un.getText() + "', '" + new String(passwordChars) + "', '" + selectedUserType + "', 'Pending')";
 
+    if (dbc.insertData(insertQuery) == 0) {
+        JOptionPane.showMessageDialog(null, "Registered Successfully");
+       fn.setText("");
+        ct.setText("");
+        dt.setText("");
+        em.setText("");
+        cn.setText("");
+        un.setText("");
+        pass.setText("");
+        utype.setSelectedItem(""); 
+        }
+    
 
-if (!password.equals(confirmPassword)) {
-    JOptionPane.showMessageDialog(null, "Passwords do not match!");
-    confirmpass.setText("");
-    return;
+    new loginForm().setVisible(true);
+    this.setVisible(false);
+    this.dispose();
+    
     
 }
-     dbConnect dbc = new dbConnect();
-     
-        if (fn .getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "All fields are Required!");
-        }
-        if(dbc.insertData("INSERT INTO patient (fn, city_address, dateofBirth, email, contactNo, username, password, confirmpass, status)"
-                + "VALUES('"+fn.getText()+"','"+ct.getText()+"','"+dt.getText()+"','"+em.getText()+"','"+cn.getText()
-                +"','"+un.getText()+"','"+pass.getText()+"','"+confirmpass.getText()+"','Pending')")==0){
-            
-            JOptionPane.showMessageDialog(null, "Successfully Registered!!!!");
-        }
-    new loginForm().setVisible(true);
     }//GEN-LAST:event_loginActionPerformed
 
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
@@ -320,6 +434,27 @@ if (!password.equals(confirmPassword)) {
     private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_passActionPerformed
+
+    private void unKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_unKeyReleased
+            
+    }//GEN-LAST:event_unKeyReleased
+
+    private void icon2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_icon2MousePressed
+        icon1.setVisible(true);
+        icon2.setVisible(false);
+        pass.setEchoChar('*');
+
+    }//GEN-LAST:event_icon2MousePressed
+
+    private void icon1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_icon1MousePressed
+        icon2.setVisible(true);
+        icon1.setVisible(false);
+        pass.setEchoChar((char)0);
+    }//GEN-LAST:event_icon1MousePressed
+
+    private void icon1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_icon1KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_icon1KeyPressed
 
     /**
      * @param args the command line arguments
@@ -358,11 +493,12 @@ if (!password.equals(confirmPassword)) {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField cn;
-    private javax.swing.JPasswordField confirmpass;
     private javax.swing.JTextField ct;
     private javax.swing.JTextField dt;
     private javax.swing.JTextField em;
     private javax.swing.JTextField fn;
+    private javax.swing.JLabel icon1;
+    private javax.swing.JLabel icon2;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -381,8 +517,13 @@ if (!password.equals(confirmPassword)) {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton login;
     private javax.swing.JPasswordField pass;
+    private javax.swing.JTable table;
     private javax.swing.JTextField un;
+    private javax.swing.JComboBox<String> utype;
     // End of variables declaration//GEN-END:variables
 }
