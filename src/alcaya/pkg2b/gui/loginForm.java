@@ -3,7 +3,9 @@ package alcaya.pkg2b.gui;
 
 import admin.addpatient;
 import admin.adminDashboard;
+import admin.dashBoard;
 import cashier.cashierDashboard;
+import config.Session;
 import config.dbConnect;
 import java.awt.Color;
 import java.sql.PreparedStatement;
@@ -30,15 +32,41 @@ public class loginForm extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.icon2.setVisible(false);
     }
+        static String status;
+        static String utype;
         Connection con;
         PreparedStatement pst;
-
-        
-       
-       
         
         Color hover = new Color (204,255,255);
         Color defaultcolor = new Color (0,204,255);
+        
+    public static boolean loginAcc(String username,String password){
+        dbConnect connector = new dbConnect();
+
+        try{
+            String query = "SELECT * FROM patient WHERE username = '" + username + "' AND password = '" + password + "'";
+            ResultSet resultSet = connector.getData(query);
+            if(resultSet.next()){
+                status = resultSet.getString("status");
+                utype = resultSet.getString("utype");
+                Session sess = Session.getInstance();
+                sess.setP_id(resultSet.getInt("p_id"));
+                sess.setFn(resultSet.getString("fn"));
+                sess.setCityAddress(resultSet.getString("cityAddres"));
+                sess.setDateofBirth(resultSet.getString("dateofBirth"));
+                sess.setEmail(resultSet.getString("email"));
+                sess.setContactNo(resultSet.getString("contactNo"));
+                sess.setUsername(resultSet.getString("username"));
+                sess.setStatus(resultSet.getString("status"));
+                sess.setUtype(resultSet.getString("utype"));
+                return true;
+            }else {
+                return false;
+            }
+        }catch(SQLException ex){
+            return false;
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -79,7 +107,7 @@ public class loginForm extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jLabel2.setText("LOG IN");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 70, 230, 80));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 70, 230, 60));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
         jLabel4.setText("Username :");
@@ -217,17 +245,15 @@ public class loginForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
-   String username = un.getText();
-String password = new String(pass.getPassword());
+      String username = un.getText();
+    String password = new String(pass.getPassword());
 
 if (un.getText().isEmpty() && pass.getPassword().length == 0) {
-    JOptionPane.showMessageDialog(null, "All Fields Are Required");
+    JOptionPane.showMessageDialog(null, "Invalid Email and Password");
 } else if (un.getText().isEmpty()) {
     JOptionPane.showMessageDialog(null, "Username is required");
-    pass.setText("");
 } else if (pass.getPassword().length == 0) {
     JOptionPane.showMessageDialog(null, "Password is required");
-    un.setText("");
 } else if (pass.getPassword().length < 8) {
     JOptionPane.showMessageDialog(null, "Password should have at least 8 characters");
     pass.setText("");
@@ -241,9 +267,9 @@ if (un.getText().isEmpty() && pass.getPassword().length == 0) {
         if ("Doctor".equalsIgnoreCase(usertype)) {
             new adminDashboard().setVisible(true);
         } else if ("Staff".equalsIgnoreCase(usertype)) {
-            new adminDashboard().setVisible(true);
+            new dashBoard().setVisible(true);
          } else if ("Patient".equalsIgnoreCase(usertype)) {
-            new adminDashboard().setVisible(true);
+            new dashBoard().setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Invalid UserType");
         }
@@ -252,8 +278,6 @@ if (un.getText().isEmpty() && pass.getPassword().length == 0) {
         this.dispose();
     } else {
         JOptionPane.showMessageDialog(null, "Invalid username or password");
-        un.setText("");
-        pass.setText("");
     }
 }
     }//GEN-LAST:event_loginActionPerformed
@@ -280,8 +304,8 @@ if (un.getText().isEmpty() && pass.getPassword().length == 0) {
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginMouseClicked
-        adminDashboard adm = new adminDashboard();
-        adm.setVisible(true);
+        dashBoard dbd = new dashBoard();
+        dbd.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_loginMouseClicked
 

@@ -35,26 +35,18 @@ public class updatpatient extends javax.swing.JFrame {
 
         jSeparator2 = new javax.swing.JSeparator();
         jPanel1 = new javax.swing.JPanel();
-        jLabel23 = new javax.swing.JLabel();
         fn1 = new javax.swing.JTextField();
-        jLabel24 = new javax.swing.JLabel();
         ct1 = new javax.swing.JTextField();
-        jLabel25 = new javax.swing.JLabel();
         dt1 = new javax.swing.JTextField();
-        jLabel26 = new javax.swing.JLabel();
         em1 = new javax.swing.JTextField();
-        jLabel27 = new javax.swing.JLabel();
         cn1 = new javax.swing.JTextField();
         login1 = new javax.swing.JButton();
         utype = new javax.swing.JComboBox<>();
-        jLabel28 = new javax.swing.JLabel();
         icon1 = new javax.swing.JLabel();
         icon2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         pass1 = new javax.swing.JPasswordField();
-        jLabel29 = new javax.swing.JLabel();
         un1 = new javax.swing.JTextField();
-        jLabel30 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
@@ -63,9 +55,17 @@ public class updatpatient extends javax.swing.JFrame {
         login3 = new javax.swing.JButton();
         login4 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        table1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(380, 160));
@@ -74,10 +74,6 @@ public class updatpatient extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel23.setText("Patient Full Name :");
-        jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 150, 20));
 
         fn1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         fn1.setForeground(new java.awt.Color(204, 204, 204));
@@ -91,11 +87,7 @@ public class updatpatient extends javax.swing.JFrame {
                 fn1FocusLost(evt);
             }
         });
-        jPanel1.add(fn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, 360, 50));
-
-        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel24.setText("City & Address :");
-        jPanel1.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 290, 100, 20));
+        jPanel1.add(fn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, 360, 40));
 
         ct1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         ct1.setForeground(new java.awt.Color(204, 204, 204));
@@ -114,11 +106,7 @@ public class updatpatient extends javax.swing.JFrame {
                 ct1ActionPerformed(evt);
             }
         });
-        jPanel1.add(ct1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 320, 360, 50));
-
-        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel25.setText("Date of Birth :");
-        jPanel1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 370, 150, 20));
+        jPanel1.add(ct1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 200, 360, 40));
 
         dt1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         dt1.setForeground(new java.awt.Color(204, 204, 204));
@@ -132,11 +120,7 @@ public class updatpatient extends javax.swing.JFrame {
                 dt1FocusLost(evt);
             }
         });
-        jPanel1.add(dt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 400, 360, 50));
-
-        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel26.setText("Email :");
-        jPanel1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 450, 60, 20));
+        jPanel1.add(dt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 270, 360, 40));
 
         em1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         em1.setForeground(new java.awt.Color(204, 204, 204));
@@ -150,11 +134,7 @@ public class updatpatient extends javax.swing.JFrame {
                 em1FocusLost(evt);
             }
         });
-        jPanel1.add(em1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 480, 360, 50));
-
-        jLabel27.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel27.setText("Contact No. :");
-        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 540, 110, 20));
+        jPanel1.add(em1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 340, 360, 40));
 
         cn1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         cn1.setForeground(new java.awt.Color(204, 204, 204));
@@ -168,7 +148,12 @@ public class updatpatient extends javax.swing.JFrame {
                 cn1FocusLost(evt);
             }
         });
-        jPanel1.add(cn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 560, 360, 50));
+        cn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cn1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 410, 360, 40));
 
         login1.setBackground(new java.awt.Color(0, 204, 255));
         login1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -186,14 +171,10 @@ public class updatpatient extends javax.swing.JFrame {
                 login1ActionPerformed(evt);
             }
         });
-        jPanel1.add(login1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 500, 140, 60));
+        jPanel1.add(login1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 700, 140, 60));
 
         utype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Usertype :", "Admin", "User", "Doctor ", "Nurse", "Cashier", "Pharmacist" }));
-        jPanel1.add(utype, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 400, 380, 60));
-
-        jLabel28.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel28.setText("User Type :");
-        jPanel1.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 380, 110, 20));
+        jPanel1.add(utype, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 620, 370, 40));
 
         icon1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/eyeee.png"))); // NOI18N
         icon1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -206,7 +187,7 @@ public class updatpatient extends javax.swing.JFrame {
                 icon1KeyPressed(evt);
             }
         });
-        jPanel1.add(icon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 330, -1, 30));
+        jPanel1.add(icon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 550, -1, 40));
 
         icon2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/eyehide.png"))); // NOI18N
         icon2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -214,7 +195,7 @@ public class updatpatient extends javax.swing.JFrame {
                 icon2MousePressed(evt);
             }
         });
-        jPanel1.add(icon2, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 320, -1, 50));
+        jPanel1.add(icon2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 550, -1, 40));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 68, 400, 10));
 
         pass1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -224,11 +205,7 @@ public class updatpatient extends javax.swing.JFrame {
                 pass1ActionPerformed(evt);
             }
         });
-        jPanel1.add(pass1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 320, 380, 50));
-
-        jLabel29.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel29.setText("Enter Password :");
-        jPanel1.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 300, 150, 20));
+        jPanel1.add(pass1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 550, 360, 40));
 
         un1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         un1.setForeground(new java.awt.Color(204, 204, 204));
@@ -252,11 +229,7 @@ public class updatpatient extends javax.swing.JFrame {
                 un1KeyReleased(evt);
             }
         });
-        jPanel1.add(un1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 230, 380, 50));
-
-        jLabel30.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel30.setText("Enter Username :");
-        jPanel1.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 210, 150, 20));
+        jPanel1.add(un1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 480, 360, 40));
 
         jLabel31.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel31.setText("CONTACT US");
@@ -294,7 +267,7 @@ public class updatpatient extends javax.swing.JFrame {
                 login3ActionPerformed(evt);
             }
         });
-        jPanel1.add(login3, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 500, 140, 60));
+        jPanel1.add(login3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 700, 140, 60));
 
         login4.setBackground(new java.awt.Color(0, 204, 255));
         login4.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -312,19 +285,62 @@ public class updatpatient extends javax.swing.JFrame {
                 login4ActionPerformed(evt);
             }
         });
-        jPanel1.add(login4, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 500, 140, 60));
+        jPanel1.add(login4, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 700, 140, 60));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/weweew-removebg-preview.png"))); // NOI18N
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 70, 70));
 
-        jLabel1.setText("Contact Number :");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 90, -1, 30));
+        jLabel3.setFont(new java.awt.Font("Segoe UI Semilight", 0, 10)); // NOI18N
+        jLabel3.setText("Contact No. :");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 110, 20));
 
-        jButton1.setText("Search");
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 90, 130, 30));
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 90, 270, 30));
+        jLabel7.setFont(new java.awt.Font("Segoe UI Semilight", 0, 10)); // NOI18N
+        jLabel7.setText("Email :");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, 60, 20));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, 650));
+        jLabel5.setFont(new java.awt.Font("Segoe UI Semilight", 0, 10)); // NOI18N
+        jLabel5.setText("Date of Birth :");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 60, 20));
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI Semilight", 0, 10)); // NOI18N
+        jLabel6.setText("City & Address :");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 70, 20));
+
+        jLabel18.setFont(new java.awt.Font("Segoe UI Semilight", 0, 10)); // NOI18N
+        jLabel18.setText("Patient Full Name :");
+        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 90, 20));
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI Semilight", 0, 10)); // NOI18N
+        jLabel9.setText("Enter Username :");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, 150, 20));
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI Semilight", 0, 10)); // NOI18N
+        jLabel10.setText("Enter Password :");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 560, 150, 20));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI Semilight", 0, 10)); // NOI18N
+        jLabel4.setText("User Type :");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 630, 110, 20));
+
+        jPanel2.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        table1.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
+        table1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Patient Full Name", "City & Address", "DateofBirth", "Email", "Contact No.", "Username", "Password", "Usertype"
+            }
+        ));
+        jScrollPane1.setViewportView(table1);
+
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 670, 470));
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 130, 710, 550));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1220, 790));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -496,6 +512,10 @@ public class updatpatient extends javax.swing.JFrame {
        
     }//GEN-LAST:event_login4ActionPerformed
 
+    private void cn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cn1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cn1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -539,30 +559,30 @@ public class updatpatient extends javax.swing.JFrame {
     private javax.swing.JTextField fn1;
     private javax.swing.JLabel icon1;
     private javax.swing.JLabel icon2;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton login1;
     private javax.swing.JButton login3;
     private javax.swing.JButton login4;
     private javax.swing.JPasswordField pass1;
+    private javax.swing.JTable table1;
     private javax.swing.JTextField un1;
     private javax.swing.JComboBox<String> utype;
     // End of variables declaration//GEN-END:variables
