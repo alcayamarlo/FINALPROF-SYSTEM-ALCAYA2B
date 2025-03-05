@@ -11,14 +11,15 @@ package config;
  */
 public class Session {
     private static Session instance;
-    private int p_id;         
+    private int pid;         
     private String fn;
     private String cityAddress;
     private String dateofBirth;
     private String email;
     private String contactNo;
     private String username;
-    private String utype;
+    private String password;
+    private String usertype;
     private String status;
     
     private Session(){
@@ -36,12 +37,12 @@ public class Session {
         return instance==null;
     }
 
-    public int getP_id() {
-        return p_id;
+    public int getPid() {
+        return pid;
     }
 
-    public void setP_id(int p_id) {
-        this.p_id = p_id;
+    public void setPid(int pid) {
+        this.pid = pid;
     }
     
     public String getFn() {
@@ -92,12 +93,21 @@ public class Session {
         this.username = username;
     }
 
-    public String getUtype() {
-        return utype;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUtype(String utype) {
-        this.utype = utype;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
+
+    public String getUsertype() {
+        return usertype;
+    }
+
+    public void setUsertype(String usertype) {
+        this.usertype = usertype;
     }
 
     public String getStatus() {

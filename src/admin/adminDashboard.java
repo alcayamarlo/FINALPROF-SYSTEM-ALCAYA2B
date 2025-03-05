@@ -40,7 +40,7 @@ public class adminDashboard extends javax.swing.JFrame {
         getStaffCount();
         
     }
-    Color navcolor = new Color (0,0,0);
+    Color navcolor = new Color (0,102,102);
     Color headcolor = new Color (51,51,51);
     Color bodycolor = new Color (51,51,51);
     
@@ -127,11 +127,11 @@ public void getStaffCount() {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        acc_name = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
         jSeparator7 = new javax.swing.JSeparator();
@@ -164,12 +164,20 @@ public void getStaffCount() {
         jScrollPane2 = new javax.swing.JScrollPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        add = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        up = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        del = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        ref = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         name = new javax.swing.JLabel();
         userty = new javax.swing.JLabel();
+
+        jRadioButtonMenuItem1.setSelected(true);
+        jRadioButtonMenuItem1.setText("jRadioButtonMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -346,17 +354,95 @@ public void getStaffCount() {
 
         jPanel5.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 820, 220));
 
-        jButton1.setText("REFRESH");
-        jPanel5.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 190, 100, 50));
+        add.setBackground(new java.awt.Color(51, 51, 51));
+        add.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                addMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                addMouseExited(evt);
+            }
+        });
+        add.setLayout(null);
 
-        jButton2.setText("ADD");
-        jPanel5.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 20, 100, 50));
+        jPanel7.setLayout(null);
+        add.add(jPanel7);
+        jPanel7.setBounds(0, 0, 0, 0);
 
-        jButton3.setText("UPDATE");
-        jPanel5.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 70, 100, 60));
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("       ADD");
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
+        jLabel2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jLabel2KeyPressed(evt);
+            }
+        });
+        add.add(jLabel2);
+        jLabel2.setBounds(0, 10, 100, 20);
 
-        jButton4.setText("DELETE");
-        jPanel5.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 130, 100, 60));
+        jPanel5.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 20, 100, 60));
+
+        up.setBackground(new java.awt.Color(51, 51, 51));
+        up.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                upMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                upMouseExited(evt);
+            }
+        });
+        up.setLayout(null);
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("     UPDATE");
+        up.add(jLabel3);
+        jLabel3.setBounds(0, 20, 100, 20);
+
+        jPanel5.add(up, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 70, 100, 70));
+
+        del.setBackground(new java.awt.Color(51, 51, 51));
+        del.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                delMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                delMouseExited(evt);
+            }
+        });
+        del.setLayout(null);
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("     DELETE");
+        del.add(jLabel6);
+        jLabel6.setBounds(0, 10, 100, 20);
+
+        jPanel5.add(del, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 130, 100, 60));
+
+        ref.setBackground(new java.awt.Color(51, 51, 51));
+        ref.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                refMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                refMouseExited(evt);
+            }
+        });
+        ref.setLayout(null);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("     REFRESH");
+        ref.add(jLabel1);
+        jLabel1.setBounds(0, 10, 100, 20);
+
+        jPanel5.add(ref, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 180, 100, 60));
 
         jPanel4.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 930, 250));
 
@@ -405,6 +491,50 @@ public void getStaffCount() {
         new adminDashboard().setVisible(true);
     }//GEN-LAST:event_jLabel12MouseClicked
 
+    private void addMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseEntered
+       add.setBackground(navcolor);
+    }//GEN-LAST:event_addMouseEntered
+
+    private void addMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseExited
+      add.setBackground(headcolor);
+    }//GEN-LAST:event_addMouseExited
+
+    private void upMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_upMouseEntered
+        up.setBackground(navcolor);
+    }//GEN-LAST:event_upMouseEntered
+
+    private void upMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_upMouseExited
+       up.setBackground(headcolor);
+    }//GEN-LAST:event_upMouseExited
+
+    private void delMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delMouseEntered
+       del.setBackground(navcolor);
+    }//GEN-LAST:event_delMouseEntered
+
+    private void delMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delMouseExited
+        del.setBackground(headcolor);
+    }//GEN-LAST:event_delMouseExited
+
+    private void refMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refMouseEntered
+     ref.setBackground(navcolor);
+    }//GEN-LAST:event_refMouseEntered
+
+    private void refMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refMouseExited
+      ref.setBackground(headcolor);
+    }//GEN-LAST:event_refMouseExited
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        addpatient apt = new addpatient();
+        apt.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void jLabel2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jLabel2KeyPressed
+       addpatient apt = new addpatient();
+        apt.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel2KeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -441,12 +571,11 @@ public void getStaffCount() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel acc_name;
+    public static final javax.swing.JLabel acc_name = new javax.swing.JLabel();
+    private javax.swing.JPanel add;
+    private javax.swing.JPanel del;
     private javax.swing.JLabel doc;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -455,18 +584,23 @@ public void getStaffCount() {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
@@ -480,9 +614,11 @@ public void getStaffCount() {
     private javax.swing.JLabel name;
     private javax.swing.JLabel pa;
     private javax.swing.JLabel pc;
+    private javax.swing.JPanel ref;
     private javax.swing.JLabel staff;
     private javax.swing.JLabel ta;
     private javax.swing.JTable table;
+    private javax.swing.JPanel up;
     private javax.swing.JLabel userty;
     // End of variables declaration//GEN-END:variables
 }

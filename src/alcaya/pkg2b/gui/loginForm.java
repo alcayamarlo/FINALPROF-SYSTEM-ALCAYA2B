@@ -33,7 +33,7 @@ public class loginForm extends javax.swing.JFrame {
         this.icon2.setVisible(false);
     }
         static String status;
-        static String utype;
+        static String usertype;
         Connection con;
         PreparedStatement pst;
         
@@ -41,24 +41,25 @@ public class loginForm extends javax.swing.JFrame {
         Color defaultcolor = new Color (0,204,255);
         
     public static boolean loginAcc(String username,String password){
-        dbConnect connector = new dbConnect();
+        dbConnect connect = new dbConnect();
 
         try{
-            String query = "SELECT * FROM patient WHERE username = '" + username + "' AND password = '" + password + "'";
-            ResultSet resultSet = connector.getData(query);
+            String query = "SELECT * FROM patient WHERE username = '" +username+ "' AND password = '" +password+"'";
+            ResultSet resultSet = connect.getData(query);
             if(resultSet.next()){
                 status = resultSet.getString("status");
-                utype = resultSet.getString("utype");
+                usertype = resultSet.getString("usertype");
                 Session sess = Session.getInstance();
-                sess.setP_id(resultSet.getInt("p_id"));
+                sess.setPid(resultSet.getInt("p_id"));
                 sess.setFn(resultSet.getString("fn"));
-                sess.setCityAddress(resultSet.getString("cityAddres"));
+                sess.setCityAddress(resultSet.getString("cityAddress"));
                 sess.setDateofBirth(resultSet.getString("dateofBirth"));
                 sess.setEmail(resultSet.getString("email"));
                 sess.setContactNo(resultSet.getString("contactNo"));
                 sess.setUsername(resultSet.getString("username"));
+                sess.setPassword(resultSet.getString("password"));
+                sess.setUsertype(resultSet.getString("usertype"));
                 sess.setStatus(resultSet.getString("status"));
-                sess.setUtype(resultSet.getString("utype"));
                 return true;
             }else {
                 return false;

@@ -40,7 +40,7 @@ public class registrationForm extends javax.swing.JFrame {
           public void displayData() {
         try {
             dbConnect dbc = new dbConnect();
-            ResultSet rs = dbc.getData("SELECT * FROM patient");
+            ResultSet rs = dbc.getData("SELECT p_id,fn,cityAddress,email,contactNo,username,usertype FROM patient");
             table2.setModel(DbUtils.resultSetToTableModel(rs));
             rs.close();
         } catch (SQLException ex) {

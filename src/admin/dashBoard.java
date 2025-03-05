@@ -5,6 +5,7 @@
  */
 package admin;
 
+import alcaya.pkg2b.gui.userForm;
 import config.Session;
 import java.awt.Color;
 
@@ -22,7 +23,7 @@ public class dashBoard extends javax.swing.JFrame {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
     }
-    Color navcolor = new Color (0,0,0);
+    Color navcolor = new Color (0,102,102);
     Color headcolor = new Color (51,51,51);
     Color bodycolor = new Color (51,51,51);
 
@@ -44,11 +45,11 @@ public class dashBoard extends javax.swing.JFrame {
         jSeparator8 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
         delete = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         ref = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         update = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         add = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -75,7 +76,7 @@ public class dashBoard extends javax.swing.JFrame {
         acc_name.setFont(new java.awt.Font("Segoe UI Semilight", 0, 18)); // NOI18N
         acc_name.setForeground(new java.awt.Color(204, 204, 204));
         acc_name.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/person.png"))); // NOI18N
-        jPanel3.add(acc_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 10, 170, -1));
+        jPanel3.add(acc_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, 190, -1));
 
         jLabel18.setFont(new java.awt.Font("Segoe UI Semilight", 0, 25)); // NOI18N
         jLabel18.setText("DASHBOARD");
@@ -98,13 +99,19 @@ public class dashBoard extends javax.swing.JFrame {
                 deleteMouseExited(evt);
             }
         });
-        delete.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        delete.setLayout(null);
 
-        jLabel8.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("   PAYMENT RECORDS");
-        delete.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 80));
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("         VIEW USERS ");
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
+        delete.add(jLabel2);
+        jLabel2.setBounds(0, 10, 220, 50);
 
         jPanel2.add(delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 220, 90));
 
@@ -117,13 +124,14 @@ public class dashBoard extends javax.swing.JFrame {
                 refMouseExited(evt);
             }
         });
-        ref.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        ref.setLayout(null);
 
         jLabel6.setBackground(new java.awt.Color(255, 255, 255));
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("              EXIT");
-        ref.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 220, 90));
+        ref.add(jLabel6);
+        jLabel6.setBounds(0, 10, 220, 60);
 
         jPanel2.add(ref, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 220, 100));
 
@@ -136,13 +144,14 @@ public class dashBoard extends javax.swing.JFrame {
                 updateMouseExited(evt);
             }
         });
-        update.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        update.setLayout(null);
 
-        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("         VIEW USERS ");
-        update.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 220, 80));
+        jLabel8.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("   PAYMENT RECORDS");
+        update.add(jLabel8);
+        jLabel8.setBounds(0, 20, 220, 50);
 
         jPanel2.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 220, 90));
 
@@ -155,7 +164,7 @@ public class dashBoard extends javax.swing.JFrame {
                 addMouseExited(evt);
             }
         });
-        add.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        add.setLayout(null);
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -166,7 +175,8 @@ public class dashBoard extends javax.swing.JFrame {
                 jLabel1MouseClicked(evt);
             }
         });
-        add.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 0, 220, 90));
+        add.add(jLabel1);
+        jLabel1.setBounds(0, 20, 220, 50);
 
         jPanel2.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 100));
 
@@ -216,9 +226,15 @@ public class dashBoard extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
        Session sess = Session.getInstance();
-       acc_name.setText(""+sess.getFn());
+           acc_name.setText(""+sess.getFn());
        
     }//GEN-LAST:event_formWindowActivated
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        userForm usf = new userForm();
+        usf.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel2MouseClicked
 
     /**
      * @param args the command line arguments

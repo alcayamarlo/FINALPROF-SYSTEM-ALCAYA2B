@@ -57,7 +57,7 @@ public class userDashboard extends javax.swing.JFrame {
         jSeparator4 = new javax.swing.JSeparator();
         jSeparator7 = new javax.swing.JSeparator();
         jSeparator8 = new javax.swing.JSeparator();
-        user = new javax.swing.JLabel();
+        user_name = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -99,9 +99,7 @@ public class userDashboard extends javax.swing.JFrame {
         jPanel3.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, -1, 30));
         jPanel3.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 50, 110, 10));
         jPanel3.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 230, 10));
-
-        user.setText("USER");
-        jPanel3.add(user, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 20, 140, 30));
+        jPanel3.add(user_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 20, 140, 30));
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1090, 80));
 
@@ -122,7 +120,7 @@ public class userDashboard extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(204, 204, 204));
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/sort_window_24px.png"))); // NOI18N
-        jLabel10.setText("Current User");
+        jLabel10.setText("Logout");
         jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel10MouseClicked(evt);
@@ -233,7 +231,7 @@ public class userDashboard extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         Session sess = Session.getInstance();
-           user.setText(""+sess.getUsername());
+           user_name.setText(""+sess.getFn());
     }//GEN-LAST:event_formWindowActivated
 
     /**
@@ -292,7 +290,7 @@ public class userDashboard extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JTable table1;
-    private javax.swing.JLabel user;
+    private javax.swing.JLabel user_name;
     private javax.swing.JLabel userty;
     // End of variables declaration//GEN-END:variables
 }
