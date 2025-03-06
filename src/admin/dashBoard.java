@@ -5,9 +5,12 @@
  */
 package admin;
 
+import static admin.adminDashboard.acc_name;
+import alcaya.pkg2b.gui.loginForm;
 import alcaya.pkg2b.gui.userForm;
 import config.Session;
 import java.awt.Color;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -73,17 +76,17 @@ public class dashBoard extends javax.swing.JFrame {
         jLabel5.setText("I");
         jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, -1));
 
-        acc_name.setFont(new java.awt.Font("Segoe UI Semilight", 0, 18)); // NOI18N
-        acc_name.setForeground(new java.awt.Color(204, 204, 204));
-        acc_name.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/person.png"))); // NOI18N
-        jPanel3.add(acc_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, 190, -1));
+        name.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 12)); // NOI18N
+        name.setForeground(new java.awt.Color(51, 255, 255));
+        name.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/person.png"))); // NOI18N
+        jPanel3.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, 220, -1));
 
         jLabel18.setFont(new java.awt.Font("Segoe UI Semilight", 0, 25)); // NOI18N
         jLabel18.setText("DASHBOARD");
         jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, -1, -1));
         jPanel3.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, -1, 30));
-        jPanel3.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 60, 110, 10));
-        jPanel3.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 240, 10));
+        jPanel3.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 60, 140, 10));
+        jPanel3.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 180, 10));
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 80));
 
@@ -218,15 +221,19 @@ public class dashBoard extends javax.swing.JFrame {
        add.setBackground(headcolor);
     }//GEN-LAST:event_addMouseExited
 
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-       adminDashboard adm = new adminDashboard();
-       adm.setVisible(true);
-       this.dispose();
-    }//GEN-LAST:event_jLabel1MouseClicked
-
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
        Session sess = Session.getInstance();
-           acc_name.setText(""+sess.getFn());
+       int pid = sess.getPid();
+       if(sess.getPid() == 0){    
+     
+       JOptionPane.showMessageDialog(null,"No Account, Login First" );
+       
+       new loginForm().setVisible(true);
+       this.setVisible(false);
+       this.dispose();
+       }else{
+            name.setText(""+sess.getFn());
+       }
        
     }//GEN-LAST:event_formWindowActivated
 
@@ -235,6 +242,12 @@ public class dashBoard extends javax.swing.JFrame {
         usf.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        adminDashboard adm = new adminDashboard();
+        adm.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -272,7 +285,6 @@ public class dashBoard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static final javax.swing.JLabel acc_name = new javax.swing.JLabel();
     private javax.swing.JPanel add;
     private javax.swing.JPanel delete;
     private javax.swing.JLabel jLabel1;
@@ -287,6 +299,7 @@ public class dashBoard extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
+    public static final javax.swing.JLabel name = new javax.swing.JLabel();
     private javax.swing.JPanel ref;
     private javax.swing.JPanel update;
     // End of variables declaration//GEN-END:variables

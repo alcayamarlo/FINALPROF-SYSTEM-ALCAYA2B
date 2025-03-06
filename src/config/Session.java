@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -10,8 +10,10 @@ package config;
  * @author alcay
  */
 public class Session {
-    private static Session instance;
-    private int pid;         
+    
+    public static Session instance;
+    
+    private int pid;
     private String fn;
     private String cityAddress;
     private String dateofBirth;
@@ -21,20 +23,20 @@ public class Session {
     private String password;
     private String usertype;
     private String status;
-    
+
     private Session(){
     //private constructor to prevents another instance
     }
 
-    public static synchronized  Session getInstance() {
-    if(instance == null){
-        instance = new Session();
-    }
-    return instance;
+    public static synchronized Session getInstance() {
+        if(instance == null){
+            instance = new Session();
+        }
+        return instance;
     }
 
     public static boolean isInstanceEmpty() {
-        return instance==null;
+        return instance == null;
     }
 
     public int getPid() {
@@ -44,7 +46,7 @@ public class Session {
     public void setPid(int pid) {
         this.pid = pid;
     }
-    
+
     public String getFn() {
         return fn;
     }
@@ -100,7 +102,6 @@ public class Session {
     public void setPassword(String password) {
         this.password = password;
     }
-    
 
     public String getUsertype() {
         return usertype;
@@ -117,7 +118,5 @@ public class Session {
     public void setStatus(String status) {
         this.status = status;
     }
-    
-      
     
 }

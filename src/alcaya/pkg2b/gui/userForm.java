@@ -7,7 +7,9 @@ package alcaya.pkg2b.gui;
 
 import admin.addpatient;
 import admin.adminDashboard;
+import static admin.dashBoard.name;
 import admin.updatpatient;
+import config.Session;
 import config.dbConnect;
 import java.awt.Color;
 import java.sql.ResultSet;
@@ -129,6 +131,7 @@ public void getStaffCount() {
         jSeparator4 = new javax.swing.JSeparator();
         jSeparator7 = new javax.swing.JSeparator();
         jSeparator8 = new javax.swing.JSeparator();
+        jLabel7 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         pa = new javax.swing.JLabel();
@@ -167,6 +170,11 @@ public void getStaffCount() {
         userty = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel3.setBackground(new java.awt.Color(102, 102, 102));
@@ -181,17 +189,22 @@ public void getStaffCount() {
         jLabel5.setText("I");
         jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, -1));
 
-        acc_name.setFont(new java.awt.Font("Segoe UI Semilight", 0, 18)); // NOI18N
-        acc_name.setForeground(new java.awt.Color(204, 204, 204));
+        acc_name.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 16)); // NOI18N
+        acc_name.setForeground(new java.awt.Color(51, 255, 255));
         acc_name.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/person.png"))); // NOI18N
-        jPanel3.add(acc_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 10, 170, -1));
+        acc_name.setToolTipText("");
+        jPanel3.add(acc_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 0, 250, 60));
 
         jLabel18.setFont(new java.awt.Font("Segoe UI Semilight", 0, 25)); // NOI18N
         jLabel18.setText("USER FORM");
         jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, 160, -1));
         jPanel3.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, -1, 30));
-        jPanel3.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 60, 110, 10));
+        jPanel3.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 50, 170, 10));
         jPanel3.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 240, 10));
+
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Account");
+        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 54, 70, 20));
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1130, 80));
 
@@ -532,6 +545,21 @@ public void getStaffCount() {
       
     }//GEN-LAST:event_jLabel3MouseClicked
 
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+         Session sess = Session.getInstance();
+       int pid = sess.getPid();
+       if(sess.getPid() == 0){    
+     
+       JOptionPane.showMessageDialog(null,"No Account, Login First" );
+       
+       new loginForm().setVisible(true);
+       this.setVisible(false);
+       this.dispose();
+       }else{
+            acc_name.setText(""+sess.getFn());
+       }
+    }//GEN-LAST:event_formWindowActivated
+
     /**
      * @param args the command line arguments
      */
@@ -589,6 +617,7 @@ public void getStaffCount() {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;

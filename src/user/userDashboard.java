@@ -6,10 +6,13 @@
 package user;
 
 import admin.adminDashboard;
+import alcaya.pkg2b.gui.loginForm;
+import static alcaya.pkg2b.gui.userForm.acc_name;
 import config.Session;
 import config.dbConnect;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
 /**
@@ -55,9 +58,9 @@ public class userDashboard extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
-        jSeparator7 = new javax.swing.JSeparator();
         jSeparator8 = new javax.swing.JSeparator();
-        user_name = new javax.swing.JLabel();
+        jSeparator7 = new javax.swing.JSeparator();
+        jLabel7 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -97,9 +100,18 @@ public class userDashboard extends javax.swing.JFrame {
         jLabel18.setText("USERS DASHBOARD");
         jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, -1, -1));
         jPanel3.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, -1, 30));
-        jPanel3.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 50, 110, 10));
         jPanel3.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 230, 10));
-        jPanel3.add(user_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 20, 140, 30));
+
+        n.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 16)); // NOI18N
+        n.setForeground(new java.awt.Color(51, 255, 255));
+        n.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/person.png"))); // NOI18N
+        n.setToolTipText("");
+        jPanel3.add(n, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 0, 250, 60));
+        jPanel3.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 50, 170, 10));
+
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Account");
+        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 50, 70, 20));
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1090, 80));
 
@@ -155,7 +167,7 @@ public class userDashboard extends javax.swing.JFrame {
         jLabel15.setForeground(new java.awt.Color(204, 204, 204));
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/account_24px.png"))); // NOI18N
         jLabel15.setText("Payment Records");
-        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, -1, -1));
+        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
 
         jLabel14.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(204, 204, 204));
@@ -230,8 +242,18 @@ public class userDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel13MouseClicked
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        Session sess = Session.getInstance();
-           user_name.setText(""+sess.getFn());
+       Session sess = Session.getInstance();
+       int pid = sess.getPid();
+       if(sess.getPid() == 0){    
+     
+       JOptionPane.showMessageDialog(null,"No Account, Login First" );
+       
+       new loginForm().setVisible(true);
+       this.setVisible(false);
+       this.dispose();
+       }else{
+            n.setText(""+sess.getFn());
+       }
     }//GEN-LAST:event_formWindowActivated
 
     /**
@@ -280,6 +302,7 @@ public class userDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -289,8 +312,8 @@ public class userDashboard extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
+    public static final javax.swing.JLabel n = new javax.swing.JLabel();
     private javax.swing.JTable table1;
-    private javax.swing.JLabel user_name;
     private javax.swing.JLabel userty;
     // End of variables declaration//GEN-END:variables
 }

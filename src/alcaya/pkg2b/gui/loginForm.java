@@ -60,6 +60,7 @@ public class loginForm extends javax.swing.JFrame {
                 sess.setPassword(resultSet.getString("password"));
                 sess.setUsertype(resultSet.getString("usertype"));
                 sess.setStatus(resultSet.getString("status"));
+                System.out.println(""+sess.getPid());
                 return true;
             }else {
                 return false;
@@ -259,6 +260,9 @@ if (un.getText().isEmpty() && pass.getPassword().length == 0) {
     JOptionPane.showMessageDialog(null, "Password should have at least 8 characters");
     pass.setText("");
 } else {
+    
+    if(loginAcc(username,password)){
+    
     dbConnect db = new dbConnect();
     boolean isValidUser = db.checkLogin(username, password);
 
@@ -280,6 +284,9 @@ if (un.getText().isEmpty() && pass.getPassword().length == 0) {
     } else {
         JOptionPane.showMessageDialog(null, "Invalid username or password");
     }
+    
+    }
+    
 }
     }//GEN-LAST:event_loginActionPerformed
 
