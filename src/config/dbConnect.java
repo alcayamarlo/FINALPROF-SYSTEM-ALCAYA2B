@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 
 public class dbConnect {
 
@@ -33,6 +34,21 @@ public class dbConnect {
         }
         return result;
     }
+    public void updateData(String sql){
+            try{
+                PreparedStatement pst = connect.prepareStatement(sql);
+                    int rowsUpdated = pst.executeUpdate();
+                        if(rowsUpdated > 0){
+                            JOptionPane.showMessageDialog(null, "Data Updated Successfully!");
+                        }else{
+                            System.out.println("Data Update Failed!");
+                        }
+                        pst.close();
+            }catch(SQLException ex){
+                System.out.println("Connection Error: "+ex);
+            }
+        
+        }
 
     public ResultSet getData(String sql) throws SQLException {
         Statement stmt = connect.createStatement();
@@ -56,7 +72,7 @@ public class dbConnect {
     public boolean checkLogin(String username, String password) {
         boolean isValidUser = false;
         try {
-            String sql = "SELECT * FROM patient WHERE username = ? AND password = ?";
+            String sql = "SELECT * FROM user WHERE username = ? AND password = ?";
             PreparedStatement pst = connect.prepareStatement(sql);
             pst.setString(1, username);
             pst.setString(2, password);
@@ -84,7 +100,7 @@ public class dbConnect {
     public String getUserType(String username) {
         String usertype = null;
         try {
-            String sql = "SELECT usertype FROM patient WHERE username = ?";
+            String sql = "SELECT usertype FROM user WHERE username = ?";
             PreparedStatement pst = connect.prepareStatement(sql);
             pst.setString(1, username);
 
@@ -101,6 +117,10 @@ public class dbConnect {
             System.out.println("Error during fetching Usertype: " + ex.getMessage());
         }
         return usertype;
+    }
+
+    public Connection getConnection() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
    
 }

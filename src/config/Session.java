@@ -16,7 +16,6 @@ public class Session {
     private int pid;
     private String fn;
     private String cityAddress;
-    private String dateofBirth;
     private String email;
     private String contactNo;
     private String username;
@@ -61,14 +60,6 @@ public class Session {
 
     public void setCityAddress(String cityAddress) {
         this.cityAddress = cityAddress;
-    }
-
-    public String getDateofBirth() {
-        return dateofBirth;
-    }
-
-    public void setDateofBirth(String dateofBirth) {
-        this.dateofBirth = dateofBirth;
     }
 
     public String getEmail() {
