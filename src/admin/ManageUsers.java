@@ -342,7 +342,7 @@ public class ManageUsers extends javax.swing.JFrame {
          crf.em.setText(""+rs.getString("email")); 
          crf.cn.setText(""+rs.getString("contactNo")); 
          crf.un1.setText(""+rs.getString("username")); 
-         crf.pass.setText(""+rs.getString("password"));
+         crf.ps.setText(""+rs.getString("password"));
          crf.utype1.setSelectedItem(""+rs.getString("usertype")); 
          crf.status.setSelectedItem(""+rs.getString("status")); 
          crf.add.setEnabled(false);

@@ -3,12 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/alcay/OneDrive/Documents/mynewGUI/hbs-gui-mygui-alcaya/src/alcaya/pkg2b/gui/SignupPage.java</file>
-            <file>file:/C:/Users/alcay/OneDrive/Documents/mynewGUI/hbs-gui-mygui-alcaya/src/admin/ManageUsers.java</file>
-            <file>file:/C:/Users/alcay/OneDrive/Documents/mynewGUI/hbs-gui-mygui-alcaya/src/admin/createUserForm.java</file>
-            <file>file:/C:/Users/alcay/OneDrive/Documents/mynewGUI/hbs-gui-mygui-alcaya/src/config/dbConnect.java</file>
-            <file>file:/C:/Users/alcay/OneDrive/Documents/mynewGUI/hbs-gui-mygui-alcaya/src/admin/dashBoard.java</file>
-            <file>file:/C:/Users/alcay/OneDrive/Documents/mynewGUI/hbs-gui-mygui-alcaya/src/alcaya/pkg2b/gui/loginPage.java</file>
+            <file>file:/C:/Users/alcay/OneDrive/Documents/ALCAYA-GUI-2NDSEM/hbs-gui-mygui-alcaya/src/alcaya/pkg2b/gui/loginPage.java</file>
+            <file>file:/C:/Users/alcay/OneDrive/Documents/ALCAYA-GUI-2NDSEM/hbs-gui-mygui-alcaya/src/admin/createUserForm.java</file>
+            <file>file:/C:/Users/alcay/OneDrive/Documents/ALCAYA-GUI-2NDSEM/hbs-gui-mygui-alcaya/src/admin/ManageUsers.java</file>
+            <file>file:/C:/Users/alcay/OneDrive/Documents/ALCAYA-GUI-2NDSEM/hbs-gui-mygui-alcaya/src/alcaya/pkg2b/gui/SignupPage.java</file>
         </group>
     </open-files>
 </project-private>

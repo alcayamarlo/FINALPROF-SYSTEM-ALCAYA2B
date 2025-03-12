@@ -6,12 +6,16 @@
 package alcaya.pkg2b.gui;
 
 import Successfull.RegisteredSuccess;
+import admin.ManageUsers;
 import app.bolivia.swing.JCTextField;
 import config.dbConnect;
+import config.passwordHasher;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -31,8 +35,34 @@ public class SignupPage extends javax.swing.JFrame {
         initComponents();
          this.setResizable(false);
         this.setLocationRelativeTo(null);
+        this.icon2.setVisible(false);
     }
-    
+    public boolean duplicateCheck() {
+    dbConnect dbc = new dbConnect();
+    try {
+        String query = "SELECT * FROM user WHERE username = '" + un.getText() + "' OR email = '" + em.getText() + "'";
+        ResultSet resultSet = dbc.getData(query);
+
+        if (resultSet.next()) {
+            String email = resultSet.getString("email");
+            if (email.equals(em.getText())) {
+                JOptionPane.showMessageDialog(null, "Email is Already used");
+                em.setText("");
+            }
+            String username = resultSet.getString("username");
+            if (username.equals(un.getText())) { 
+                JOptionPane.showMessageDialog(null, "Username is Already used"); 
+                un.setText("");
+            }
+            return true;
+        } else {
+            return false;
+        }
+    } catch (SQLException ex) {
+        System.out.println("" + ex);
+        return false;
+    }
+}
        
     /**
      * This method is called from within the constructor to initialize the form.
@@ -64,7 +94,6 @@ public class SignupPage extends javax.swing.JFrame {
         un = new app.bolivia.swing.JCTextField();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        pass = new app.bolivia.swing.JCTextField();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         utype = new javax.swing.JComboBox<>();
@@ -74,6 +103,9 @@ public class SignupPage extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
+        icon2 = new javax.swing.JLabel();
+        icon1 = new javax.swing.JLabel();
+        ps = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -187,12 +219,6 @@ public class SignupPage extends javax.swing.JFrame {
         jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/person.png"))); // NOI18N
         jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 430, -1, 60));
 
-        pass.setBackground(new java.awt.Color(102, 102, 255));
-        pass.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        pass.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
-        pass.setPlaceholder("Enter your Password");
-        jPanel2.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 530, 350, -1));
-
         jLabel20.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
         jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8_Secure_50px.png"))); // NOI18N
@@ -204,7 +230,7 @@ public class SignupPage extends javax.swing.JFrame {
         jPanel2.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 500, -1, 30));
 
         utype.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
-        utype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select User Type ", "Admin", "Patient", "Doctor" }));
+        utype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select User Type", "Admin", "Patient", "Doctor" }));
         utype.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 utypeActionPerformed(evt);
@@ -274,6 +300,37 @@ public class SignupPage extends javax.swing.JFrame {
         jLabel22.setText("Do you have an account?");
         jPanel2.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 760, -1, -1));
 
+        icon2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/hide (1).png"))); // NOI18N
+        icon2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                icon2MousePressed(evt);
+            }
+        });
+        jPanel2.add(icon2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 530, -1, -1));
+
+        icon1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/eyes (1).png"))); // NOI18N
+        icon1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                icon1MousePressed(evt);
+            }
+        });
+        jPanel2.add(icon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 530, -1, -1));
+
+        ps.setBackground(new java.awt.Color(102, 102, 255));
+        ps.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        ps.setForeground(new java.awt.Color(51, 51, 51));
+        ps.setText("Enter your Password");
+        ps.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        ps.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                psFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                psFocusLost(evt);
+            }
+        });
+        jPanel2.add(ps, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 530, 350, 30));
+
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 550, 790));
 
         pack();
@@ -288,7 +345,7 @@ public class SignupPage extends javax.swing.JFrame {
     }//GEN-LAST:event_SignupMouseClicked
 
     private void SignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignupActionPerformed
-   if (fn.getText().isEmpty() || ct.getText().isEmpty() || em.getText().isEmpty() || cn.getText().isEmpty() || un.getText().isEmpty() || pass.getText().isEmpty() || utype.getSelectedItem().toString().isEmpty()) {
+ if (fn.getText().isEmpty() || ct.getText().isEmpty() || em.getText().isEmpty() || cn.getText().isEmpty() || un.getText().isEmpty() || ps.getText().isEmpty() || utype.getSelectedItem().toString().isEmpty()) {
     JOptionPane.showMessageDialog(null, "All Fields Are Required");
 } else {
     if (fn.getText().isEmpty()) {
@@ -331,7 +388,7 @@ public class SignupPage extends javax.swing.JFrame {
         return;
     }
 
-    String password = pass.getText(); // Get password directly from JCTextField
+    String password = ps.getText();
 
     if (password.isEmpty()) {
         JOptionPane.showMessageDialog(null, "Password is required");
@@ -346,10 +403,10 @@ public class SignupPage extends javax.swing.JFrame {
     if (!("Admin".equals(selectedUserType) || "Patient".equals(selectedUserType) || "Doctor".equals(selectedUserType))) {
         JOptionPane.showMessageDialog(null, "Please select a User Type ");
         return;
-    }
-
- dbConnect dbc = new dbConnect();
-    String checkUsernameQuery = "SELECT COUNT(*) FROM user WHERE username = '" + un.getText() + "'";
+    
+    } else {
+        dbConnect dbc = new dbConnect();
+        String checkUsernameQuery = "SELECT COUNT(*) FROM user WHERE username = '" + un.getText() + "'";
     int usernameCount = dbc.executeQueryForCount(checkUsernameQuery);
     if (usernameCount > 0) {
         JOptionPane.showMessageDialog(null, "Username is already taken");
@@ -362,18 +419,24 @@ public class SignupPage extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Email is already registered");
         return;
     }
-
-String insertQuery = "INSERT INTO user(fn, cityAddress, email, contactNo, username, password, usertype, status) " +
-                     "VALUES('" + fn.getText() + "', '" + ct.getText() + "', '" + em.getText() + "', '" + cn.getText() + "', '" + un.getText() + "', '" + new String(password) + "', '" + selectedUserType + "', 'Pending')";
-
-    if (dbc.insertData(insertQuery) == 0) {
-        JOptionPane.showMessageDialog(null, "Registered Successfully");
+        try{
+        String pass = passwordHasher.hashPassword(ps.getText());
+        if (dbc.insertData("INSERT INTO user (fn, cityAddress, email, contactNo, username, password, usertype, status)"
+                + "VALUES('" + fn.getText() + "','" + ct.getText() + "', '" + em.getText() + "',"
+                        + " '" + cn.getText() + "', '" + un.getText() + "', '" + pass + "',"
+                                + " '" + utype.getSelectedItem() + "', 'Pending')") == 0) 
+        {
+            JOptionPane.showMessageDialog(null, "Registered Successfully!");
+          
         }
-
-new RegisteredSuccess().setVisible(true);
-this.setVisible(false);
-this.dispose();
-}
+        }catch(NoSuchAlgorithmException ex){
+            System.out.println(""+ex);
+        }
+    }
+    RegisteredSuccess rts = new RegisteredSuccess();
+            rts.setVisible(true);
+            this.dispose();
+ }
     }//GEN-LAST:event_SignupActionPerformed
 
     private void rSMaterialButtonCircle1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSMaterialButtonCircle1ActionPerformed
@@ -385,6 +448,33 @@ this.dispose();
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         System.exit(0);
     }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void psFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_psFocusGained
+        if(ps.getText().equals("Enter your Password"))
+       {
+          ps.setText("");
+       }
+        
+    }//GEN-LAST:event_psFocusGained
+
+    private void psFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_psFocusLost
+      if(ps.getText().equals(""))
+       {
+           ps.setText("Enter your Password");
+       }
+    }//GEN-LAST:event_psFocusLost
+
+    private void icon2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_icon2MousePressed
+       icon1.setVisible(true);
+        icon2.setVisible(false);
+        ps.setEchoChar('*');
+    }//GEN-LAST:event_icon2MousePressed
+
+    private void icon1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_icon1MousePressed
+        icon2.setVisible(true);
+        icon1.setVisible(false);
+        ps.setEchoChar((char)0);
+    }//GEN-LAST:event_icon1MousePressed
 
     /**
      * @param args the command line arguments
@@ -427,6 +517,8 @@ this.dispose();
     private app.bolivia.swing.JCTextField ct;
     private app.bolivia.swing.JCTextField em;
     private app.bolivia.swing.JCTextField fn;
+    private javax.swing.JLabel icon1;
+    private javax.swing.JLabel icon2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -449,7 +541,7 @@ this.dispose();
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
-    private app.bolivia.swing.JCTextField pass;
+    private javax.swing.JPasswordField ps;
     private rojerusan.RSMaterialButtonCircle rSMaterialButtonCircle1;
     private app.bolivia.swing.JCTextField un;
     private javax.swing.JComboBox<String> utype;

@@ -96,7 +96,6 @@ public class createUserForm extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        pass = new app.bolivia.swing.JCTextField();
         jLabel22 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         un1 = new app.bolivia.swing.JCTextField();
@@ -127,6 +126,9 @@ public class createUserForm extends javax.swing.JFrame {
         utype1 = new javax.swing.JComboBox<>();
         jLabel23 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        icon2 = new javax.swing.JLabel();
+        icon1 = new javax.swing.JLabel();
+        ps = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -160,17 +162,6 @@ public class createUserForm extends javax.swing.JFrame {
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
         jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8_Secure_50px.png"))); // NOI18N
         jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 600, -1, 60));
-
-        pass.setBackground(new java.awt.Color(102, 102, 255));
-        pass.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        pass.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
-        pass.setPlaceholder("Enter your Password");
-        pass.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passActionPerformed(evt);
-            }
-        });
-        jPanel1.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 620, 350, -1));
 
         jLabel22.setFont(new java.awt.Font("Segoe UI Semilight", 1, 18)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(255, 255, 255));
@@ -359,6 +350,37 @@ public class createUserForm extends javax.swing.JFrame {
         jLabel9.setText("Just a few quick things to get started");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 50, -1, 30));
 
+        icon2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/hide (1).png"))); // NOI18N
+        icon2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                icon2MousePressed(evt);
+            }
+        });
+        jPanel1.add(icon2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 620, -1, -1));
+
+        icon1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/eyes (1).png"))); // NOI18N
+        icon1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                icon1MousePressed(evt);
+            }
+        });
+        jPanel1.add(icon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 620, -1, -1));
+
+        ps.setBackground(new java.awt.Color(102, 102, 255));
+        ps.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        ps.setForeground(new java.awt.Color(51, 51, 51));
+        ps.setText("Enter your Password");
+        ps.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        ps.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                psFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                psFocusLost(evt);
+            }
+        });
+        jPanel1.add(ps, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 620, 350, 30));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 820));
 
         pack();
@@ -377,7 +399,7 @@ public class createUserForm extends javax.swing.JFrame {
         em.setText("");
         cn.setText("");
         un1.setText("");
-        pass.setText("");
+        ps.setText("");
         utype1.setSelectedItem("");
         status.setSelectedItem("");
 
@@ -389,7 +411,7 @@ public class createUserForm extends javax.swing.JFrame {
     }//GEN-LAST:event_addMouseClicked
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
-  if (fn.getText().isEmpty() || ct.getText().isEmpty() || em.getText().isEmpty() || cn.getText().isEmpty() || un1.getText().isEmpty() || pass.getText().isEmpty() || utype1.getSelectedItem().toString().isEmpty()) {
+  if (fn.getText().isEmpty() || ct.getText().isEmpty() || em.getText().isEmpty() || cn.getText().isEmpty() || un1.getText().isEmpty() || ps.getText().isEmpty() || utype1.getSelectedItem().toString().isEmpty()) {
     JOptionPane.showMessageDialog(null, "All Fields Are Required");
 } else {
     if (fn.getText().isEmpty()) {
@@ -432,7 +454,7 @@ public class createUserForm extends javax.swing.JFrame {
         return;
     }
 
-    String password = pass.getText(); // Get password directly from JCTextField
+    String password = ps.getText();
 
     if (password.isEmpty()) {
         JOptionPane.showMessageDialog(null, "Password is required");
@@ -466,7 +488,7 @@ else {
                     }
 String insertQuery = "INSERT INTO user(fn, cityAddress, email , contactNo, username,password,usertype, status) " +
                      "VALUES('" + fn.getText() + "', '" + ct.getText() + "', '" + em.getText() + 
-                     "', '" + cn.getText() + "', '" + un1.getText() + "', '" + pass.getText() + 
+                     "', '" + cn.getText() + "', '" + un1.getText() + "', '" + ps.getText() + 
                      "', '" + utype1.getSelectedItem() + "', 'Pending')";
 
                     if (dbc.insertData(insertQuery) == 0) {
@@ -485,12 +507,12 @@ String insertQuery = "INSERT INTO user(fn, cityAddress, email , contactNo, usern
     }//GEN-LAST:event_updateMouseClicked
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
-   if (fn.getText().isEmpty() || ct.getText().isEmpty() || em.getText().isEmpty() || cn.getText().isEmpty() || un1.getText().isEmpty() || pass.getText().isEmpty() || utype1.getSelectedItem().toString().isEmpty()) {
+   if (fn.getText().isEmpty() || ct.getText().isEmpty() || em.getText().isEmpty() || cn.getText().isEmpty() || un1.getText().isEmpty() || ps.getText().isEmpty() || utype1.getSelectedItem().toString().isEmpty()) {
   JOptionPane.showMessageDialog(null,"All Fields are Required!");
   
-   }else if (pass.getText().length()<8){
+   }else if (ps.getText().length()<8){
        JOptionPane.showMessageDialog(null,"Password character should be 8 above!");
-       pass.setText("");
+       ps.setText("");
    }else if(updateCheck()){
        System.out.println("Duplicate exist");
        
@@ -499,7 +521,7 @@ String insertQuery = "INSERT INTO user(fn, cityAddress, email , contactNo, usern
         dbConnect dbc = new dbConnect();
         dbc.updateData("UPDATE user SET fn = '"+fn.getText()+"', cityAddress = '"+ct.getText()
                 +"', email = '"+em.getText()+"', contactNo = '"+cn.getText()+"', username = '"+un1.getText()
-                +"', password = '"+pass.getText()+"', usertype = '"+utype1.getSelectedItem()
+                +"', password = '"+ps.getText()+"', usertype = '"+utype1.getSelectedItem()
                 +"',status = '"+status.getSelectedItem()+"' WHERE p_id = '"+p_id.getText()+"'");
               new ManageUsers().setVisible(true);
                     this.setVisible(false);
@@ -510,10 +532,6 @@ String insertQuery = "INSERT INTO user(fn, cityAddress, email , contactNo, usern
     private void statusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_statusActionPerformed
-
-    private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_passActionPerformed
 
     private void utype1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_utype1ActionPerformed
         // TODO add your handling code here:
@@ -528,6 +546,33 @@ String insertQuery = "INSERT INTO user(fn, cityAddress, email , contactNo, usern
        this.dispose();
        }
     }//GEN-LAST:event_formWindowActivated
+
+    private void icon2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_icon2MousePressed
+        icon1.setVisible(true);
+        icon2.setVisible(false);
+        ps.setEchoChar('*');
+    }//GEN-LAST:event_icon2MousePressed
+
+    private void icon1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_icon1MousePressed
+        icon2.setVisible(true);
+        icon1.setVisible(false);
+        ps.setEchoChar((char)0);
+    }//GEN-LAST:event_icon1MousePressed
+
+    private void psFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_psFocusGained
+        if(ps.getText().equals("Enter your Password"))
+        {
+            ps.setText("");
+        }
+
+    }//GEN-LAST:event_psFocusGained
+
+    private void psFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_psFocusLost
+        if(ps.getText().equals(""))
+        {
+            ps.setText("Enter your Password");
+        }
+    }//GEN-LAST:event_psFocusLost
 
     /**
      * @param args the command line arguments
@@ -572,6 +617,8 @@ String insertQuery = "INSERT INTO user(fn, cityAddress, email , contactNo, usern
     public app.bolivia.swing.JCTextField em;
     public app.bolivia.swing.JCTextField fn;
     private app.bolivia.swing.JCTextField fn1;
+    private javax.swing.JLabel icon1;
+    private javax.swing.JLabel icon2;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -594,7 +641,7 @@ String insertQuery = "INSERT INTO user(fn, cityAddress, email , contactNo, usern
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     public app.bolivia.swing.JCTextField p_id;
-    public app.bolivia.swing.JCTextField pass;
+    private javax.swing.JPasswordField ps;
     public rojerusan.RSMaterialButtonCircle rSMaterialButtonCircle4;
     public javax.swing.JComboBox<String> status;
     public app.bolivia.swing.JCTextField un1;

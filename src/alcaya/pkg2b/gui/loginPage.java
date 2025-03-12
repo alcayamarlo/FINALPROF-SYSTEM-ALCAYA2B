@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -9,6 +9,8 @@ import Successfull.loginSuccess;
 import admin.dashBoard;
 import config.Session;
 import config.dbConnect;
+import config.passwordHasher;
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -28,17 +30,25 @@ public class loginPage extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
      static String status;
-     static String usertype;
+     static String utype;
     
     public static boolean loginAcc(String username,String password){
         dbConnect connect = new dbConnect();
 
         try{
-            String query = "SELECT * FROM user WHERE username = '" +username+ "' AND password = '" +password+"'";
+            String query = "SELECT * FROM user WHERE username = '" +username+ "";
             ResultSet resultSet = connect.getData(query);
             if(resultSet.next()){
+                
+                String hashedPass = resultSet.getString("password");
+                String rehashedPass = passwordHasher.hashPassword(password);
+                
+                System.out.println(""+hashedPass);
+                System.out.println(""+rehashedPass);
+                    
+                if (hashedPass.equals(rehashedPass)){
                 status = resultSet.getString("status");
-                usertype = resultSet.getString("usertype");
+                utype = resultSet.getString("usertype");
                 Session sess = Session.getInstance();
                 sess.setPid(resultSet.getInt("p_id"));
                 sess.setFn(resultSet.getString("fn"));
@@ -51,10 +61,14 @@ public class loginPage extends javax.swing.JFrame {
                 sess.setStatus(resultSet.getString("status"));
                 System.out.println(""+sess.getPid());
                 return true;
+                }else{
+                    System.out.println("Password Not Match");
+                    return false;
+                 } 
             }else {
                 return false;
             }
-        }catch(SQLException ex){
+        }catch(SQLException | NoSuchAlgorithmException ex){
             return false;
         }
     }
@@ -76,15 +90,17 @@ public class loginPage extends javax.swing.JFrame {
         un = new app.bolivia.swing.JCTextField();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        pass = new app.bolivia.swing.JCTextField();
+        icon2 = new javax.swing.JLabel();
+        icon1 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        rSMaterialButtonCircle1 = new rojerusan.RSMaterialButtonCircle();
+        loginAcc = new rojerusan.RSMaterialButtonCircle();
         Signup = new rojerusan.RSMaterialButtonCircle();
         jLabel19 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
+        pass = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -120,8 +136,9 @@ public class loginPage extends javax.swing.JFrame {
 
         un.setBackground(new java.awt.Color(102, 102, 255));
         un.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        un.setForeground(new java.awt.Color(51, 51, 51));
         un.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
-        un.setPlaceholder("Enter your Username ");
+        un.setPlaceholder("Enter your Username");
         jPanel2.add(un, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 240, 350, -1));
 
         jLabel17.setFont(new java.awt.Font("Segoe UI Semilight", 1, 18)); // NOI18N
@@ -134,11 +151,21 @@ public class loginPage extends javax.swing.JFrame {
         jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/person.png"))); // NOI18N
         jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, 60));
 
-        pass.setBackground(new java.awt.Color(102, 102, 255));
-        pass.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        pass.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
-        pass.setPlaceholder("Enter your Password");
-        jPanel2.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 360, 350, -1));
+        icon2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/hide (1).png"))); // NOI18N
+        icon2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                icon2MousePressed(evt);
+            }
+        });
+        jPanel2.add(icon2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 360, -1, 20));
+
+        icon1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/eyes (1).png"))); // NOI18N
+        icon1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                icon1MousePressed(evt);
+            }
+        });
+        jPanel2.add(icon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 350, 40, 40));
 
         jLabel20.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
@@ -150,20 +177,20 @@ public class loginPage extends javax.swing.JFrame {
         jLabel21.setText("Password :");
         jPanel2.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 310, -1, 30));
 
-        rSMaterialButtonCircle1.setBackground(new java.awt.Color(255, 51, 51));
-        rSMaterialButtonCircle1.setText("LOG IN");
-        rSMaterialButtonCircle1.setFont(new java.awt.Font("Arial Black", 1, 17)); // NOI18N
-        rSMaterialButtonCircle1.addMouseListener(new java.awt.event.MouseAdapter() {
+        loginAcc.setBackground(new java.awt.Color(255, 51, 51));
+        loginAcc.setText("LOG IN");
+        loginAcc.setFont(new java.awt.Font("Arial Black", 1, 17)); // NOI18N
+        loginAcc.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                rSMaterialButtonCircle1MouseClicked(evt);
+                loginAccMouseClicked(evt);
             }
         });
-        rSMaterialButtonCircle1.addActionListener(new java.awt.event.ActionListener() {
+        loginAcc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSMaterialButtonCircle1ActionPerformed(evt);
+                loginAccActionPerformed(evt);
             }
         });
-        jPanel2.add(rSMaterialButtonCircle1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 420, 70));
+        jPanel2.add(loginAcc, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 420, 70));
 
         Signup.setBackground(new java.awt.Color(204, 204, 255));
         Signup.setForeground(new java.awt.Color(51, 51, 51));
@@ -217,68 +244,85 @@ public class loginPage extends javax.swing.JFrame {
 
         jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 0, 40, 40));
 
+        pass.setBackground(new java.awt.Color(102, 102, 255));
+        pass.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        pass.setForeground(new java.awt.Color(51, 51, 51));
+        pass.setText("Enter your Password");
+        pass.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        pass.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                passFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                passFocusLost(evt);
+            }
+        });
+        pass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passActionPerformed(evt);
+            }
+        });
+        jPanel2.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 356, 350, 30));
+
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 500, 660));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void rSMaterialButtonCircle1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSMaterialButtonCircle1ActionPerformed
-  String username = un.getText();
-String password = pass.getText(); // Get password as String (JCTextField)
+    private void loginAccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginAccActionPerformed
+          String username = un.getText();
+    String password = new String(pass.getText()); 
 
-if (username.isEmpty() && password.isEmpty()) {
-    JOptionPane.showMessageDialog(null, "Invalid Username and Password");
-} else if (username.isEmpty()) {
+       
+
+ 
+   if (un.getText().isEmpty() && pass.getPassword().length == 0) {
+    JOptionPane.showMessageDialog(null, "All Fields Are Required");
+  
+} 
+else if (un.getText().isEmpty()) {
     JOptionPane.showMessageDialog(null, "Username is required");
-} else if (password.isEmpty()) {
-    JOptionPane.showMessageDialog(null, "Password is required");
-} else if (password.length() < 8) {
-    JOptionPane.showMessageDialog(null, "Password should have at least 8 characters");
-    pass.setText("");
-} else {
-
-    if (loginAcc(username, password)) {
-
-        dbConnect db = new dbConnect();
-        boolean isValidUser = db.checkLogin(username, password);
-
-        if (isValidUser) {
-            String usertype = db.getUserType(username);
-
-            if ("Admin".equalsIgnoreCase(usertype)) {
-                new loginSuccess().setVisible(true);
-            } else if ("Patient".equalsIgnoreCase(usertype)) {
-                new loginSuccess().setVisible(true); // Assuming you have patientDashboard
-            } else if ("Doctor".equalsIgnoreCase(usertype)) {
-                new loginSuccess().setVisible(true); // Assuming you have doctorDashboard
-            } else {
-                JOptionPane.showMessageDialog(null, "Invalid UserType");
-            }
-
-            this.setVisible(false);
-            this.dispose();
-        } else {
-            JOptionPane.showMessageDialog(null, "Invalid username or password");
-        }
-
-    } else {
-        // Account not found. Prompt for registration
-        int choice = JOptionPane.showConfirmDialog(null, "Account not found. Sign Up now?", "Register", JOptionPane.YES_NO_OPTION);
-        if (choice == JOptionPane.YES_OPTION) {
-            SignupPage sup = new SignupPage(); 
-            sup.setVisible(true); 
-        this.dispose();
-            if (loginAcc(username, password)) { 
-                JOptionPane.showMessageDialog(null, "Registration successful. Please login.");
-            }
-        }
-    }
     
+} 
+else if (pass.getPassword().length == 0) {
+    JOptionPane.showMessageDialog(null, "Password is required");
+    
+} 
+else if (pass.getPassword().length < 8) {
+    JOptionPane.showMessageDialog(null, "Password should have at least 8 characters");
+    
+} 
+    else {  
+    
+  if(loginAcc(un.getText(),pass.getText())){
+  if(!status.equals("Active")){
+   JOptionPane.showMessageDialog(null, "Inactive Acc, Contact the Admin");
+  }else{
+   if(utype.equals("Admin")){
+     JOptionPane.showMessageDialog(null, "Login Successfully");
+    new loginSuccess().setVisible(true);
+     this.setVisible(false);
+     this.dispose();
+   }else if(utype.equals("Patient")){
+    JOptionPane.showMessageDialog(null, "Login Successfully");
+    new loginSuccess().setVisible(true);
+     this.setVisible(false);
+     }else if(utype.equals("Doctor")){
+    JOptionPane.showMessageDialog(null, "Login Successfully");
+    new loginSuccess().setVisible(true);
+     this.setVisible(false);
+     
+   }else{
+         JOptionPane.showMessageDialog(null, "No account type found, Contact the Manager");
+       
+       }
+  }
+    
+  }else{
+    JOptionPane.showMessageDialog(null, "Invalid Account");
+  }
 }
-      
-            
-        
-    }//GEN-LAST:event_rSMaterialButtonCircle1ActionPerformed
+    }//GEN-LAST:event_loginAccActionPerformed
 
     private void SignupMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SignupMouseClicked
 
@@ -294,11 +338,41 @@ if (username.isEmpty() && password.isEmpty()) {
         System.exit(0);
     }//GEN-LAST:event_jLabel3MouseClicked
 
-    private void rSMaterialButtonCircle1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rSMaterialButtonCircle1MouseClicked
+    private void loginAccMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginAccMouseClicked
         loginSuccess log = new loginSuccess();
         log.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_rSMaterialButtonCircle1MouseClicked
+    }//GEN-LAST:event_loginAccMouseClicked
+
+    private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passActionPerformed
+
+    private void icon1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_icon1MousePressed
+        icon2.setVisible(true);
+        icon1.setVisible(false);
+        pass.setEchoChar((char)0);
+    }//GEN-LAST:event_icon1MousePressed
+
+    private void icon2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_icon2MousePressed
+        icon1.setVisible(true);
+        icon2.setVisible(false);
+        pass.setEchoChar('*');
+
+    }//GEN-LAST:event_icon2MousePressed
+
+    private void passFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passFocusGained
+ if(pass.getText().equals("Enter your Password"))
+       {
+          pass.setText("");    }//GEN-LAST:event_passFocusGained
+    }
+    private void passFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passFocusLost
+       if(pass.getText().equals(""))
+       {
+           pass.setText("Enter your Password");
+       }
+        
+    }//GEN-LAST:event_passFocusLost
 
     /**
      * @param args the command line arguments
@@ -337,6 +411,8 @@ if (username.isEmpty() && password.isEmpty()) {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rojerusan.RSMaterialButtonCircle Signup;
+    private javax.swing.JLabel icon1;
+    private javax.swing.JLabel icon2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -351,8 +427,8 @@ if (username.isEmpty() && password.isEmpty()) {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
-    private app.bolivia.swing.JCTextField pass;
-    private rojerusan.RSMaterialButtonCircle rSMaterialButtonCircle1;
+    private rojerusan.RSMaterialButtonCircle loginAcc;
+    private javax.swing.JPasswordField pass;
     private app.bolivia.swing.JCTextField un;
     // End of variables declaration//GEN-END:variables
 }
