@@ -36,15 +36,12 @@ public class loginPage extends javax.swing.JFrame {
         dbConnect connect = new dbConnect();
 
         try{
-            String query = "SELECT * FROM user WHERE username = '" +username+ "";
+            String query = "SELECT * FROM users WHERE username = '" +username+ "";
             ResultSet resultSet = connect.getData(query);
             if(resultSet.next()){
                 
                 String hashedPass = resultSet.getString("password");
                 String rehashedPass = passwordHasher.hashPassword(password);
-                
-                System.out.println(""+hashedPass);
-                System.out.println(""+rehashedPass);
                     
                 if (hashedPass.equals(rehashedPass)){
                 status = resultSet.getString("status");
@@ -61,16 +58,17 @@ public class loginPage extends javax.swing.JFrame {
                 sess.setStatus(resultSet.getString("status"));
                 System.out.println(""+sess.getPid());
                 return true;
+                
                 }else{
-                    System.out.println("Password Not Match");
-                    return false;
-                 } 
-            }else {
-                return false;
-            }
-        }catch(SQLException | NoSuchAlgorithmException ex){
-            return false;
-        }
+         return false;   
+          }
+    }else{
+        return false;
+    }
+             } catch(SQLException | NoSuchAlgorithmException ex){
+             return false;
+     }
+     
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -87,7 +85,6 @@ public class loginPage extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        un = new app.bolivia.swing.JCTextField();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         icon2 = new javax.swing.JLabel();
@@ -101,6 +98,7 @@ public class loginPage extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         pass = new javax.swing.JPasswordField();
+        un = new app.bolivia.swing.JCTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -112,7 +110,7 @@ public class loginPage extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 255));
         jLabel1.setText("HOSPITAL BILLING SYSTEM");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 440, 30));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 440, 30));
 
         jLabel2.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 51, 51));
@@ -124,7 +122,7 @@ public class loginPage extends javax.swing.JFrame {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/logooooo.png"))); // NOI18N
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 400, 280));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 660));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 760));
 
         jPanel2.setBackground(new java.awt.Color(102, 102, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -134,22 +132,15 @@ public class loginPage extends javax.swing.JFrame {
         jLabel9.setText("Welcome back! Please Enter your details");
         jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 330, 30));
 
-        un.setBackground(new java.awt.Color(102, 102, 255));
-        un.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        un.setForeground(new java.awt.Color(51, 51, 51));
-        un.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
-        un.setPlaceholder("Enter your Username");
-        jPanel2.add(un, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 240, 350, -1));
-
         jLabel17.setFont(new java.awt.Font("Segoe UI Semilight", 1, 18)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
         jLabel17.setText("Don't have an account?");
-        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 590, -1, 30));
+        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 670, -1, 30));
 
         jLabel18.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/person.png"))); // NOI18N
-        jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, 60));
+        jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, -1, 60));
 
         icon2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/hide (1).png"))); // NOI18N
         icon2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -157,7 +148,7 @@ public class loginPage extends javax.swing.JFrame {
                 icon2MousePressed(evt);
             }
         });
-        jPanel2.add(icon2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 360, -1, 20));
+        jPanel2.add(icon2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 380, -1, 20));
 
         icon1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/eyes (1).png"))); // NOI18N
         icon1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -165,17 +156,17 @@ public class loginPage extends javax.swing.JFrame {
                 icon1MousePressed(evt);
             }
         });
-        jPanel2.add(icon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 350, 40, 40));
+        jPanel2.add(icon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 370, 40, 40));
 
         jLabel20.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
         jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8_Secure_50px.png"))); // NOI18N
-        jPanel2.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, -1, 60));
+        jPanel2.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 360, -1, 60));
 
         jLabel21.setFont(new java.awt.Font("Segoe UI Semilight", 1, 18)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
         jLabel21.setText("Password :");
-        jPanel2.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 310, -1, 30));
+        jPanel2.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 330, -1, 30));
 
         loginAcc.setBackground(new java.awt.Color(255, 51, 51));
         loginAcc.setText("LOG IN");
@@ -190,7 +181,7 @@ public class loginPage extends javax.swing.JFrame {
                 loginAccActionPerformed(evt);
             }
         });
-        jPanel2.add(loginAcc, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 420, 70));
+        jPanel2.add(loginAcc, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 480, 420, 70));
 
         Signup.setBackground(new java.awt.Color(204, 204, 255));
         Signup.setForeground(new java.awt.Color(51, 51, 51));
@@ -206,7 +197,7 @@ public class loginPage extends javax.swing.JFrame {
                 SignupActionPerformed(evt);
             }
         });
-        jPanel2.add(Signup, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 510, 420, 70));
+        jPanel2.add(Signup, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 590, 420, 70));
 
         jLabel19.setFont(new java.awt.Font("Arial Black", 0, 48)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
@@ -216,7 +207,7 @@ public class loginPage extends javax.swing.JFrame {
         jLabel22.setFont(new java.awt.Font("Segoe UI Semilight", 1, 18)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(255, 255, 255));
         jLabel22.setText("Username :");
-        jPanel2.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 190, -1, 30));
+        jPanel2.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, -1, 30));
 
         jLabel3.setBackground(new java.awt.Color(0, 0, 0));
         jLabel3.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
@@ -227,7 +218,7 @@ public class loginPage extends javax.swing.JFrame {
                 jLabel3MouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 0, 40, 40));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 40, 40));
 
         jPanel4.setBackground(new java.awt.Color(255, 0, 51));
 
@@ -242,7 +233,7 @@ public class loginPage extends javax.swing.JFrame {
             .addGap(0, 40, Short.MAX_VALUE)
         );
 
-        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 0, 40, 40));
+        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 40, 40));
 
         pass.setBackground(new java.awt.Color(102, 102, 255));
         pass.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
@@ -262,66 +253,59 @@ public class loginPage extends javax.swing.JFrame {
                 passActionPerformed(evt);
             }
         });
-        jPanel2.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 356, 350, 30));
+        jPanel2.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 370, 350, 40));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 500, 660));
+        un.setBackground(new java.awt.Color(102, 102, 255));
+        un.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        un.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        un.setPlaceholder("Enter your Username ");
+        jPanel2.add(un, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, 350, 50));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 540, 760));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginAccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginAccActionPerformed
-          String username = un.getText();
-    String password = new String(pass.getText()); 
+      String username = un.getText();
+    String password = new String(pass.getPassword());
 
-       
+    if (un.getText().isEmpty() && pass.getPassword().length == 0) {
+        JOptionPane.showMessageDialog(null, "All Fields Are Required");
+    } else if (un.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Username is required");
+    } else if (pass.getPassword().length == 0) {
+        JOptionPane.showMessageDialog(null, "Password is required");
+    } else if (pass.getPassword().length < 8) {
+        JOptionPane.showMessageDialog(null, "Password should have at least 8 characters");
+    } else {
+        if (loginAcc(username, password)) {
 
- 
-   if (un.getText().isEmpty() && pass.getPassword().length == 0) {
-    JOptionPane.showMessageDialog(null, "All Fields Are Required");
-  
-} 
-else if (un.getText().isEmpty()) {
-    JOptionPane.showMessageDialog(null, "Username is required");
-    
-} 
-else if (pass.getPassword().length == 0) {
-    JOptionPane.showMessageDialog(null, "Password is required");
-    
-} 
-else if (pass.getPassword().length < 8) {
-    JOptionPane.showMessageDialog(null, "Password should have at least 8 characters");
-    
-} 
-    else {  
-    
-  if(loginAcc(un.getText(),pass.getText())){
-  if(!status.equals("Active")){
-   JOptionPane.showMessageDialog(null, "Inactive Acc, Contact the Admin");
-  }else{
-   if(utype.equals("Admin")){
-     JOptionPane.showMessageDialog(null, "Login Successfully");
-    new loginSuccess().setVisible(true);
-     this.setVisible(false);
-     this.dispose();
-   }else if(utype.equals("Patient")){
-    JOptionPane.showMessageDialog(null, "Login Successfully");
-    new loginSuccess().setVisible(true);
-     this.setVisible(false);
-     }else if(utype.equals("Doctor")){
-    JOptionPane.showMessageDialog(null, "Login Successfully");
-    new loginSuccess().setVisible(true);
-     this.setVisible(false);
-     
-   }else{
-         JOptionPane.showMessageDialog(null, "No account type found, Contact the Manager");
-       
-       }
-  }
-    
-  }else{
-    JOptionPane.showMessageDialog(null, "Invalid Account");
-  }
-}
+            if (!status.equals("Approved")) {
+                JOptionPane.showMessageDialog(null, "Inactive Acc, Contact the Admin");
+            } else {
+                if (utype.equals("Admin")) {
+                    JOptionPane.showMessageDialog(null, "Login Successfully");
+                    new loginSuccess().setVisible(true);
+                    this.setVisible(false);
+                    this.dispose();
+                } else if (utype.equals("Patient")) {
+                    JOptionPane.showMessageDialog(null, "Login Successfully");
+                    new loginSuccess().setVisible(true);
+                    this.setVisible(false);
+                    } else if (utype.equals("Doctor")) {
+                    JOptionPane.showMessageDialog(null, "Login Successfully");
+                    new loginSuccess().setVisible(true);
+                    this.setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(null, "No account type found, Contact the Admin");
+                }
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Invalid Account");
+        }
+    }
     }//GEN-LAST:event_loginAccActionPerformed
 
     private void SignupMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SignupMouseClicked
@@ -344,10 +328,6 @@ else if (pass.getPassword().length < 8) {
         this.dispose();
     }//GEN-LAST:event_loginAccMouseClicked
 
-    private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_passActionPerformed
-
     private void icon1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_icon1MousePressed
         icon2.setVisible(true);
         icon1.setVisible(false);
@@ -361,19 +341,24 @@ else if (pass.getPassword().length < 8) {
 
     }//GEN-LAST:event_icon2MousePressed
 
-    private void passFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passFocusGained
- if(pass.getText().equals("Enter your Password"))
-       {
-          pass.setText("");    }//GEN-LAST:event_passFocusGained
-    }
+    private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passActionPerformed
+
     private void passFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passFocusLost
-       if(pass.getText().equals(""))
+        if(pass.getText().equals(""))
        {
            pass.setText("Enter your Password");
        }
-        
     }//GEN-LAST:event_passFocusLost
 
+    private void passFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passFocusGained
+        if(pass.getText().equals("Enter your Password"))
+       {
+          pass.setText("");
+       
+    }//GEN-LAST:event_passFocusGained
+    }
     /**
      * @param args the command line arguments
      */

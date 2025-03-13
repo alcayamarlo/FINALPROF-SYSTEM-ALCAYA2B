@@ -57,7 +57,7 @@ public class dashBoard extends javax.swing.JFrame {
       public void displayData() {
         try {
             dbConnect dbc = new dbConnect();
-            ResultSet rs = dbc.getData("SELECT p_id,fn,cityAddress,contactNo,username,usertype,status FROM user");
+            ResultSet rs = dbc.getData("SELECT p_id,fn,cityAddress,contactNo,username,usertype,status FROM users");
             table.setModel(DbUtils.resultSetToTableModel(rs));
             rs.close();
         } catch (SQLException ex) {
@@ -68,7 +68,7 @@ public class dashBoard extends javax.swing.JFrame {
     public void getTotalAcc() {
         try {
             dbConnect dbc = new dbConnect();
-            ResultSet rs = dbc.getData("SELECT COUNT(*) FROM user ");
+            ResultSet rs = dbc.getData("SELECT COUNT(*) FROM users ");
             if (rs.next()) {
                 int count = rs.getInt(1);
               acc.setText(String.valueOf(count));
@@ -80,7 +80,7 @@ public class dashBoard extends javax.swing.JFrame {
 public void getPatientCount() {
         try {
             dbConnect dbc = new dbConnect();
-            ResultSet rs = dbc.getData("SELECT COUNT(*) FROM user WHERE usertype = 'Patient'");
+            ResultSet rs = dbc.getData("SELECT COUNT(*) FROM users WHERE usertype = 'Patient'");
             if (rs.next()) {
                 int count = rs.getInt(1);
                 patient.setText(String.valueOf(count));
@@ -92,7 +92,7 @@ public void getPatientCount() {
 public void getPendingAccount() {
         try {
             dbConnect dbc = new dbConnect();
-            ResultSet rs = dbc.getData("SELECT COUNT(*) FROM user WHERE status = 'Pending'");
+            ResultSet rs = dbc.getData("SELECT COUNT(*) FROM users WHERE status = 'Pending'");
             if (rs.next()) {
                 int count = rs.getInt(1);
                 pen.setText(String.valueOf(count));
@@ -104,7 +104,7 @@ public void getPendingAccount() {
 public void getDoctorCount() {
         try {
             dbConnect dbc = new dbConnect();
-            ResultSet rs = dbc.getData("SELECT COUNT(*) FROM user WHERE usertype = 'Doctor'");
+            ResultSet rs = dbc.getData("SELECT COUNT(*) FROM users WHERE usertype = 'Doctor'");
             if (rs.next()) {
                 int count = rs.getInt(1);
                 docc.setText(String.valueOf(count));
@@ -176,7 +176,7 @@ public void showPieChart(){
         HistogramDataset dataset = new HistogramDataset();
         dataset.addSeries("key", values, 20);
         
-         JFreeChart chart = ChartFactory.createHistogram("Admission vs Cost OVer Time","Data", "Frequency", dataset,PlotOrientation.VERTICAL, false,true,false);
+         JFreeChart chart = ChartFactory.createHistogram("Admission vs Cost Over Time","Data", "Frequency", dataset,PlotOrientation.VERTICAL, false,true,false);
             XYPlot plot= chart.getXYPlot();
         plot.setBackgroundPaint(Color.WHITE);
 

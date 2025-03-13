@@ -40,7 +40,7 @@ public class SignupPage extends javax.swing.JFrame {
     public boolean duplicateCheck() {
     dbConnect dbc = new dbConnect();
     try {
-        String query = "SELECT * FROM user WHERE username = '" + un.getText() + "' OR email = '" + em.getText() + "'";
+        String query = "SELECT * FROM users WHERE username = '" + un.getText() + "' OR email = '" + em.getText() + "'";
         ResultSet resultSet = dbc.getData(query);
 
         if (resultSet.next()) {
@@ -329,6 +329,11 @@ public class SignupPage extends javax.swing.JFrame {
                 psFocusLost(evt);
             }
         });
+        ps.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                psActionPerformed(evt);
+            }
+        });
         jPanel2.add(ps, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 530, 350, 30));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 550, 790));
@@ -345,7 +350,7 @@ public class SignupPage extends javax.swing.JFrame {
     }//GEN-LAST:event_SignupMouseClicked
 
     private void SignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignupActionPerformed
- if (fn.getText().isEmpty() || ct.getText().isEmpty() || em.getText().isEmpty() || cn.getText().isEmpty() || un.getText().isEmpty() || ps.getText().isEmpty() || utype.getSelectedItem().toString().isEmpty()) {
+if (fn.getText().isEmpty() || ct.getText().isEmpty() || em.getText().isEmpty() || cn.getText().isEmpty() || un.getText().isEmpty() || ps.getText().isEmpty() || utype.getSelectedItem().toString().isEmpty()) {
     JOptionPane.showMessageDialog(null, "All Fields Are Required");
 } else {
     if (fn.getText().isEmpty()) {
@@ -388,7 +393,7 @@ public class SignupPage extends javax.swing.JFrame {
         return;
     }
 
-    String password = ps.getText();
+    String password = ps.getText(); 
 
     if (password.isEmpty()) {
         JOptionPane.showMessageDialog(null, "Password is required");
@@ -403,40 +408,45 @@ public class SignupPage extends javax.swing.JFrame {
     if (!("Admin".equals(selectedUserType) || "Patient".equals(selectedUserType) || "Doctor".equals(selectedUserType))) {
         JOptionPane.showMessageDialog(null, "Please select a User Type ");
         return;
-    
-    } else {
-        dbConnect dbc = new dbConnect();
-        String checkUsernameQuery = "SELECT COUNT(*) FROM user WHERE username = '" + un.getText() + "'";
+    }
+else {
+     dbConnect dbc = new dbConnect();
+     try{
+     String pass = passwordHasher.hashPassword(ps.getText());
+    String checkUsernameQuery = "SELECT COUNT(*) FROM users WHERE username = '" + un.getText() + "'";
     int usernameCount = dbc.executeQueryForCount(checkUsernameQuery);
     if (usernameCount > 0) {
         JOptionPane.showMessageDialog(null, "Username is already taken");
         return;
     }
 
- String checkEmailQuery = "SELECT COUNT(*) FROM user WHERE email = '" + em.getText() + "'";
+ String checkEmailQuery = "SELECT COUNT(*) FROM users WHERE email = '" + em.getText() + "'";
     int emailCount = dbc.executeQueryForCount(checkEmailQuery);
     if (emailCount > 0) {
         JOptionPane.showMessageDialog(null, "Email is already registered");
         return;
     }
-        try{
-        String pass = passwordHasher.hashPassword(ps.getText());
-        if (dbc.insertData("INSERT INTO user (fn, cityAddress, email, contactNo, username, password, usertype, status)"
-                + "VALUES('" + fn.getText() + "','" + ct.getText() + "', '" + em.getText() + "',"
-                        + " '" + cn.getText() + "', '" + un.getText() + "', '" + pass + "',"
-                                + " '" + utype.getSelectedItem() + "', 'Pending')") == 0) 
-        {
-            JOptionPane.showMessageDialog(null, "Registered Successfully!");
-          
+
+String insertQuery = "INSERT INTO users(fn, cityAddress, email, contactNo, username, password, usertype, status) " +
+                     "VALUES('" + fn.getText() + "', '" + ct.getText() + "', '" + em.getText() + "', '" + cn.getText() + "', '" + un.getText() + "', '" + pass + "', '" + selectedUserType + "', 'Pending')";
+
+    if (dbc.insertData(insertQuery) == 0) {
+        JOptionPane.showMessageDialog(null, "Registered Successfully");
         }
-        }catch(NoSuchAlgorithmException ex){
-            System.out.println(""+ex);
-        }
-    }
-    RegisteredSuccess rts = new RegisteredSuccess();
-            rts.setVisible(true);
-            this.dispose();
- }
+
+new RegisteredSuccess().setVisible(true);
+this.setVisible(false);
+this.dispose();
+
+     
+     }catch(NoSuchAlgorithmException ex){
+         System.out.println(""+ex);
+}
+    }                                        
+     }
+
+    
+    
     }//GEN-LAST:event_SignupActionPerformed
 
     private void rSMaterialButtonCircle1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSMaterialButtonCircle1ActionPerformed
@@ -475,6 +485,10 @@ public class SignupPage extends javax.swing.JFrame {
         icon1.setVisible(false);
         ps.setEchoChar((char)0);
     }//GEN-LAST:event_icon1MousePressed
+
+    private void psActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_psActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_psActionPerformed
 
     /**
      * @param args the command line arguments

@@ -37,7 +37,7 @@ public class ManageUsers extends javax.swing.JFrame {
    public void displayData() {
         try {
             dbConnect dbc = new dbConnect();
-            ResultSet rs = dbc.getData("SELECT p_id,fn,cityAddress,email,contactNo,username,usertype,status FROM user");
+            ResultSet rs = dbc.getData("SELECT p_id,fn,cityAddress,email,contactNo,username,usertype,status FROM users");
             table.setModel(DbUtils.resultSetToTableModel(rs));
             rs.close();
         } catch (SQLException ex) {
@@ -333,7 +333,7 @@ public class ManageUsers extends javax.swing.JFrame {
          try{         
          dbConnect dbc = new dbConnect();
          TableModel tbl = table.getModel();
-        ResultSet rs = dbc.getData("SELECT * FROM user WHERE p_id = '" + tbl.getValueAt(rowIndex, 0) + "'");
+        ResultSet rs = dbc.getData("SELECT * FROM users WHERE p_id = '" + tbl.getValueAt(rowIndex, 0) + "'");
         if(rs.next()){
          createUserForm crf = new createUserForm();
          crf.p_id.setText(""+rs.getInt("p_id"));
@@ -412,7 +412,7 @@ public class ManageUsers extends javax.swing.JFrame {
         dbConnect dbc = new dbConnect();
 
        
-        String deleteQuery = "DELETE FROM user WHERE p_id = '" + p_id + "'";
+        String deleteQuery = "DELETE FROM users WHERE p_id = '" + p_id + "'";
         dbc.updateData(deleteQuery);
 
        

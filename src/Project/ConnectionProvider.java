@@ -12,7 +12,7 @@ public class ConnectionProvider {
         try 
         {
         Class.forName("com.mysql.jbc.Driver");
-        Connection con=DriverManager.getConnection("jdbc:mysql://3306/hospital_billing","root","");
+        Connection con=DriverManager.getConnection("jdbc:mysql://3306/hospital_bill","root","");
         return con;
         
         }

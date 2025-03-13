@@ -14,7 +14,7 @@ public class dbConnect {
 
     public dbConnect() {
         try {
-            connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/hospital_billing", "root", "");
+            connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/hospital_bill", "root", "");
         } catch (SQLException ex) {
             System.out.println("Can't connect to database: " + ex.getMessage());
         }
@@ -72,7 +72,7 @@ public class dbConnect {
     public boolean checkLogin(String username, String password) {
         boolean isValidUser = false;
         try {
-            String sql = "SELECT * FROM user WHERE username = ? AND password = ?";
+            String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
             PreparedStatement pst = connect.prepareStatement(sql);
             pst.setString(1, username);
             pst.setString(2, password);
@@ -100,7 +100,7 @@ public class dbConnect {
     public String getUserType(String username) {
         String usertype = null;
         try {
-            String sql = "SELECT usertype FROM user WHERE username = ?";
+            String sql = "SELECT usertype FROM users WHERE username = ?";
             PreparedStatement pst = connect.prepareStatement(sql);
             pst.setString(1, username);
 

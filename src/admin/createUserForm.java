@@ -33,7 +33,7 @@ public class createUserForm extends javax.swing.JFrame {
       public boolean duplicateCheck() {
     dbConnect dbc = new dbConnect();
     try {
-        String query = "SELECT * FROM user WHERE username = '" + un1.getText() + "' OR email = '" + em.getText() + "'";
+        String query = "SELECT * FROM users WHERE username = '" + un1.getText() + "' OR email = '" + em.getText() + "'";
         ResultSet resultSet = dbc.getData(query);
 
         if (resultSet.next()) {
@@ -60,7 +60,7 @@ public class createUserForm extends javax.swing.JFrame {
   public boolean updateCheck() {
     dbConnect dbc = new dbConnect();
     try {
-        String query = "SELECT * FROM user WHERE (username = '" + un1.getText() + "' OR email = '" + em.getText() + "')AND p_id!= '"+p_id.getText()+"'";
+        String query = "SELECT * FROM users WHERE (username = '" + un1.getText() + "' OR email = '" + em.getText() + "')AND p_id!= '"+p_id.getText()+"'";
         ResultSet resultSet = dbc.getData(query);
 
         if (resultSet.next()) {
@@ -473,20 +473,20 @@ public class createUserForm extends javax.swing.JFrame {
             
 else {
                     dbConnect dbc = new dbConnect();
-                    String checkUsernameQuery = "SELECT COUNT(*) FROM user WHERE username = '" + un1.getText() + "'";
+                    String checkUsernameQuery = "SELECT COUNT(*) FROM users WHERE username = '" + un1.getText() + "'";
                     int usernameCount = dbc.executeQueryForCount(checkUsernameQuery);
                     if (usernameCount > 0) {
                         JOptionPane.showMessageDialog(null, "Username is already taken");
                         return;
                     }
 
-                    String checkEmailQuery = "SELECT COUNT(*) FROM user WHERE email = '" + em.getText() + "'";
+                    String checkEmailQuery = "SELECT COUNT(*) FROM users WHERE email = '" + em.getText() + "'";
                     int emailCount = dbc.executeQueryForCount(checkEmailQuery);
                     if (emailCount > 0) {
                         JOptionPane.showMessageDialog(null, "Email is already registered");
                         return;
                     }
-String insertQuery = "INSERT INTO user(fn, cityAddress, email , contactNo, username,password,usertype, status) " +
+String insertQuery = "INSERT INTO users(fn, cityAddress, email , contactNo, username,password,usertype, status) " +
                      "VALUES('" + fn.getText() + "', '" + ct.getText() + "', '" + em.getText() + 
                      "', '" + cn.getText() + "', '" + un1.getText() + "', '" + ps.getText() + 
                      "', '" + utype1.getSelectedItem() + "', 'Pending')";
@@ -519,7 +519,7 @@ String insertQuery = "INSERT INTO user(fn, cityAddress, email , contactNo, usern
        
    }else{
         dbConnect dbc = new dbConnect();
-        dbc.updateData("UPDATE user SET fn = '"+fn.getText()+"', cityAddress = '"+ct.getText()
+        dbc.updateData("UPDATE users SET fn = '"+fn.getText()+"', cityAddress = '"+ct.getText()
                 +"', email = '"+em.getText()+"', contactNo = '"+cn.getText()+"', username = '"+un1.getText()
                 +"', password = '"+ps.getText()+"', usertype = '"+utype1.getSelectedItem()
                 +"',status = '"+status.getSelectedItem()+"' WHERE p_id = '"+p_id.getText()+"'");
@@ -641,7 +641,7 @@ String insertQuery = "INSERT INTO user(fn, cityAddress, email , contactNo, usern
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     public app.bolivia.swing.JCTextField p_id;
-    private javax.swing.JPasswordField ps;
+    public javax.swing.JPasswordField ps;
     public rojerusan.RSMaterialButtonCircle rSMaterialButtonCircle4;
     public javax.swing.JComboBox<String> status;
     public app.bolivia.swing.JCTextField un1;
