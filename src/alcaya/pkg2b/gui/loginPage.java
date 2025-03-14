@@ -33,17 +33,18 @@ public class loginPage extends javax.swing.JFrame {
      static String utype;
     
     public static boolean loginAcc(String username,String password){
-        dbConnect connect = new dbConnect();
+       dbConnect connect = new dbConnect();
+    try {
+        String query = "SELECT * FROM users WHERE username = ?"; 
+        java.sql.PreparedStatement preparedStatement = connect.getConnection().prepareStatement(query);
+        preparedStatement.setString(1, username);
+        ResultSet resultSet = preparedStatement.executeQuery();
 
-        try{
-            String query = "SELECT * FROM users WHERE username = '" +username+ "";
-            ResultSet resultSet = connect.getData(query);
-            if(resultSet.next()){
-                
-                String hashedPass = resultSet.getString("password");
-                String rehashedPass = passwordHasher.hashPassword(password);
-                    
-                if (hashedPass.equals(rehashedPass)){
+        if (resultSet.next()) {
+            String hashedPass = resultSet.getString("password");
+            String rehashedPass = passwordHasher.hashPassword(password);
+
+            if (hashedPass.equals(rehashedPass)) {
                 status = resultSet.getString("status");
                 utype = resultSet.getString("usertype");
                 Session sess = Session.getInstance();
@@ -56,20 +57,19 @@ public class loginPage extends javax.swing.JFrame {
                 sess.setPassword(resultSet.getString("password"));
                 sess.setUsertype(resultSet.getString("usertype"));
                 sess.setStatus(resultSet.getString("status"));
-                System.out.println(""+sess.getPid());
+                System.out.println("" + sess.getPid());
                 return true;
-                
-                }else{
-         return false;   
-          }
-    }else{
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    } catch (SQLException | NoSuchAlgorithmException ex) {
+        ex.printStackTrace(); // Log the exception
         return false;
     }
-             } catch(SQLException | NoSuchAlgorithmException ex){
-             return false;
-     }
-     
-    }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

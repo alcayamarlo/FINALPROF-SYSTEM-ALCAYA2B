@@ -120,7 +120,7 @@ public class dbConnect {
     }
 
     public Connection getConnection() {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        return connect;
     }
    
 }
