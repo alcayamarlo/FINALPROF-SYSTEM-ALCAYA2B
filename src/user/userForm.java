@@ -5,6 +5,18 @@
  */
 package user;
 
+import Successfull.noAccount;
+import admin.ManageUsers;
+import admin.createUserForm;
+import config.Session;
+import config.dbConnect;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.TableModel;
+import login.Main;
+
 /**
  *
  * @author alcay
@@ -27,21 +39,258 @@ public class userForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jLabel3 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        login = new rojerusan.RSMaterialButtonCircle();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        un = new textfield.TextField();
+        fn = new textfield.TextField();
+        ct = new textfield.TextField();
+        em = new textfield.TextField();
+        cn = new textfield.TextField();
+        submit = new rojerusan.RSMaterialButtonCircle();
+        utype = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        p_id = new textfield.TextField();
+        jLabel27 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1093, Short.MAX_VALUE)
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel3.setBackground(new java.awt.Color(51, 51, 255));
+        jLabel3.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
+        jLabel3.setText("  X");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 0, 40, 30));
+
+        jPanel2.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(51, 51, 255)));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 0, 40, 40));
+
+        jLabel19.setFont(new java.awt.Font("Arial Black", 0, 36)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel19.setText("EDIT YOUR DETAILS");
+        getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, -1, 30));
+
+        jLabel9.setBackground(new java.awt.Color(102, 102, 102));
+        jLabel9.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel9.setText("Do you want to cancel?Cancel");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 810, -1, 30));
+
+        login.setBackground(new java.awt.Color(204, 204, 255));
+        login.setForeground(new java.awt.Color(51, 51, 51));
+        login.setText("CANCEL");
+        login.setFont(new java.awt.Font("Arial Black", 1, 17)); // NOI18N
+        login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginActionPerformed(evt);
+            }
+        });
+        getContentPane().add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 750, 390, 60));
+
+        jLabel21.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/user.png"))); // NOI18N
+        getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, -1, 60));
+
+        jLabel23.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/user.png"))); // NOI18N
+        getContentPane().add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 560, -1, 60));
+
+        jLabel24.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/user.png"))); // NOI18N
+        getContentPane().add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 470, -1, 60));
+
+        jLabel25.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel25.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/user.png"))); // NOI18N
+        getContentPane().add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 390, -1, 60));
+
+        jLabel26.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/user.png"))); // NOI18N
+        getContentPane().add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 300, -1, 60));
+
+        un.setBackground(new java.awt.Color(204, 255, 255));
+        un.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        un.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        un.setLabelText("Enter your Username");
+        getContentPane().add(un, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 550, 330, 60));
+
+        fn.setBackground(new java.awt.Color(204, 255, 255));
+        fn.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        fn.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        fn.setLabelText("Enter your Full Name");
+        getContentPane().add(fn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 330, 60));
+
+        ct.setBackground(new java.awt.Color(204, 255, 255));
+        ct.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        ct.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        ct.setLabelText("Enter your City and Address");
+        ct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ctActionPerformed(evt);
+            }
+        });
+        getContentPane().add(ct, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, 330, 60));
+
+        em.setBackground(new java.awt.Color(204, 255, 255));
+        em.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        em.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        em.setLabelText("Enter your Email");
+        getContentPane().add(em, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 380, 330, 60));
+
+        cn.setBackground(new java.awt.Color(204, 255, 255));
+        cn.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        cn.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        cn.setLabelText("Enter your Contact No");
+        getContentPane().add(cn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 460, 330, 60));
+
+        submit.setBackground(new java.awt.Color(255, 51, 51));
+        submit.setText("SUBMIT");
+        submit.setFont(new java.awt.Font("Arial Black", 1, 17)); // NOI18N
+        submit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                submitMouseClicked(evt);
+            }
+        });
+        submit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitActionPerformed(evt);
+            }
+        });
+        getContentPane().add(submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 690, 390, 60));
+
+        utype.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        utype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "User Type : ", "Admin", "Patient", "Doctor" }));
+        utype.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                utypeActionPerformed(evt);
+            }
+        });
+        getContentPane().add(utype, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 630, 150, 40));
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI Semilight", 0, 15)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel10.setText("Edit your information");
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, -1, 30));
+
+        p_id.setBackground(new java.awt.Color(204, 255, 255));
+        p_id.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        p_id.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        p_id.setLabelText("User ID");
+        getContentPane().add(p_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 330, 60));
+
+        jLabel27.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel27.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/user.png"))); // NOI18N
+        getContentPane().add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, -1, 60));
+
+        jPanel1.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(51, 51, 255)));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 546, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 673, Short.MAX_VALUE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 846, Short.MAX_VALUE)
         );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 850));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
+        Main mn = new Main();
+        mn.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_loginActionPerformed
+
+    private void ctActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ctActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ctActionPerformed
+
+    private void submitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitMouseClicked
+
+    }//GEN-LAST:event_submitMouseClicked
+
+    private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
+ dbConnect connect = new dbConnect();
+
+try {
+    String query = "UPDATE users SET "
+            + "fn = ?, "
+            + "cityAddress = ?, " // Assuming "ct" maps to "user_City"
+            + "email = ?, "
+            + "contactNo = ?, "
+            + "username = ? " // Assuming "un" maps to "username"
+            + "WHERE p_id = ?";
+
+    try (PreparedStatement pst = connect.getConnection().prepareStatement(query)) {
+        pst.setString(1, fn.getText()); // user_Fname
+        pst.setString(2, ct.getText()); // user_City
+        pst.setString(3, em.getText()); // user_Email
+        pst.setString(4, cn.getText()); // user_Phone
+        pst.setString(5, un.getText()); // username
+        pst.setInt(6, Integer.parseInt(p_id.getText())); // user_id
+
+        int rowsUpdated = pst.executeUpdate();
+
+        if (rowsUpdated > 0) {
+            userDashboard usd = new userDashboard();
+            JOptionPane.showMessageDialog(this, "User details updated successfully!");
+            this.dispose();
+            usd.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "No user found with the specified ID.");
+        }
+    }
+} catch (SQLException ex) {
+    JOptionPane.showMessageDialog(this, "Error updating user details: " + ex.getMessage());
+    ex.printStackTrace();
+} catch (NumberFormatException ex){
+    JOptionPane.showMessageDialog(this, "Invalid User ID format.");
+    ex.printStackTrace();
+}
+   
+    }//GEN-LAST:event_submitActionPerformed
+
+    private void utypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_utypeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_utypeActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+     
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -79,5 +328,26 @@ public class userForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public textfield.TextField cn;
+    public textfield.TextField ct;
+    public textfield.TextField em;
+    public textfield.TextField fn;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private rojerusan.RSMaterialButtonCircle login;
+    public textfield.TextField p_id;
+    private rojerusan.RSMaterialButtonCircle submit;
+    public textfield.TextField un;
+    public javax.swing.JComboBox<String> utype;
     // End of variables declaration//GEN-END:variables
 }

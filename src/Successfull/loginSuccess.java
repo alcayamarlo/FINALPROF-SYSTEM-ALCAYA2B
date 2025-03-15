@@ -9,6 +9,7 @@ import admin.ManageUsers;
 import admin.dashBoard;
 import admin.manageBills;
 import admin.paymentRecord;
+import user.userDashboard;
 
 /**
  *
@@ -40,10 +41,6 @@ public class loginSuccess extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        rSMaterialButtonCircle1 = new rojerusan.RSMaterialButtonCircle();
-        rSMaterialButtonCircle2 = new rojerusan.RSMaterialButtonCircle();
-        rSMaterialButtonCircle3 = new rojerusan.RSMaterialButtonCircle();
-        rSMaterialButtonCircle4 = new rojerusan.RSMaterialButtonCircle();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -88,80 +85,18 @@ public class loginSuccess extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Arial Black", 1, 36)); // NOI18N
         jLabel2.setText("LOGIN SUCCESSFULLY");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 430, 510, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 410, 510, -1));
 
-        rSMaterialButtonCircle1.setBackground(new java.awt.Color(89, 89, 230));
-        rSMaterialButtonCircle1.setText("PAYMENT RECORDS");
-        rSMaterialButtonCircle1.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 17)); // NOI18N
-        rSMaterialButtonCircle1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSMaterialButtonCircle1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(rSMaterialButtonCircle1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 710, 370, 70));
-
-        rSMaterialButtonCircle2.setBackground(new java.awt.Color(89, 89, 230));
-        rSMaterialButtonCircle2.setText("DASHBOARD");
-        rSMaterialButtonCircle2.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 17)); // NOI18N
-        rSMaterialButtonCircle2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSMaterialButtonCircle2ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(rSMaterialButtonCircle2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 500, 370, 70));
-
-        rSMaterialButtonCircle3.setBackground(new java.awt.Color(89, 89, 230));
-        rSMaterialButtonCircle3.setText("USERS DASHBOARD");
-        rSMaterialButtonCircle3.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 17)); // NOI18N
-        rSMaterialButtonCircle3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSMaterialButtonCircle3ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(rSMaterialButtonCircle3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 570, 370, 70));
-
-        rSMaterialButtonCircle4.setBackground(new java.awt.Color(89, 89, 230));
-        rSMaterialButtonCircle4.setText("VIEW BILLS");
-        rSMaterialButtonCircle4.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 17)); // NOI18N
-        rSMaterialButtonCircle4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSMaterialButtonCircle4ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(rSMaterialButtonCircle4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 640, 370, 70));
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 780));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 500));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-        System.exit(0);
+        userDashboard usd = new userDashboard();
+        usd.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jLabel4MouseClicked
-
-    private void rSMaterialButtonCircle1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSMaterialButtonCircle1ActionPerformed
-        paymentRecord record = new paymentRecord();
-        record.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_rSMaterialButtonCircle1ActionPerformed
-
-    private void rSMaterialButtonCircle2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSMaterialButtonCircle2ActionPerformed
-       dashBoard dbd = new dashBoard();
-        dbd.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_rSMaterialButtonCircle2ActionPerformed
-
-    private void rSMaterialButtonCircle3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSMaterialButtonCircle3ActionPerformed
-        ManageUsers user = new ManageUsers();
-        user.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_rSMaterialButtonCircle3ActionPerformed
-
-    private void rSMaterialButtonCircle4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSMaterialButtonCircle4ActionPerformed
-       manageBills bill = new manageBills();
-        bill.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_rSMaterialButtonCircle4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -205,9 +140,5 @@ public class loginSuccess extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
-    private rojerusan.RSMaterialButtonCircle rSMaterialButtonCircle1;
-    private rojerusan.RSMaterialButtonCircle rSMaterialButtonCircle2;
-    private rojerusan.RSMaterialButtonCircle rSMaterialButtonCircle3;
-    private rojerusan.RSMaterialButtonCircle rSMaterialButtonCircle4;
     // End of variables declaration//GEN-END:variables
 }

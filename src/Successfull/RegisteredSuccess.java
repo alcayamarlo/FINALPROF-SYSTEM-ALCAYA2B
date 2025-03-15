@@ -5,7 +5,10 @@
  */
 package Successfull;
 
-import alcaya.pkg2b.gui.loginPage;
+import config.dbConnect;
+import login.Main;
+
+
 
 /**
  *
@@ -98,15 +101,15 @@ public class RegisteredSuccess extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void rSMaterialButtonCircle1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSMaterialButtonCircle1ActionPerformed
+        Main mn = new Main();
+        mn.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_rSMaterialButtonCircle1ActionPerformed
+
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         System.exit(0);
     }//GEN-LAST:event_jLabel4MouseClicked
-
-    private void rSMaterialButtonCircle1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSMaterialButtonCircle1ActionPerformed
-        loginPage log = new loginPage();
-        log.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_rSMaterialButtonCircle1ActionPerformed
 
     /**
      * @param args the command line arguments

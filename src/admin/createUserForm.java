@@ -6,7 +6,6 @@
 package admin;
 
 import Successfull.noAccount;
-import alcaya.pkg2b.gui.loginPage;
 import config.Session;
 import config.dbConnect;
 import java.sql.ResultSet;
@@ -479,7 +478,7 @@ else {
                         JOptionPane.showMessageDialog(null, "Username is already taken");
                         return;
                     }
-
+                    
                     String checkEmailQuery = "SELECT COUNT(*) FROM users WHERE email = '" + em.getText() + "'";
                     int emailCount = dbc.executeQueryForCount(checkEmailQuery);
                     if (emailCount > 0) {

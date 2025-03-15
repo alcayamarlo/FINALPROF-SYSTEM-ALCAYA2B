@@ -5,7 +5,8 @@
  */
 package Successfull;
 
-import alcaya.pkg2b.gui.loginPage;
+import login.Main;
+
 
 /**
  *
@@ -109,8 +110,8 @@ public class noAccount extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void rSMaterialButtonCircle1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSMaterialButtonCircle1ActionPerformed
-        loginPage log = new loginPage();
-        log.setVisible(true);
+        Main mn = new Main();
+        mn.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_rSMaterialButtonCircle1ActionPerformed
 

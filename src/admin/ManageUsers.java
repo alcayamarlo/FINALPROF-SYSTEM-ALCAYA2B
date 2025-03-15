@@ -7,8 +7,6 @@
 package admin;
 import Successfull.RegisteredSuccess;
 import Successfull.noAccount;
-import alcaya.pkg2b.gui.SignupPage;
-import alcaya.pkg2b.gui.loginPage;
 import config.Session;
 import config.dbConnect;
 import java.sql.ResultSet;
@@ -259,7 +257,7 @@ public class ManageUsers extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(table);
 
-        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 950, 610));
+        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 950, 610));
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 36)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 51, 51));
