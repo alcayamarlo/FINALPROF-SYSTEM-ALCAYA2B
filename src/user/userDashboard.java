@@ -5,6 +5,13 @@
  */
 package user;
 
+import Successfull.noAccount;
+import config.Session;
+import config.dbConnect;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import net.proteanit.sql.DbUtils;
+
 /**
  *
  * @author alcay
@@ -16,8 +23,61 @@ public class userDashboard extends javax.swing.JFrame {
      */
     public userDashboard() {
         initComponents();
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        displayData();
+        getPatientCount();
+        getDoctorCount();
+        getPendingAccount();
+        
     }
-
+    
+    public void displayData() {
+        try {
+            dbConnect dbc = new dbConnect();
+            ResultSet rs = dbc.getData("SELECT p_id,fn,cityAddress,contactNo,username,usertype,status FROM users");
+            table.setModel(DbUtils.resultSetToTableModel(rs));
+            rs.close();
+        } catch (SQLException ex) {
+            System.out.println("Errors: " + ex.getMessage());
+        }
+    }
+public void getPatientCount() {
+        try {
+            dbConnect dbc = new dbConnect();
+            ResultSet rs = dbc.getData("SELECT COUNT(*) FROM users WHERE usertype = 'Patient'");
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                patient.setText(String.valueOf(count));
+            }
+        } catch (SQLException ex) {
+            System.out.println("" + ex);
+        }
+    }
+public void getPendingAccount() {
+        try {
+            dbConnect dbc = new dbConnect();
+            ResultSet rs = dbc.getData("SELECT COUNT(*) FROM users WHERE status = 'Pending'");
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                pen.setText(String.valueOf(count));
+            }
+        } catch (SQLException ex) {
+            System.out.println("" + ex);
+        }
+    }
+public void getDoctorCount() {
+        try {
+            dbConnect dbc = new dbConnect();
+            ResultSet rs = dbc.getData("SELECT COUNT(*) FROM users WHERE usertype = 'Doctor'");
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                docc.setText(String.valueOf(count));
+            }
+        } catch (SQLException ex) {
+            System.out.println("" + ex);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,10 +88,6 @@ public class userDashboard extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        un = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jPanel18 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         ct = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -39,55 +95,49 @@ public class userDashboard extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         table = new rojeru_san.complementos.RSTableMetro();
         jLabel7 = new javax.swing.JLabel();
-        name1 = new javax.swing.JLabel();
+        name = new javax.swing.JLabel();
         utype = new javax.swing.JLabel();
         em = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         id = new rojerusan.RSMaterialButtonCircle();
         rSMaterialButtonCircle1 = new rojerusan.RSMaterialButtonCircle();
         rSMaterialButtonCircle2 = new rojerusan.RSMaterialButtonCircle();
         rSMaterialButtonCircle3 = new rojerusan.RSMaterialButtonCircle();
         jLabel6 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        un = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jPanel18 = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
+        jPanel15 = new javax.swing.JPanel();
+        pen = new javax.swing.JLabel();
+        jPanel13 = new javax.swing.JPanel();
+        jPanel14 = new javax.swing.JPanel();
+        jLabel22 = new javax.swing.JLabel();
+        patient = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jPanel12 = new javax.swing.JPanel();
+        docc = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanel5.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
-        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        un.setFont(new java.awt.Font("Arial Black", 1, 16)); // NOI18N
-        un.setForeground(new java.awt.Color(153, 153, 153));
-        un.setText("username");
-        jPanel5.add(un, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 170, -1));
-
-        jLabel14.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel14.setText("Online");
-        jPanel5.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, -1, -1));
-
-        jPanel18.setBackground(new java.awt.Color(0, 255, 0));
-
-        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
-        jPanel18.setLayout(jPanel18Layout);
-        jPanel18Layout.setHorizontalGroup(
-            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 8, Short.MAX_VALUE)
-        );
-        jPanel18Layout.setVerticalGroup(
-            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 7, Short.MAX_VALUE)
-        );
-
-        jPanel5.add(jPanel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, -1, -1));
-
-        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 50, 240, 210));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
         jLabel1.setText("ACCOUNTS OVERVIEW");
@@ -95,15 +145,15 @@ public class userDashboard extends javax.swing.JFrame {
 
         ct.setFont(new java.awt.Font("Arial Black", 1, 16)); // NOI18N
         ct.setText("ACCOUNT NAME :");
-        jPanel1.add(ct, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 160, 240, 30));
+        jPanel1.add(ct, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 180, 240, 30));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
         jLabel4.setText("USER TYPE :");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 100, 90, 30));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 120, 90, 30));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
         jLabel5.setText("EMAIL :");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 130, 60, 30));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 150, 60, 30));
 
         table.setForeground(new java.awt.Color(255, 255, 255));
         table.setModel(new javax.swing.table.DefaultTableModel(
@@ -130,27 +180,27 @@ public class userDashboard extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(table);
 
-        jPanel1.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 280, 830, -1));
+        jPanel1.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 280, 1000, 450));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
         jLabel7.setText("ACCOUNT NAME :");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, 140, 30));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 90, 140, 30));
 
-        name1.setFont(new java.awt.Font("Arial Black", 1, 16)); // NOI18N
-        name1.setText("ACCOUNT NAME :");
-        jPanel1.add(name1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 70, 220, 30));
+        name.setFont(new java.awt.Font("Arial Black", 1, 16)); // NOI18N
+        name.setText("ACCOUNT NAME :");
+        jPanel1.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 90, 220, 30));
 
         utype.setFont(new java.awt.Font("Arial Black", 1, 16)); // NOI18N
         utype.setText("ACCOUNT NAME :");
-        jPanel1.add(utype, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, 270, 30));
+        jPanel1.add(utype, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 120, 270, 30));
 
         em.setFont(new java.awt.Font("Arial Black", 1, 16)); // NOI18N
         em.setText("ACCOUNT NAME :");
-        jPanel1.add(em, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 130, 250, 30));
+        jPanel1.add(em, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 150, 250, 30));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
         jLabel2.setText("CITY AND ADDRESS :");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, 150, 30));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 180, 150, 30));
 
         jPanel4.setBackground(new java.awt.Color(51, 51, 255));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -164,17 +214,40 @@ public class userDashboard extends javax.swing.JFrame {
                 jLabel3MouseClicked(evt);
             }
         });
-        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 0, 40, 40));
+        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1280, 0, 40, 40));
 
         jPanel3.setBackground(new java.awt.Color(51, 51, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(255, 51, 51)));
-        jPanel4.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 0, 40, 40));
+        jPanel4.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1280, 0, 40, 40));
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-30, 0, 1160, 40));
+        jLabel11.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 25)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("USERDASHBOARD");
+        jPanel4.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, -1, -1));
+
+        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
+
+        jPanel4.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 0, 10, 60));
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/menu.png"))); // NOI18N
+        jPanel4.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 60, 60));
+
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-30, 0, 1320, 60));
 
         jPanel6.setBackground(new java.awt.Color(204, 204, 255));
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel6.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 470, 130, 70));
+        jPanel6.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 610, 130, 70));
 
         rSMaterialButtonCircle1.setText("EDIT PROFILE");
         rSMaterialButtonCircle1.setFont(new java.awt.Font("Arial Black", 1, 17)); // NOI18N
@@ -183,11 +256,11 @@ public class userDashboard extends javax.swing.JFrame {
                 rSMaterialButtonCircle1ActionPerformed(evt);
             }
         });
-        jPanel6.add(rSMaterialButtonCircle1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 270, 90));
+        jPanel6.add(rSMaterialButtonCircle1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, 270, 90));
 
         rSMaterialButtonCircle2.setText("CURRENT ID");
         rSMaterialButtonCircle2.setFont(new java.awt.Font("Arial Black", 1, 17)); // NOI18N
-        jPanel6.add(rSMaterialButtonCircle2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 270, 90));
+        jPanel6.add(rSMaterialButtonCircle2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 520, 270, 90));
 
         rSMaterialButtonCircle3.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(51, 51, 255)));
         rSMaterialButtonCircle3.setText("ACCOUNT");
@@ -197,15 +270,102 @@ public class userDashboard extends javax.swing.JFrame {
                 rSMaterialButtonCircle3ActionPerformed(evt);
             }
         });
-        jPanel6.add(rSMaterialButtonCircle3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 270, 90));
+        jPanel6.add(rSMaterialButtonCircle3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 270, 90));
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 2, 20)); // NOI18N
         jLabel6.setText("Account Features :");
-        jPanel6.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 240, 30));
+        jPanel6.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 240, 30));
+
+        jPanel5.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel5.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        un.setFont(new java.awt.Font("Arial Black", 1, 16)); // NOI18N
+        un.setForeground(new java.awt.Color(153, 153, 153));
+        un.setText("username");
+        jPanel5.add(un, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, 170, -1));
+
+        jLabel14.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel14.setText("Online");
+        jPanel5.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 170, -1, -1));
+
+        jPanel18.setBackground(new java.awt.Color(0, 255, 0));
+
+        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
+        jPanel18.setLayout(jPanel18Layout);
+        jPanel18Layout.setHorizontalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 8, Short.MAX_VALUE)
+        );
+        jPanel18Layout.setVerticalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 7, Short.MAX_VALUE)
+        );
+
+        jPanel5.add(jPanel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, -1, -1));
+
+        jPanel6.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 240, 210));
 
         jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 280, 690));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1130, 750));
+        jLabel20.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        jLabel20.setText("No. of Pendings");
+        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 70, 190, -1));
+
+        jPanel15.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel15.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(255, 51, 51)));
+        jPanel15.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        pen.setFont(new java.awt.Font("Segoe UI Black", 1, 36)); // NOI18N
+        pen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/icons8_Sell_26px.png"))); // NOI18N
+        pen.setText("10");
+        jPanel15.add(pen, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 130, -1));
+
+        jPanel1.add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 100, 170, 120));
+
+        jPanel13.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel13.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(255, 51, 51)));
+        jPanel13.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel14.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel14.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(255, 51, 51)));
+        jPanel14.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel22.setFont(new java.awt.Font("Segoe UI Black", 1, 50)); // NOI18N
+        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/icons8_People_50px.png"))); // NOI18N
+        jLabel22.setText("10");
+        jPanel14.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, 160, -1));
+
+        jPanel13.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 130, 230, 150));
+
+        patient.setFont(new java.awt.Font("Segoe UI Black", 1, 36)); // NOI18N
+        patient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/icons8_People_50px.png"))); // NOI18N
+        patient.setText("10");
+        jPanel13.add(patient, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 160, -1));
+
+        jPanel1.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 100, 170, 120));
+
+        jLabel23.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        jLabel23.setText("No. of Patient ");
+        jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 70, 190, -1));
+
+        jLabel15.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        jLabel15.setText("No. of Doctor");
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 70, 190, -1));
+
+        jPanel12.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel12.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(255, 51, 51)));
+        jPanel12.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        docc.setFont(new java.awt.Font("Segoe UI Black", 1, 36)); // NOI18N
+        docc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/icons8_Read_Online_26px.png"))); // NOI18N
+        docc.setText("10");
+        jPanel12.add(docc, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 160, -1));
+
+        jPanel1.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 100, 170, 120));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1290, 730));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -229,6 +389,23 @@ public class userDashboard extends javax.swing.JFrame {
         usd.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_rSMaterialButtonCircle3ActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        Session sess = Session.getInstance();
+       int pid = sess.getPid();
+       if(sess.getPid() == 0){       
+       new noAccount().setVisible(true);
+       this.setVisible(false);
+       this.dispose();
+       }else{
+           id.setText(""+sess.getPid());
+           name.setText(""+sess.getFn());
+           ct.setText(""+sess.getCityAddress());
+           em.setText(""+sess.getEmail());
+           utype.setText(""+sess.getUsertype());
+           un.setText(""+sess.getUsername());
+       }
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -267,24 +444,38 @@ public class userDashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ct;
+    private javax.swing.JLabel docc;
     private javax.swing.JLabel em;
     private rojerusan.RSMaterialButtonCircle id;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JLabel name1;
+    private javax.swing.JLabel name;
+    private javax.swing.JLabel patient;
+    private javax.swing.JLabel pen;
     private rojerusan.RSMaterialButtonCircle rSMaterialButtonCircle1;
     private rojerusan.RSMaterialButtonCircle rSMaterialButtonCircle2;
     private rojerusan.RSMaterialButtonCircle rSMaterialButtonCircle3;

@@ -85,7 +85,7 @@ public class ManageUsers extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(102, 102, 255));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(255, 51, 51));
@@ -100,11 +100,11 @@ public class ManageUsers extends javax.swing.JFrame {
                 jLabel2MouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 30));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 30));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 30));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 120, 30));
 
-        id.setBackground(new java.awt.Color(255, 51, 51));
+        id.setBackground(new java.awt.Color(153, 153, 255));
         id.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 idMouseClicked(evt);
@@ -115,9 +115,9 @@ public class ManageUsers extends javax.swing.JFrame {
                 idActionPerformed(evt);
             }
         });
-        jPanel1.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 710, 180, 60));
+        jPanel1.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 700, 140, 60));
 
-        add_user.setBackground(new java.awt.Color(255, 51, 51));
+        add_user.setBackground(new java.awt.Color(153, 153, 255));
         add_user.setText("ADD");
         add_user.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -131,7 +131,7 @@ public class ManageUsers extends javax.swing.JFrame {
         });
         jPanel1.add(add_user, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 410, 90));
 
-        update.setBackground(new java.awt.Color(255, 51, 51));
+        update.setBackground(new java.awt.Color(153, 153, 255));
         update.setText("UPDATE");
         update.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -145,7 +145,7 @@ public class ManageUsers extends javax.swing.JFrame {
         });
         jPanel1.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 410, 90));
 
-        delete.setBackground(new java.awt.Color(255, 51, 51));
+        delete.setBackground(new java.awt.Color(153, 153, 255));
         delete.setText("DELETE");
         delete.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -168,7 +168,7 @@ public class ManageUsers extends javax.swing.JFrame {
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/person12.png"))); // NOI18N
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, -1, -1));
 
-        clear2.setBackground(new java.awt.Color(255, 51, 51));
+        clear2.setBackground(new java.awt.Color(153, 153, 255));
         clear2.setText("CURRENT USER ID");
         clear2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -182,17 +182,18 @@ public class ManageUsers extends javax.swing.JFrame {
         });
         jPanel1.add(clear2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 640, 180, 60));
 
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel6.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(51, 51, 51)));
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 260, Short.MAX_VALUE)
+            .addGap(0, 256, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 180, Short.MAX_VALUE)
+            .addGap(0, 176, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 260, 180));
@@ -257,7 +258,7 @@ public class ManageUsers extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(table);
 
-        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 950, 610));
+        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 950, 670));
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 36)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 51, 51));
@@ -280,7 +281,7 @@ public class ManageUsers extends javax.swing.JFrame {
 
         jPanel3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 70, 280, 5));
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 960, 720));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 960, 780));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -339,9 +340,9 @@ public class ManageUsers extends javax.swing.JFrame {
          crf.ct.setText(""+rs.getString("cityAddress")); 
          crf.em.setText(""+rs.getString("email")); 
          crf.cn.setText(""+rs.getString("contactNo")); 
-         crf.un1.setText(""+rs.getString("username")); 
-         crf.ps.setText(""+rs.getString("password"));
-         crf.utype1.setSelectedItem(""+rs.getString("usertype")); 
+         crf.un.setText(""+rs.getString("username")); 
+         crf.pass.setText(""+rs.getString("password"));
+         crf.utype.setSelectedItem(""+rs.getString("usertype")); 
          crf.status.setSelectedItem(""+rs.getString("status")); 
          crf.add.setEnabled(false);
          crf.update.setEnabled(true);

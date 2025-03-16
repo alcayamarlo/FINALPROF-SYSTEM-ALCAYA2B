@@ -8,6 +8,8 @@ package admin;
 import Successfull.noAccount;
 import config.Session;
 import config.dbConnect;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.regex.Matcher;
@@ -32,7 +34,7 @@ public class createUserForm extends javax.swing.JFrame {
       public boolean duplicateCheck() {
     dbConnect dbc = new dbConnect();
     try {
-        String query = "SELECT * FROM users WHERE username = '" + un1.getText() + "' OR email = '" + em.getText() + "'";
+        String query = "SELECT * FROM users WHERE username = '" + un.getText() + "' OR email = '" + em.getText() + "'";
         ResultSet resultSet = dbc.getData(query);
 
         if (resultSet.next()) {
@@ -42,9 +44,9 @@ public class createUserForm extends javax.swing.JFrame {
                 em.setText("");
             }
             String username = resultSet.getString("username");
-            if (username.equals(un1.getText())) { //Error: You were comparing username with email's text field. changed to un1's text field
+            if (username.equals(un.getText())) { //Error: You were comparing username with email's text field. changed to un1's text field
                 JOptionPane.showMessageDialog(null, "Username is Already used"); //Error: Changed the message to reflect username duplication
-                un1.setText("");
+                un.setText("");
             }
             return true;
         } else {
@@ -59,7 +61,7 @@ public class createUserForm extends javax.swing.JFrame {
   public boolean updateCheck() {
     dbConnect dbc = new dbConnect();
     try {
-        String query = "SELECT * FROM users WHERE (username = '" + un1.getText() + "' OR email = '" + em.getText() + "')AND p_id!= '"+p_id.getText()+"'";
+        String query = "SELECT * FROM users WHERE (username = '" + un.getText() + "' OR email = '" + em.getText() + "')AND p_id!= '"+p_id.getText()+"'";
         ResultSet resultSet = dbc.getData(query);
 
         if (resultSet.next()) {
@@ -69,9 +71,9 @@ public class createUserForm extends javax.swing.JFrame {
                 em.setText("");
             }
             String username = resultSet.getString("username");
-            if (username.equals(un1.getText())) { //Error: You were comparing username with email's text field. changed to un1's text field
+            if (username.equals(un.getText())) { //Error: You were comparing username with email's text field. changed to un1's text field
                 JOptionPane.showMessageDialog(null, "Username is Already used"); //Error: Changed the message to reflect username duplication
-                un1.setText("");
+                un.setText("");
             }
             return true;
         } else {
@@ -91,43 +93,31 @@ public class createUserForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        un1 = new app.bolivia.swing.JCTextField();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        cn = new app.bolivia.swing.JCTextField();
-        em = new app.bolivia.swing.JCTextField();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        ct = new app.bolivia.swing.JCTextField();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        fn = new app.bolivia.swing.JCTextField();
+        jPanel4 = new javax.swing.JPanel();
+        utype = new javax.swing.JComboBox<>();
+        p_id = new textfield.TextField();
+        jLabel31 = new javax.swing.JLabel();
+        fn = new textfield.TextField();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        ct = new textfield.TextField();
+        jLabel28 = new javax.swing.JLabel();
+        em = new textfield.TextField();
+        cn = new textfield.TextField();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        un = new textfield.TextField();
+        pass = new textfield.PasswordField();
+        jLabel33 = new javax.swing.JLabel();
+        status = new javax.swing.JComboBox<>();
         clear = new rojerusan.RSMaterialButtonCircle();
         add = new rojerusan.RSMaterialButtonCircle();
         update = new rojerusan.RSMaterialButtonCircle();
-        rSMaterialButtonCircle4 = new rojerusan.RSMaterialButtonCircle();
-        jLabel17 = new javax.swing.JLabel();
-        p_id = new app.bolivia.swing.JCTextField();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        fn1 = new app.bolivia.swing.JCTextField();
-        jLabel8 = new javax.swing.JLabel();
-        status = new javax.swing.JComboBox<>();
-        utype1 = new javax.swing.JComboBox<>();
-        jLabel23 = new javax.swing.JLabel();
+        delete = new rojerusan.RSMaterialButtonCircle();
+        jLabel24 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        icon2 = new javax.swing.JLabel();
-        icon1 = new javax.swing.JLabel();
-        ps = new javax.swing.JPasswordField();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -138,114 +128,119 @@ public class createUserForm extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(102, 102, 255));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel4.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel4.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(51, 51, 255)));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(255, 51, 51));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel2.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/icons8_Rewind_48px.png"))); // NOI18N
-        jLabel2.setText("Back ");
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel2MouseClicked(evt);
+        utype.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        utype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "User Type ", "Admin", "Patient", "Doctor" }));
+        utype.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                utypeActionPerformed(evt);
             }
         });
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 30));
+        jPanel4.add(utype, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 640, 150, 40));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 30));
+        p_id.setBackground(new java.awt.Color(204, 255, 255));
+        p_id.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        p_id.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        p_id.setLabelText("User ID");
+        jPanel4.add(p_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 330, -1));
 
-        jLabel21.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8_Secure_50px.png"))); // NOI18N
-        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 600, -1, 60));
+        jLabel31.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel31.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/user.png"))); // NOI18N
+        jPanel4.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, -1, 60));
 
-        jLabel22.setFont(new java.awt.Font("Segoe UI Semilight", 1, 18)); // NOI18N
-        jLabel22.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel22.setText("Password :");
-        jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 590, -1, 30));
+        fn.setBackground(new java.awt.Color(204, 255, 255));
+        fn.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        fn.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        fn.setLabelText("Enter your Full Name");
+        jPanel4.add(fn, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 330, 60));
 
-        jLabel20.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/person.png"))); // NOI18N
-        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 520, -1, -1));
+        jLabel25.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel25.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/user.png"))); // NOI18N
+        jPanel4.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, -1, 60));
 
-        un1.setBackground(new java.awt.Color(102, 102, 255));
-        un1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        un1.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
-        un1.setPlaceholder("Enter your Username ");
-        jPanel1.add(un1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 540, 350, -1));
+        jLabel29.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel29.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/user.png"))); // NOI18N
+        jPanel4.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 250, -1, 60));
 
-        jLabel19.setFont(new java.awt.Font("Segoe UI Semilight", 1, 18)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel19.setText("Username :");
-        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 510, -1, 30));
+        ct.setBackground(new java.awt.Color(204, 255, 255));
+        ct.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        ct.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        ct.setLabelText("Enter your City and Address");
+        ct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ctActionPerformed(evt);
+            }
+        });
+        jPanel4.add(ct, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 240, 330, 60));
 
-        jLabel16.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8_Google_Mobile_50px.png"))); // NOI18N
-        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 430, -1, 60));
+        jLabel28.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel28.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/user.png"))); // NOI18N
+        jPanel4.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 330, -1, 60));
 
-        jLabel15.setFont(new java.awt.Font("Segoe UI Semilight", 1, 18)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setText("Contact Number :");
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 420, -1, 30));
+        em.setBackground(new java.awt.Color(204, 255, 255));
+        em.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        em.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        em.setLabelText("Enter your Email");
+        jPanel4.add(em, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 320, 330, 60));
 
-        cn.setBackground(new java.awt.Color(102, 102, 255));
-        cn.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        cn.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
-        cn.setPlaceholder("Enter your Contact No.");
-        jPanel1.add(cn, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 450, 350, -1));
+        cn.setBackground(new java.awt.Color(204, 255, 255));
+        cn.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        cn.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        cn.setLabelText("Enter your Contact No");
+        jPanel4.add(cn, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 400, 330, 60));
 
-        em.setBackground(new java.awt.Color(102, 102, 255));
-        em.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        em.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
-        em.setPlaceholder("Enter your Email");
-        jPanel1.add(em, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 370, 350, -1));
+        jLabel27.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel27.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/user.png"))); // NOI18N
+        jPanel4.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 410, -1, 60));
 
-        jLabel14.setFont(new java.awt.Font("Segoe UI Semilight", 1, 18)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("Email :");
-        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 340, -1, 30));
+        jLabel26.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/user.png"))); // NOI18N
+        jPanel4.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 570, -1, 60));
 
-        jLabel13.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8_Secured_Letter_50px.png"))); // NOI18N
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 350, -1, 60));
+        un.setBackground(new java.awt.Color(204, 255, 255));
+        un.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        un.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        un.setLabelText("Enter your Username");
+        un.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                unActionPerformed(evt);
+            }
+        });
+        jPanel4.add(un, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 480, 330, 60));
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/seacrhh.png"))); // NOI18N
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 270, -1, 60));
+        pass.setBackground(new java.awt.Color(204, 255, 255));
+        pass.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        pass.setLabelText("Enter your Password");
+        pass.setShowAndHide(true);
+        pass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passActionPerformed(evt);
+            }
+        });
+        jPanel4.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 570, 320, -1));
 
-        ct.setBackground(new java.awt.Color(102, 102, 255));
-        ct.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        ct.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
-        ct.setPlaceholder("Enter your City and Address");
-        jPanel1.add(ct, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 290, 350, -1));
+        jLabel33.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel33.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/user.png"))); // NOI18N
+        jPanel4.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 490, -1, 60));
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI Semilight", 1, 18)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("City and Address :");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, -1, 30));
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8_Account_50px.png"))); // NOI18N
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, -1, 60));
-
-        jLabel10.setFont(new java.awt.Font("Segoe UI Semilight", 1, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Full Name :");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, -1, 30));
-
-        fn.setBackground(new java.awt.Color(102, 102, 255));
-        fn.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        fn.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
-        fn.setPlaceholder("Enter your Full Name");
-        jPanel1.add(fn, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 350, -1));
+        status.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "User Status", "Approved", "Pending" }));
+        status.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                statusActionPerformed(evt);
+            }
+        });
+        jPanel4.add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 640, 150, 40));
 
         clear.setBackground(new java.awt.Color(255, 51, 51));
         clear.setText("CLEAR");
@@ -254,7 +249,7 @@ public class createUserForm extends javax.swing.JFrame {
                 clearMouseClicked(evt);
             }
         });
-        jPanel1.add(clear, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 730, 140, 70));
+        jPanel4.add(clear, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 700, 140, 70));
 
         add.setBackground(new java.awt.Color(255, 51, 51));
         add.setText("ADD");
@@ -268,7 +263,7 @@ public class createUserForm extends javax.swing.JFrame {
                 addActionPerformed(evt);
             }
         });
-        jPanel1.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 730, 140, 70));
+        jPanel4.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 700, 140, 70));
 
         update.setBackground(new java.awt.Color(255, 51, 51));
         update.setText("UPDATE");
@@ -283,113 +278,45 @@ public class createUserForm extends javax.swing.JFrame {
                 updateActionPerformed(evt);
             }
         });
-        jPanel1.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 730, 140, 70));
+        jPanel4.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 700, 140, 70));
 
-        rSMaterialButtonCircle4.setBackground(new java.awt.Color(255, 51, 51));
-        rSMaterialButtonCircle4.setText("DELETE");
-        jPanel1.add(rSMaterialButtonCircle4, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 730, 140, 70));
-
-        jLabel17.setFont(new java.awt.Font("Segoe UI Semilight", 1, 18)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setText("Enter User ID :");
-        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, -1, 30));
-
-        p_id.setBackground(new java.awt.Color(102, 102, 255));
-        p_id.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        p_id.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
-        p_id.setPlaceholder("User ID");
-        jPanel1.add(p_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 350, -1));
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8_Account_50px.png"))); // NOI18N
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, -1, 60));
-
-        jLabel18.setFont(new java.awt.Font("Segoe UI Semilight", 1, 18)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel18.setText("Full Name :");
-        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, -1, 30));
-
-        fn1.setBackground(new java.awt.Color(102, 102, 255));
-        fn1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        fn1.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
-        fn1.setPlaceholder("Enter your Full Name");
-        jPanel1.add(fn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 350, -1));
-
-        jLabel8.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8_Account_50px.png"))); // NOI18N
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, -1, 60));
-
-        status.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
-        status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pending", "Approved" }));
-        status.addActionListener(new java.awt.event.ActionListener() {
+        delete.setBackground(new java.awt.Color(255, 51, 51));
+        delete.setText("DELETE");
+        delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                statusActionPerformed(evt);
+                deleteActionPerformed(evt);
             }
         });
-        jPanel1.add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 680, 150, 40));
+        jPanel4.add(delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 700, 140, 70));
 
-        utype1.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
-        utype1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "User Type : ", "Admin", "Patient", "Doctor" }));
-        utype1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                utype1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(utype1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 680, 150, 40));
-
-        jLabel23.setFont(new java.awt.Font("Arial Black", 0, 25)); // NOI18N
-        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel23.setText("Manage Users");
-        jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 20, 210, -1));
+        jLabel24.setFont(new java.awt.Font("Arial Black", 0, 36)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel24.setText("MANAGE USERS");
+        jPanel4.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, -1, 30));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI Semilight", 0, 15)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Just a few quick things to get started");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 50, -1, 30));
+        jLabel9.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel9.setText("Update Users Information.");
+        jPanel4.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 60, -1, 30));
 
-        icon2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/hide (1).png"))); // NOI18N
-        icon2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                icon2MousePressed(evt);
+        jLabel3.setBackground(new java.awt.Color(51, 51, 255));
+        jLabel3.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
+        jLabel3.setText("  X");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
             }
         });
-        jPanel1.add(icon2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 620, -1, -1));
+        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 0, 40, 40));
 
-        icon1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/eyes (1).png"))); // NOI18N
-        icon1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                icon1MousePressed(evt);
-            }
-        });
-        jPanel1.add(icon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 620, -1, -1));
+        jPanel3.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(51, 51, 255)));
+        jPanel4.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 0, 40, 40));
 
-        ps.setBackground(new java.awt.Color(102, 102, 255));
-        ps.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
-        ps.setForeground(new java.awt.Color(51, 51, 51));
-        ps.setText("Enter your Password");
-        ps.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        ps.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                psFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                psFocusLost(evt);
-            }
-        });
-        jPanel1.add(ps, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 620, 350, 30));
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 820));
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 790));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-        ManageUsers user = new ManageUsers();
-        user.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jLabel2MouseClicked
 
     private void clearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clearMouseClicked
         p_id.setText("");
@@ -397,9 +324,9 @@ public class createUserForm extends javax.swing.JFrame {
         ct.setText("");
         em.setText("");
         cn.setText("");
-        un1.setText("");
-        ps.setText("");
-        utype1.setSelectedItem("");
+        un.setText("");
+        pass.setText("");
+        utype.setSelectedItem("");
         status.setSelectedItem("");
 
     }//GEN-LAST:event_clearMouseClicked
@@ -410,7 +337,7 @@ public class createUserForm extends javax.swing.JFrame {
     }//GEN-LAST:event_addMouseClicked
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
-  if (fn.getText().isEmpty() || ct.getText().isEmpty() || em.getText().isEmpty() || cn.getText().isEmpty() || un1.getText().isEmpty() || ps.getText().isEmpty() || utype1.getSelectedItem().toString().isEmpty()) {
+  if (fn.getText().isEmpty() || ct.getText().isEmpty() || em.getText().isEmpty() || cn.getText().isEmpty() || un.getText().isEmpty() || pass.getText().isEmpty() || utype.getSelectedItem().toString().isEmpty()) {
     JOptionPane.showMessageDialog(null, "All Fields Are Required");
 } else {
     if (fn.getText().isEmpty()) {
@@ -447,13 +374,13 @@ public class createUserForm extends javax.swing.JFrame {
         return;
     }
 
-    if (un1.getText().isEmpty()) {
+    if (un.getText().isEmpty()) {
         JOptionPane.showMessageDialog(null, "Username is required");
-        un1.setText("");
+        un.setText("");
         return;
     }
 
-    String password = ps.getText();
+    String password = pass.getText();
 
     if (password.isEmpty()) {
         JOptionPane.showMessageDialog(null, "Password is required");
@@ -464,7 +391,7 @@ public class createUserForm extends javax.swing.JFrame {
         return;
     }
 
-    String selectedUserType = (String) utype1.getSelectedItem();
+    String selectedUserType = (String) utype.getSelectedItem();
     if (!("Admin".equals(selectedUserType) || "Patient".equals(selectedUserType) || "Doctor".equals(selectedUserType))) {
         JOptionPane.showMessageDialog(null, "Please select a User Type ");
         return;
@@ -472,7 +399,7 @@ public class createUserForm extends javax.swing.JFrame {
             
 else {
                     dbConnect dbc = new dbConnect();
-                    String checkUsernameQuery = "SELECT COUNT(*) FROM users WHERE username = '" + un1.getText() + "'";
+                    String checkUsernameQuery = "SELECT COUNT(*) FROM users WHERE username = '" + un.getText() + "'";
                     int usernameCount = dbc.executeQueryForCount(checkUsernameQuery);
                     if (usernameCount > 0) {
                         JOptionPane.showMessageDialog(null, "Username is already taken");
@@ -487,8 +414,8 @@ else {
                     }
 String insertQuery = "INSERT INTO users(fn, cityAddress, email , contactNo, username,password,usertype, status) " +
                      "VALUES('" + fn.getText() + "', '" + ct.getText() + "', '" + em.getText() + 
-                     "', '" + cn.getText() + "', '" + un1.getText() + "', '" + ps.getText() + 
-                     "', '" + utype1.getSelectedItem() + "', 'Pending')";
+                     "', '" + cn.getText() + "', '" + un.getText() + "', '" + pass.getText() + 
+                     "', '" + utype.getSelectedItem() + "', 'Pending')";
 
                     if (dbc.insertData(insertQuery) == 0) {
                         JOptionPane.showMessageDialog(null, "Added Successfully");
@@ -506,12 +433,12 @@ String insertQuery = "INSERT INTO users(fn, cityAddress, email , contactNo, user
     }//GEN-LAST:event_updateMouseClicked
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
-   if (fn.getText().isEmpty() || ct.getText().isEmpty() || em.getText().isEmpty() || cn.getText().isEmpty() || un1.getText().isEmpty() || ps.getText().isEmpty() || utype1.getSelectedItem().toString().isEmpty()) {
+   if (fn.getText().isEmpty() || ct.getText().isEmpty() || em.getText().isEmpty() || cn.getText().isEmpty() || un.getText().isEmpty() || pass.getText().isEmpty() || utype.getSelectedItem().toString().isEmpty()) {
   JOptionPane.showMessageDialog(null,"All Fields are Required!");
   
-   }else if (ps.getText().length()<8){
+   }else if (pass.getText().length()<8){
        JOptionPane.showMessageDialog(null,"Password character should be 8 above!");
-       ps.setText("");
+       pass.setText("");
    }else if(updateCheck()){
        System.out.println("Duplicate exist");
        
@@ -519,8 +446,8 @@ String insertQuery = "INSERT INTO users(fn, cityAddress, email , contactNo, user
    }else{
         dbConnect dbc = new dbConnect();
         dbc.updateData("UPDATE users SET fn = '"+fn.getText()+"', cityAddress = '"+ct.getText()
-                +"', email = '"+em.getText()+"', contactNo = '"+cn.getText()+"', username = '"+un1.getText()
-                +"', password = '"+ps.getText()+"', usertype = '"+utype1.getSelectedItem()
+                +"', email = '"+em.getText()+"', contactNo = '"+cn.getText()+"', username = '"+un.getText()
+                +"', password = '"+pass.getText()+"', usertype = '"+utype.getSelectedItem()
                 +"',status = '"+status.getSelectedItem()+"' WHERE p_id = '"+p_id.getText()+"'");
               new ManageUsers().setVisible(true);
                     this.setVisible(false);
@@ -532,10 +459,6 @@ String insertQuery = "INSERT INTO users(fn, cityAddress, email , contactNo, user
         // TODO add your handling code here:
     }//GEN-LAST:event_statusActionPerformed
 
-    private void utype1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_utype1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_utype1ActionPerformed
-
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         Session sess = Session.getInstance();
        int pid = sess.getPid();
@@ -546,32 +469,75 @@ String insertQuery = "INSERT INTO users(fn, cityAddress, email , contactNo, user
        }
     }//GEN-LAST:event_formWindowActivated
 
-    private void icon2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_icon2MousePressed
-        icon1.setVisible(true);
-        icon2.setVisible(false);
-        ps.setEchoChar('*');
-    }//GEN-LAST:event_icon2MousePressed
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+       ManageUsers user = new ManageUsers();
+       user.setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_jLabel3MouseClicked
 
-    private void icon1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_icon1MousePressed
-        icon2.setVisible(true);
-        icon1.setVisible(false);
-        ps.setEchoChar((char)0);
-    }//GEN-LAST:event_icon1MousePressed
+    private void ctActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ctActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ctActionPerformed
 
-    private void psFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_psFocusGained
-        if(ps.getText().equals("Enter your Password"))
-        {
-            ps.setText("");
+    private void utypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_utypeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_utypeActionPerformed
+
+    private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passActionPerformed
+
+    private void unActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_unActionPerformed
+
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this user?", "Confirm Deletion", JOptionPane.YES_NO_OPTION);
+    if (confirm == JOptionPane.YES_OPTION) {
+        try {
+            int userId = Integer.parseInt(p_id.getText()); 
+            dbConnect connect = new dbConnect();
+            Connection con = connect.getConnection();
+
+            String query = "DELETE FROM users WHERE p_id = ?";
+            try (PreparedStatement pst = con.prepareStatement(query)) {
+                pst.setInt(1, userId);
+                int rowsDeleted = pst.executeUpdate();
+
+                if (rowsDeleted > 0) {
+                    JOptionPane.showMessageDialog(null, "User deleted successfully.");
+                    // Clear the fields after deletion
+                    fn.setText("");
+                    ct.setText("");
+                    em.setText("");
+                    cn.setText("");
+                    un.setText("");
+                    p_id.setText("");
+                    utype.setSelectedIndex(0); //reset combo box to default index.
+
+                    // Optionally, refresh a table or list of users if you have one
+                    // refreshUserTable();
+                } else {
+                    JOptionPane.showMessageDialog(null, "User not found with the specified ID.");
+                }
+            }
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Invalid User ID format.");
+            ex.printStackTrace();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error deleting user: " + ex.getMessage());
+            ex.printStackTrace();
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(null, "An unexpected error occurred: " + e.getMessage());
+            e.printStackTrace();
         }
+        ManageUsers user = new ManageUsers();
+        user.setVisible(true);
+        this.dispose();
+    }
 
-    }//GEN-LAST:event_psFocusGained
-
-    private void psFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_psFocusLost
-        if(ps.getText().equals(""))
-        {
-            ps.setText("Enter your Password");
-        }
-    }//GEN-LAST:event_psFocusLost
+    }//GEN-LAST:event_deleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -611,40 +577,28 @@ String insertQuery = "INSERT INTO users(fn, cityAddress, email , contactNo, user
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public rojerusan.RSMaterialButtonCircle add;
     public rojerusan.RSMaterialButtonCircle clear;
-    public app.bolivia.swing.JCTextField cn;
-    public app.bolivia.swing.JCTextField ct;
-    public app.bolivia.swing.JCTextField em;
-    public app.bolivia.swing.JCTextField fn;
-    private app.bolivia.swing.JCTextField fn1;
-    private javax.swing.JLabel icon1;
-    private javax.swing.JLabel icon2;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
+    public textfield.TextField cn;
+    public textfield.TextField ct;
+    public rojerusan.RSMaterialButtonCircle delete;
+    public textfield.TextField em;
+    public textfield.TextField fn;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    public app.bolivia.swing.JCTextField p_id;
-    public javax.swing.JPasswordField ps;
-    public rojerusan.RSMaterialButtonCircle rSMaterialButtonCircle4;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    public textfield.TextField p_id;
+    public textfield.PasswordField pass;
     public javax.swing.JComboBox<String> status;
-    public app.bolivia.swing.JCTextField un1;
+    public textfield.TextField un;
     public rojerusan.RSMaterialButtonCircle update;
-    public javax.swing.JComboBox<String> utype1;
+    public javax.swing.JComboBox<String> utype;
     // End of variables declaration//GEN-END:variables
 }

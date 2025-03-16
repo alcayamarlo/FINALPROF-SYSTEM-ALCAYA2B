@@ -5,6 +5,16 @@
  */
 package user;
 
+import Successfull.noAccount;
+import config.Session;
+import config.dbConnect;
+import config.passwordHasher;
+import java.security.NoSuchAlgorithmException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author alcay
@@ -16,6 +26,8 @@ public class userChangepass extends javax.swing.JFrame {
      */
     public userChangepass() {
         initComponents();
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -27,21 +39,207 @@ public class userChangepass extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jPanel1 = new javax.swing.JPanel();
+        submit = new rojerusan.RSMaterialButtonCircle();
+        cancel = new rojerusan.RSMaterialButtonCircle();
+        jLabel9 = new javax.swing.JLabel();
+        confirmPass = new textfield.PasswordField();
+        jLabel2 = new javax.swing.JLabel();
+        id = new rojerusan.RSMaterialButtonCircle();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        oldPass = new textfield.TextField();
+        newPass = new textfield.TextField();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 676, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 732, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(51, 51, 255)));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        submit.setBackground(new java.awt.Color(255, 51, 51));
+        submit.setText("SUBMIT");
+        submit.setFont(new java.awt.Font("Arial Black", 1, 17)); // NOI18N
+        submit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                submitMouseClicked(evt);
+            }
+        });
+        submit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitActionPerformed(evt);
+            }
+        });
+        jPanel1.add(submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 390, 390, 60));
+
+        cancel.setBackground(new java.awt.Color(204, 204, 255));
+        cancel.setForeground(new java.awt.Color(51, 51, 51));
+        cancel.setText("CANCEL");
+        cancel.setFont(new java.awt.Font("Arial Black", 1, 17)); // NOI18N
+        cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 450, 390, 60));
+
+        jLabel9.setBackground(new java.awt.Color(102, 102, 102));
+        jLabel9.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel9.setText("Do you want to Cancel?");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 520, -1, 30));
+
+        confirmPass.setBackground(new java.awt.Color(204, 255, 255));
+        confirmPass.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        confirmPass.setLabelText("Confirm your Password");
+        confirmPass.setShowAndHide(true);
+        confirmPass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmPassActionPerformed(evt);
+            }
+        });
+        jPanel1.add(confirmPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, 320, -1));
+
+        jLabel2.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
+        jLabel2.setText("CHANGE YOUR PASSWORD HERE!");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, -1, -1));
+        jPanel1.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 50));
+
+        jLabel3.setBackground(new java.awt.Color(255, 51, 51));
+        jLabel3.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel3.setText("  X");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 0, 40, 40));
+
+        jPanel3.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(255, 51, 51)));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 0, 40, 40));
+
+        oldPass.setBackground(new java.awt.Color(204, 255, 255));
+        oldPass.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        oldPass.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        oldPass.setLabelText("Enter your Old Password");
+        oldPass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                oldPassActionPerformed(evt);
+            }
+        });
+        jPanel1.add(oldPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, 330, 60));
+
+        newPass.setBackground(new java.awt.Color(204, 255, 255));
+        newPass.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        newPass.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        newPass.setLabelText("Enter your New Password");
+        jPanel1.add(newPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, 330, 60));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 570));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void submitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitMouseClicked
+
+    }//GEN-LAST:event_submitMouseClicked
+
+    private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
+      try {
+            dbConnect connect = new dbConnect();
+            Session sess = Session.getInstance();
+
+            // Fetch the current password from the database
+            String query = "SELECT password FROM users WHERE p_id = ?";
+            try (PreparedStatement pst = connect.getConnection().prepareStatement(query)) {
+                pst.setInt(1, sess.getPid());
+                ResultSet rs = pst.executeQuery();
+
+                if (rs.next()) {
+                    String oldPassHash = rs.getString("password");
+                    String oldPassInputHash = passwordHasher.hashPassword(oldPass.getText());
+
+                    // Verify the old password
+                    if (oldPassHash.equals(oldPassInputHash)) {
+                        // Check if the new password and confirm password match
+                        if (newPass.getText().equals(confirmPass.getText())) {
+                            // Hash the new password
+                            String newPassHash = passwordHasher.hashPassword(newPass.getText());
+
+                            // Update the password in the database
+                            String updateQuery = "UPDATE users SET password = ? WHERE p_id = ?";
+                            try (PreparedStatement updatePst = connect.getConnection().prepareStatement(updateQuery)) {
+                                updatePst.setString(1, newPassHash);
+                                updatePst.setInt(2, sess.getPid());
+                                int rowsUpdated = updatePst.executeUpdate();
+
+                                if (rowsUpdated > 0) {
+                                    JOptionPane.showMessageDialog(null, "Password updated successfully!");
+                                    userDashboard usd = new userDashboard();
+                                    usd.setVisible(true);
+                                    this.dispose();
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Failed to update password!");
+                                }
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "New password and confirm password do not match!");
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Old password is incorrect!");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "User not found!");
+                }
+            }
+        } catch (SQLException | NoSuchAlgorithmException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+
+    }//GEN-LAST:event_submitActionPerformed
+
+    private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
+            userForm usf =new userForm();
+            usf.setVisible(true);
+            this.dispose();
+    }//GEN-LAST:event_cancelActionPerformed
+
+    private void confirmPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmPassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_confirmPassActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        Session sess = Session.getInstance();
+       int pid = sess.getPid();
+       if(sess.getPid() == 0){       
+       new noAccount().setVisible(true);
+       this.setVisible(false);
+       this.dispose();
+       }else{
+           id.setText(""+sess.getPid());
+           
+           
+          
+       }
+    }//GEN-LAST:event_formWindowActivated
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void oldPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oldPassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_oldPassActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +277,16 @@ public class userChangepass extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private rojerusan.RSMaterialButtonCircle cancel;
+    private textfield.PasswordField confirmPass;
+    private rojerusan.RSMaterialButtonCircle id;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
+    public textfield.TextField newPass;
+    public textfield.TextField oldPass;
+    private rojerusan.RSMaterialButtonCircle submit;
     // End of variables declaration//GEN-END:variables
 }

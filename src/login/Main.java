@@ -17,7 +17,6 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import user.doctorDashboard;
 import user.userDashboard;
 
 /**

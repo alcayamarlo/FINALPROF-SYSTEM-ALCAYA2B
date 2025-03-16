@@ -28,6 +28,8 @@ public class userForm extends javax.swing.JFrame {
      */
     public userForm() {
         initComponents();
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -42,8 +44,6 @@ public class userForm extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        login = new rojerusan.RSMaterialButtonCircle();
         jLabel21 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
@@ -54,15 +54,20 @@ public class userForm extends javax.swing.JFrame {
         ct = new textfield.TextField();
         em = new textfield.TextField();
         cn = new textfield.TextField();
-        submit = new rojerusan.RSMaterialButtonCircle();
-        utype = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         p_id = new textfield.TextField();
         jLabel27 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        submit = new rojerusan.RSMaterialButtonCircle();
+        cancel = new rojerusan.RSMaterialButtonCircle();
+        jLabel9 = new javax.swing.JLabel();
+        utype = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
+        setUndecorated(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -88,23 +93,6 @@ public class userForm extends javax.swing.JFrame {
         jLabel19.setForeground(new java.awt.Color(102, 102, 102));
         jLabel19.setText("EDIT YOUR DETAILS");
         getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, -1, 30));
-
-        jLabel9.setBackground(new java.awt.Color(102, 102, 102));
-        jLabel9.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel9.setText("Do you want to cancel?Cancel");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 810, -1, 30));
-
-        login.setBackground(new java.awt.Color(204, 204, 255));
-        login.setForeground(new java.awt.Color(51, 51, 51));
-        login.setText("CANCEL");
-        login.setFont(new java.awt.Font("Arial Black", 1, 17)); // NOI18N
-        login.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loginActionPerformed(evt);
-            }
-        });
-        getContentPane().add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 750, 390, 60));
 
         jLabel21.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
@@ -166,30 +154,6 @@ public class userForm extends javax.swing.JFrame {
         cn.setLabelText("Enter your Contact No");
         getContentPane().add(cn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 460, 330, 60));
 
-        submit.setBackground(new java.awt.Color(255, 51, 51));
-        submit.setText("SUBMIT");
-        submit.setFont(new java.awt.Font("Arial Black", 1, 17)); // NOI18N
-        submit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                submitMouseClicked(evt);
-            }
-        });
-        submit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                submitActionPerformed(evt);
-            }
-        });
-        getContentPane().add(submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 690, 390, 60));
-
-        utype.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
-        utype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "User Type : ", "Admin", "Patient", "Doctor" }));
-        utype.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                utypeActionPerformed(evt);
-            }
-        });
-        getContentPane().add(utype, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 630, 150, 40));
-
         jLabel10.setFont(new java.awt.Font("Segoe UI Semilight", 0, 15)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(102, 102, 102));
         jLabel10.setText("Edit your information");
@@ -208,19 +172,63 @@ public class userForm extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(51, 51, 255)));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 546, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 846, Short.MAX_VALUE)
-        );
+        jLabel1.setFont(new java.awt.Font("Arial Black", 2, 16)); // NOI18N
+        jLabel1.setText("Click Here.");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 630, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 850));
+        submit.setBackground(new java.awt.Color(255, 51, 51));
+        submit.setText("SUBMIT");
+        submit.setFont(new java.awt.Font("Arial Black", 1, 17)); // NOI18N
+        submit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                submitMouseClicked(evt);
+            }
+        });
+        submit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitActionPerformed(evt);
+            }
+        });
+        jPanel1.add(submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 710, 390, 60));
+
+        cancel.setBackground(new java.awt.Color(204, 204, 255));
+        cancel.setForeground(new java.awt.Color(51, 51, 51));
+        cancel.setText("CANCEL");
+        cancel.setFont(new java.awt.Font("Arial Black", 1, 17)); // NOI18N
+        cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 770, 390, 60));
+
+        jLabel9.setBackground(new java.awt.Color(102, 102, 102));
+        jLabel9.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel9.setText("Do you want to Cancel?");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 830, -1, 30));
+
+        utype.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        utype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "User Type : ", "Admin", "Patient", "Doctor" }));
+        utype.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                utypeActionPerformed(evt);
+            }
+        });
+        jPanel1.add(utype, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 660, 150, 40));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        jLabel2.setText("Do you want to change your Password?");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 630, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 870));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -229,11 +237,11 @@ public class userForm extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jLabel3MouseClicked
 
-    private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
+    private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
         Main mn = new Main();
         mn.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_loginActionPerformed
+    }//GEN-LAST:event_cancelActionPerformed
 
     private void ctActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ctActionPerformed
         // TODO add your handling code here:
@@ -247,21 +255,29 @@ public class userForm extends javax.swing.JFrame {
  dbConnect connect = new dbConnect();
 
 try {
+    
     String query = "UPDATE users SET "
             + "fn = ?, "
-            + "cityAddress = ?, " // Assuming "ct" maps to "user_City"
+            + "cityAddress = ?, "
             + "email = ?, "
             + "contactNo = ?, "
-            + "username = ? " // Assuming "un" maps to "username"
+            + "username = ?, "
+            + "usertype = ? " // Added usertype
             + "WHERE p_id = ?";
 
     try (PreparedStatement pst = connect.getConnection().prepareStatement(query)) {
-        pst.setString(1, fn.getText()); // user_Fname
-        pst.setString(2, ct.getText()); // user_City
-        pst.setString(3, em.getText()); // user_Email
-        pst.setString(4, cn.getText()); // user_Phone
-        pst.setString(5, un.getText()); // username
-        pst.setInt(6, Integer.parseInt(p_id.getText())); // user_id
+        pst.setString(1, fn.getText());
+        pst.setString(2, ct.getText());
+        pst.setString(3, em.getText());
+        pst.setString(4, cn.getText());
+        pst.setString(5, un.getText());
+        String userType = (String) utype.getSelectedItem();
+                if (userType == null || userType.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please select a user type.");
+                    return; 
+                }
+                pst.setString(6, userType);
+        pst.setInt(7, Integer.parseInt(p_id.getText()));
 
         int rowsUpdated = pst.executeUpdate();
 
@@ -281,7 +297,6 @@ try {
     JOptionPane.showMessageDialog(this, "Invalid User ID format.");
     ex.printStackTrace();
 }
-   
     }//GEN-LAST:event_submitActionPerformed
 
     private void utypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_utypeActionPerformed
@@ -289,8 +304,27 @@ try {
     }//GEN-LAST:event_utypeActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-     
+ Session sess = Session.getInstance();
+        if (sess.getPid() == 0) {
+            noAccount acc = new noAccount();
+            acc.setVisible(true);
+            this.dispose();
+        } else {
+            p_id.setText(String.valueOf(sess.getPid()));
+            fn.setText(sess.getFn());
+            ct.setText(sess.getCityAddress());
+            em.setText(sess.getEmail());
+            cn.setText(sess.getContactNo());
+            un.setText(sess.getUsername());
+            utype.setSelectedItem(sess.getUsertype());
+        }     
     }//GEN-LAST:event_formWindowActivated
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+       userChangepass user = new userChangepass();
+       user.setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -328,12 +362,15 @@ try {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private rojerusan.RSMaterialButtonCircle cancel;
     public textfield.TextField cn;
     public textfield.TextField ct;
     public textfield.TextField em;
     public textfield.TextField fn;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
@@ -344,7 +381,6 @@ try {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private rojerusan.RSMaterialButtonCircle login;
     public textfield.TextField p_id;
     private rojerusan.RSMaterialButtonCircle submit;
     public textfield.TextField un;
