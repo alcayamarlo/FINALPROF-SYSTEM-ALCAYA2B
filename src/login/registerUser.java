@@ -5,7 +5,7 @@
  */
 package login;
 
-import Successfull.RegisteredSuccess;
+import Successfull.registerSuccess;
 import config.dbConnect;
 import config.passwordHasher;
 import java.security.NoSuchAlgorithmException;
@@ -73,12 +73,7 @@ public boolean duplicateCheck() {
         jLabel19 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         login = new rojerusan.RSMaterialButtonCircle();
-        jLabel21 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         un = new textfield.TextField();
@@ -89,6 +84,11 @@ public boolean duplicateCheck() {
         Signup = new rojerusan.RSMaterialButtonCircle();
         ps = new textfield.PasswordField();
         utype = new javax.swing.JComboBox<>();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -124,35 +124,10 @@ public boolean duplicateCheck() {
         });
         jPanel1.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 710, 390, 60));
 
-        jLabel21.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/user.png"))); // NOI18N
-        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, -1, 60));
-
         jLabel20.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
         jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/pass.png"))); // NOI18N
         jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 550, -1, 60));
-
-        jLabel23.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
-        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/user.png"))); // NOI18N
-        jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 470, -1, 60));
-
-        jLabel24.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/user.png"))); // NOI18N
-        jPanel1.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 380, -1, 60));
-
-        jLabel25.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
-        jLabel25.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/user.png"))); // NOI18N
-        jPanel1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 300, -1, 60));
-
-        jLabel26.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
-        jLabel26.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/user.png"))); // NOI18N
-        jPanel1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, -1, 60));
 
         jLabel3.setBackground(new java.awt.Color(204, 255, 255));
         jLabel3.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
@@ -239,6 +214,31 @@ public boolean duplicateCheck() {
         });
         jPanel1.add(utype, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 610, 150, 40));
 
+        jLabel23.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/user.png"))); // NOI18N
+        jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 470, -1, 60));
+
+        jLabel24.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/cnn.png"))); // NOI18N
+        jPanel1.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 380, -1, 60));
+
+        jLabel25.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel25.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/emm.png"))); // NOI18N
+        jPanel1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 300, -1, 60));
+
+        jLabel26.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/images-24-removebg-preview.png"))); // NOI18N
+        jPanel1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, -1, 60));
+
+        jLabel21.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/full.png"))); // NOI18N
+        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, -1, 60));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 820));
 
         pack();
@@ -249,7 +249,9 @@ public boolean duplicateCheck() {
     }//GEN-LAST:event_utypeActionPerformed
 
     private void SignupMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SignupMouseClicked
-
+        registerSuccess reg = new registerSuccess();
+        reg.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_SignupMouseClicked
 
     private void SignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignupActionPerformed
@@ -300,6 +302,7 @@ public boolean duplicateCheck() {
 
             if (password.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Password is required");
+                
                 return;
             }
             if (password.length() < 8) {
@@ -320,6 +323,8 @@ public boolean duplicateCheck() {
                     int usernameCount = dbc.executeQueryForCount(checkUsernameQuery);
                     if (usernameCount > 0) {
                         JOptionPane.showMessageDialog(null, "Username is already taken");
+                         un.setText("");
+
                         return;
                     }
 
@@ -327,6 +332,8 @@ public boolean duplicateCheck() {
                     int emailCount = dbc.executeQueryForCount(checkEmailQuery);
                     if (emailCount > 0) {
                         JOptionPane.showMessageDialog(null, "Email is already registered");
+                        em.setText("");
+
                         return;
                     }
 
@@ -334,19 +341,20 @@ public boolean duplicateCheck() {
                     "VALUES('" + fn.getText() + "', '" + ct.getText() + "', '" + em.getText() + "', '" + cn.getText() + "', '" + un.getText() + "', '" + pass + "', '" + selectedUserType + "', 'Pending')";
 
                     if (dbc.insertData(insertQuery) == 0) {
-                        JOptionPane.showMessageDialog(null, "Registered Successfully");
+                        
                     }
-
-                    new RegisteredSuccess().setVisible(true);
+                    new registerSuccess().setVisible(true);
                     this.setVisible(false);
                     this.dispose();
+                    
 
                 }catch(NoSuchAlgorithmException ex){
                     System.out.println(""+ex);
                 }
             }
+            
         }
-
+                
     }//GEN-LAST:event_SignupActionPerformed
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked

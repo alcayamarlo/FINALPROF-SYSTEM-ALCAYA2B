@@ -5,6 +5,7 @@
  */
 package login;
 
+import Successfull.adminSuccess;
 import Successfull.loginSuccess;
 import Successfull.needApproval;
 import Successfull.noAccount;
@@ -335,13 +336,11 @@ public class Main extends javax.swing.JFrame {
                             this.dispose();
                 } else {
                     if (utype.equals("Admin")) {
-                        JOptionPane.showMessageDialog(null, "Login Successfully");
-                        new dashBoard().setVisible(true);
+                        new adminSuccess().setVisible(true);
                         this.setVisible(false);
                         this.dispose();
                     } else if (utype.equals("Patient")) {
-                        JOptionPane.showMessageDialog(null, "Login Successfully");
-                        new userDashboard().setVisible(true);
+                        new loginSuccess().setVisible(true);
                         this.setVisible(false);
                     } else if (utype.equals("Doctor")) {
                        new loginSuccess().setVisible(true);

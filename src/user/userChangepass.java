@@ -50,6 +50,10 @@ public class userChangepass extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         oldPass = new textfield.TextField();
         newPass = new textfield.TextField();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -105,11 +109,11 @@ public class userChangepass extends javax.swing.JFrame {
                 confirmPassActionPerformed(evt);
             }
         });
-        jPanel1.add(confirmPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, 320, -1));
+        jPanel1.add(confirmPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 320, 320, -1));
 
-        jLabel2.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
-        jLabel2.setText("CHANGE YOUR PASSWORD HERE!");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, -1, -1));
+        jLabel2.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14)); // NOI18N
+        jLabel2.setText("Change your Password Here!");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, -1, -1));
         jPanel1.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 50));
 
         jLabel3.setBackground(new java.awt.Color(255, 51, 51));
@@ -142,7 +146,26 @@ public class userChangepass extends javax.swing.JFrame {
         newPass.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         newPass.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
         newPass.setLabelText("Enter your New Password");
-        jPanel1.add(newPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, 330, 60));
+        jPanel1.add(newPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, 330, 60));
+
+        jLabel20.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/new.png"))); // NOI18N
+        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, -1, 60));
+
+        jLabel21.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/confirm.png"))); // NOI18N
+        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 320, -1, 60));
+
+        jLabel22.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/pass.png"))); // NOI18N
+        jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, -1, 60));
+
+        jLabel4.setFont(new java.awt.Font("Arial Black", 1, 36)); // NOI18N
+        jLabel4.setText("CHANGE PASSWORD");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 570));
 
@@ -281,7 +304,11 @@ public class userChangepass extends javax.swing.JFrame {
     private textfield.PasswordField confirmPass;
     private rojerusan.RSMaterialButtonCircle id;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;

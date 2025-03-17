@@ -5,6 +5,7 @@
  */
 package Successfull;
 
+import config.Session;
 import login.Main;
 
 /**
@@ -41,6 +42,11 @@ public class needApproval extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(102, 102, 255));
@@ -57,7 +63,7 @@ public class needApproval extends javax.swing.JFrame {
         });
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 0, 40, 40));
 
-        jPanel4.setBackground(new java.awt.Color(51, 51, 255));
+        jPanel4.setBackground(new java.awt.Color(102, 102, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(255, 51, 51)));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -76,21 +82,22 @@ public class needApproval extends javax.swing.JFrame {
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 40));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(51, 0, 255)));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI Semilight", 0, 24)); // NOI18N
         jLabel2.setText("PLEASE CONTACT THE ADMIN!");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 620, 440, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 610, 340, -1));
 
-        jLabel3.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
-        jLabel3.setText("IN-ACTIVE ACCOUNT");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 590, 490, -1));
+        jLabel3.setFont(new java.awt.Font("Arial Black", 1, 36)); // NOI18N
+        jLabel3.setText("NEED APPROVAL TO ADMIN");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 560, 630, -1));
 
         jLabel6.setFont(new java.awt.Font("Arial Black", 1, 36)); // NOI18N
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/Screenshot 2025-03-11 101604.png"))); // NOI18N
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 750, 600));
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/business-call-smiley.png"))); // NOI18N
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, -10, 750, 600));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 680));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 670));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -100,6 +107,18 @@ public class needApproval extends javax.swing.JFrame {
        mn.setVisible(true);
        this.dispose();
     }//GEN-LAST:event_jLabel4MouseClicked
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        Session sess = Session.getInstance();
+       int pid = sess.getPid();
+       if(sess.getPid() == 0){       
+       new noAccount().setVisible(true);
+       this.setVisible(false);
+       this.dispose();
+       }else{
+          
+       }
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

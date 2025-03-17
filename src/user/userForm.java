@@ -48,7 +48,6 @@ public class userForm extends javax.swing.JFrame {
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
         un = new textfield.TextField();
         fn = new textfield.TextField();
         ct = new textfield.TextField();
@@ -64,6 +63,7 @@ public class userForm extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         utype = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -96,7 +96,7 @@ public class userForm extends javax.swing.JFrame {
 
         jLabel21.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/user.png"))); // NOI18N
+        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/full.png"))); // NOI18N
         getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, -1, 60));
 
         jLabel23.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
@@ -106,18 +106,13 @@ public class userForm extends javax.swing.JFrame {
 
         jLabel24.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/user.png"))); // NOI18N
+        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/cnn.png"))); // NOI18N
         getContentPane().add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 470, -1, 60));
 
         jLabel25.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
         jLabel25.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/user.png"))); // NOI18N
+        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/emm.png"))); // NOI18N
         getContentPane().add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 390, -1, 60));
-
-        jLabel26.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
-        jLabel26.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/user.png"))); // NOI18N
-        getContentPane().add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 300, -1, 60));
 
         un.setBackground(new java.awt.Color(204, 255, 255));
         un.setDisabledTextColor(new java.awt.Color(255, 255, 255));
@@ -167,7 +162,7 @@ public class userForm extends javax.swing.JFrame {
 
         jLabel27.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/user.png"))); // NOI18N
+        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/idd.png"))); // NOI18N
         getContentPane().add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, -1, 60));
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 255));
@@ -228,6 +223,11 @@ public class userForm extends javax.swing.JFrame {
         jLabel2.setText("Do you want to change your Password?");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 630, -1, -1));
 
+        jLabel26.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/images-24-removebg-preview.png"))); // NOI18N
+        jPanel1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 300, -1, 60));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 870));
 
         pack();
@@ -237,71 +237,9 @@ public class userForm extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jLabel3MouseClicked
 
-    private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
-        Main mn = new Main();
-        mn.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_cancelActionPerformed
-
     private void ctActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ctActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ctActionPerformed
-
-    private void submitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitMouseClicked
-
-    }//GEN-LAST:event_submitMouseClicked
-
-    private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
- dbConnect connect = new dbConnect();
-
-try {
-    
-    String query = "UPDATE users SET "
-            + "fn = ?, "
-            + "cityAddress = ?, "
-            + "email = ?, "
-            + "contactNo = ?, "
-            + "username = ?, "
-            + "usertype = ? " // Added usertype
-            + "WHERE p_id = ?";
-
-    try (PreparedStatement pst = connect.getConnection().prepareStatement(query)) {
-        pst.setString(1, fn.getText());
-        pst.setString(2, ct.getText());
-        pst.setString(3, em.getText());
-        pst.setString(4, cn.getText());
-        pst.setString(5, un.getText());
-        String userType = (String) utype.getSelectedItem();
-                if (userType == null || userType.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Please select a user type.");
-                    return; 
-                }
-                pst.setString(6, userType);
-        pst.setInt(7, Integer.parseInt(p_id.getText()));
-
-        int rowsUpdated = pst.executeUpdate();
-
-        if (rowsUpdated > 0) {
-            userDashboard usd = new userDashboard();
-            JOptionPane.showMessageDialog(this, "User details updated successfully!");
-            this.dispose();
-            usd.setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(this, "No user found with the specified ID.");
-        }
-    }
-} catch (SQLException ex) {
-    JOptionPane.showMessageDialog(this, "Error updating user details: " + ex.getMessage());
-    ex.printStackTrace();
-} catch (NumberFormatException ex){
-    JOptionPane.showMessageDialog(this, "Invalid User ID format.");
-    ex.printStackTrace();
-}
-    }//GEN-LAST:event_submitActionPerformed
-
-    private void utypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_utypeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_utypeActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
  Session sess = Session.getInstance();
@@ -320,10 +258,72 @@ try {
         }     
     }//GEN-LAST:event_formWindowActivated
 
+    private void utypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_utypeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_utypeActionPerformed
+
+    private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
+        Main mn = new Main();
+        mn.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_cancelActionPerformed
+
+    private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
+        dbConnect connect = new dbConnect();
+
+        try {
+
+            String query = "UPDATE users SET "
+            + "fn = ?, "
+            + "cityAddress = ?, "
+            + "email = ?, "
+            + "contactNo = ?, "
+            + "username = ?, "
+            + "usertype = ? " // Added usertype
+            + "WHERE p_id = ?";
+
+            try (PreparedStatement pst = connect.getConnection().prepareStatement(query)) {
+                pst.setString(1, fn.getText());
+                pst.setString(2, ct.getText());
+                pst.setString(3, em.getText());
+                pst.setString(4, cn.getText());
+                pst.setString(5, un.getText());
+                String userType = (String) utype.getSelectedItem();
+                if (userType == null || userType.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please select a user type.");
+                    return;
+                }
+                pst.setString(6, userType);
+                pst.setInt(7, Integer.parseInt(p_id.getText()));
+
+                int rowsUpdated = pst.executeUpdate();
+
+                if (rowsUpdated > 0) {
+                    userDashboard usd = new userDashboard();
+                    JOptionPane.showMessageDialog(this, "User details updated successfully!");
+                    this.dispose();
+                    usd.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No user found with the specified ID.");
+                }
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error updating user details: " + ex.getMessage());
+            ex.printStackTrace();
+        } catch (NumberFormatException ex){
+            JOptionPane.showMessageDialog(this, "Invalid User ID format.");
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_submitActionPerformed
+
+    private void submitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitMouseClicked
+
+    }//GEN-LAST:event_submitMouseClicked
+
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-       userChangepass user = new userChangepass();
-       user.setVisible(true);
-       this.dispose();
+        userChangepass user = new userChangepass();
+        user.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
@@ -384,6 +384,6 @@ try {
     public textfield.TextField p_id;
     private rojerusan.RSMaterialButtonCircle submit;
     public textfield.TextField un;
-    public javax.swing.JComboBox<String> utype;
+    private javax.swing.JComboBox<String> utype;
     // End of variables declaration//GEN-END:variables
 }

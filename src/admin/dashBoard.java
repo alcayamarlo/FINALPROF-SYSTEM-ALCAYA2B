@@ -13,6 +13,7 @@ import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import login.Main;
 import net.proteanit.sql.DbUtils;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -283,17 +284,18 @@ public void showPieChart(){
         });
         jPanel5.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1560, 0, 40, 40));
 
-        jPanel10.setBackground(new java.awt.Color(255, 0, 51));
+        jPanel10.setBackground(new java.awt.Color(102, 102, 255));
+        jPanel10.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(255, 51, 51)));
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 40, Short.MAX_VALUE)
+            .addGap(0, 36, Short.MAX_VALUE)
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 40, Short.MAX_VALUE)
+            .addGap(0, 36, Short.MAX_VALUE)
         );
 
         jPanel5.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(1560, 0, 40, 40));
@@ -347,7 +349,7 @@ public void showPieChart(){
                 jLabel8MouseClicked(evt);
             }
         });
-        jPanel6.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 220, -1));
+        jPanel6.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 210, -1));
 
         jPanel7.setBackground(new java.awt.Color(51, 51, 51));
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -369,7 +371,12 @@ public void showPieChart(){
         jLabel10.setForeground(new java.awt.Color(153, 153, 153));
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/icons8_Book_26px.png"))); // NOI18N
         jLabel10.setText("Manage Bills");
-        jPanel8.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, -1, -1));
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+        });
+        jPanel8.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 210, -1));
 
         jPanel2.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 340, 280, 60));
 
@@ -380,7 +387,12 @@ public void showPieChart(){
         jLabel12.setForeground(new java.awt.Color(153, 153, 153));
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/icons8_View_Details_26px.png"))); // NOI18N
         jLabel12.setText("Payment Records");
-        jPanel9.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, -1, -1));
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
+            }
+        });
+        jPanel9.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 210, -1));
 
         jPanel2.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 410, 280, 60));
 
@@ -391,7 +403,12 @@ public void showPieChart(){
         jLabel13.setForeground(new java.awt.Color(153, 153, 153));
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/icons8_Exit_26px.png"))); // NOI18N
         jLabel13.setText("Logout");
-        jPanel11.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
+        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel13MouseClicked(evt);
+            }
+        });
+        jPanel11.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 210, -1));
 
         jPanel2.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 480, 270, 60));
 
@@ -555,6 +572,24 @@ public void showPieChart(){
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         System.exit(0);
     }//GEN-LAST:event_jLabel5MouseClicked
+
+    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
+       Main mn = new Main();
+       mn.setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_jLabel13MouseClicked
+
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+       manageBills bill = new manageBills();
+       bill.setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_jLabel10MouseClicked
+
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+       paymentRecord pay = new paymentRecord();
+       pay.setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_jLabel12MouseClicked
 
     /**
      * @param args the command line arguments

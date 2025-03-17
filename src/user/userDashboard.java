@@ -10,6 +10,7 @@ import config.Session;
 import config.dbConnect;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import login.Main;
 import net.proteanit.sql.DbUtils;
 
 /**
@@ -115,6 +116,7 @@ public void getDoctorCount() {
         un = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jPanel18 = new javax.swing.JPanel();
+        un1 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jPanel15 = new javax.swing.JPanel();
         pen = new javax.swing.JLabel();
@@ -180,7 +182,7 @@ public void getDoctorCount() {
         });
         jScrollPane4.setViewportView(table);
 
-        jPanel1.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 280, 1000, 450));
+        jPanel1.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 280, 990, 450));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
         jLabel7.setText("ACCOUNT NAME :");
@@ -305,6 +307,11 @@ public void getDoctorCount() {
 
         jPanel5.add(jPanel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, -1, -1));
 
+        un1.setFont(new java.awt.Font("Arial Black", 1, 16)); // NOI18N
+        un1.setForeground(new java.awt.Color(153, 153, 153));
+        un1.setText("@");
+        jPanel5.add(un1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 30, -1));
+
         jPanel6.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 240, 210));
 
         jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 280, 690));
@@ -325,7 +332,7 @@ public void getDoctorCount() {
         jPanel1.add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 100, 170, 120));
 
         jPanel13.setBackground(new java.awt.Color(204, 204, 255));
-        jPanel13.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(255, 51, 51)));
+        jPanel13.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(0, 153, 255)));
         jPanel13.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel14.setBackground(new java.awt.Color(204, 204, 255));
@@ -355,13 +362,13 @@ public void getDoctorCount() {
         jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 70, 190, -1));
 
         jPanel12.setBackground(new java.awt.Color(204, 204, 255));
-        jPanel12.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(255, 51, 51)));
+        jPanel12.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(51, 255, 204)));
         jPanel12.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         docc.setFont(new java.awt.Font("Segoe UI Black", 1, 36)); // NOI18N
         docc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/icons8_Read_Online_26px.png"))); // NOI18N
         docc.setText("10");
-        jPanel12.add(docc, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 160, -1));
+        jPanel12.add(docc, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 160, -1));
 
         jPanel1.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 100, 170, 120));
 
@@ -375,7 +382,9 @@ public void getDoctorCount() {
     }//GEN-LAST:event_tableMouseClicked
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        System.exit(0);
+        Main mn = new Main();
+        mn.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void rSMaterialButtonCircle1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSMaterialButtonCircle1ActionPerformed
@@ -481,6 +490,7 @@ public void getDoctorCount() {
     private rojerusan.RSMaterialButtonCircle rSMaterialButtonCircle3;
     private rojeru_san.complementos.RSTableMetro table;
     private javax.swing.JLabel un;
+    private javax.swing.JLabel un1;
     private javax.swing.JLabel utype;
     // End of variables declaration//GEN-END:variables
 }
