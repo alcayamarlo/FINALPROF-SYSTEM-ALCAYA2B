@@ -222,7 +222,7 @@ public void getDoctorCount() {
         jPanel3.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(255, 51, 51)));
         jPanel4.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1280, 0, 40, 40));
 
-        jLabel11.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 25)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 25)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("USERDASHBOARD");
         jPanel4.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, -1, -1));

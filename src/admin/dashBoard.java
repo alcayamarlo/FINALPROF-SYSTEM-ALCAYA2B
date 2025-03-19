@@ -10,9 +10,14 @@ import config.Session;
 import config.dbConnect;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 import login.Main;
 import net.proteanit.sql.DbUtils;
 import org.jfree.chart.ChartFactory;
@@ -53,6 +58,12 @@ public class dashBoard extends javax.swing.JFrame {
         showPieChart();
         displayData();
         showHistogram();
+          Timer timer = new Timer(0, new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                setDateTime();
+            }
+        });
+        timer.start();
     }
       public void displayData() {
         try {
@@ -187,6 +198,19 @@ public void showPieChart(){
         panel4.add(barpChartPanel2, BorderLayout.CENTER);
         panel4.validate();
     }
+   public void setDateTime(){
+        Session sess = Session.getInstance();
+        Date now = new Date();
+        
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+        String time = timeFormat.format(now);
+        
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+        String date = dateFormat.format(now);
+        
+        date_disp.setText(date);
+        haha.setText(time);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -199,16 +223,18 @@ public void showPieChart(){
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jPanel10 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
+        haha = new javax.swing.JLabel();
+        date_disp = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        time_disp = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
+        user = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -273,44 +299,37 @@ public void showPieChart(){
 
         jPanel5.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 10, 60));
 
-        jLabel5.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel5.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("  X");
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel5MouseClicked(evt);
-            }
-        });
-        jPanel5.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1560, 0, 40, 40));
-
-        jPanel10.setBackground(new java.awt.Color(102, 102, 255));
-        jPanel10.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(255, 51, 51)));
-
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 36, Short.MAX_VALUE)
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 36, Short.MAX_VALUE)
-        );
-
-        jPanel5.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(1560, 0, 40, 40));
-
-        jLabel11.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 25)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 25)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("Hospital Billing System");
         jPanel5.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, -1, -1));
+
+        haha.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        haha.setForeground(new java.awt.Color(255, 255, 255));
+        haha.setText("Time :");
+        jPanel5.add(haha, new org.netbeans.lib.awtextra.AbsoluteConstraints(1450, 40, 140, -1));
+
+        date_disp.setFont(new java.awt.Font("Segoe UI Semilight", 1, 24)); // NOI18N
+        date_disp.setForeground(new java.awt.Color(255, 255, 255));
+        date_disp.setText("dd/mm/yyyy");
+        jPanel5.add(date_disp, new org.netbeans.lib.awtextra.AbsoluteConstraints(1440, 10, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI Semilight", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Date :");
+        jPanel5.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1370, 10, -1, -1));
+
+        time_disp.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        time_disp.setForeground(new java.awt.Color(255, 255, 255));
+        time_disp.setText("Time :");
+        jPanel5.add(time_disp, new org.netbeans.lib.awtextra.AbsoluteConstraints(1390, 40, 60, -1));
 
         getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1600, 80));
 
         jPanel2.setBackground(new java.awt.Color(51, 51, 51));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel3.setBackground(new java.awt.Color(255, 0, 51));
+        jPanel3.setBackground(new java.awt.Color(204, 0, 0));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
@@ -337,8 +356,16 @@ public void showPieChart(){
         jLabel6.setText("Features");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
 
-        jPanel6.setBackground(new java.awt.Color(51, 51, 51));
-        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        user.setBackground(new java.awt.Color(51, 51, 51));
+        user.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                userMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                userMouseExited(evt);
+            }
+        });
+        user.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel8.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(153, 153, 153));
@@ -349,7 +376,7 @@ public void showPieChart(){
                 jLabel8MouseClicked(evt);
             }
         });
-        jPanel6.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 210, -1));
+        user.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 150, -1));
 
         jPanel7.setBackground(new java.awt.Color(51, 51, 51));
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -360,11 +387,19 @@ public void showPieChart(){
         jLabel9.setText("Manage Users");
         jPanel7.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, -1, -1));
 
-        jPanel6.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 340, 60));
+        user.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 340, 60));
 
-        jPanel2.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 270, 340, 60));
+        jPanel2.add(user, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 270, 340, 60));
 
         jPanel8.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel8MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel8MouseExited(evt);
+            }
+        });
         jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel10.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
@@ -376,11 +411,19 @@ public void showPieChart(){
                 jLabel10MouseClicked(evt);
             }
         });
-        jPanel8.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 210, -1));
+        jPanel8.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 130, -1));
 
         jPanel2.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 340, 280, 60));
 
         jPanel9.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel9MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel9MouseExited(evt);
+            }
+        });
         jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel12.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
@@ -392,11 +435,19 @@ public void showPieChart(){
                 jLabel12MouseClicked(evt);
             }
         });
-        jPanel9.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 210, -1));
+        jPanel9.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 170, -1));
 
         jPanel2.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 410, 280, 60));
 
         jPanel11.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel11MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel11MouseExited(evt);
+            }
+        });
         jPanel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel13.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
@@ -408,7 +459,7 @@ public void showPieChart(){
                 jLabel13MouseClicked(evt);
             }
         });
-        jPanel11.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 210, -1));
+        jPanel11.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 90, -1));
 
         jPanel2.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 480, 270, 60));
 
@@ -555,9 +606,7 @@ public void showPieChart(){
       Session sess = Session.getInstance();
        int pid = sess.getPid();
        if(sess.getPid() == 0){       
-       new noAccount().setVisible(true);
-       this.setVisible(false);
-       this.dispose();
+       
        }else{
            name.setText(""+sess.getFn());
        }
@@ -568,10 +617,6 @@ public void showPieChart(){
        user.setVisible(true);
        dispose();
     }//GEN-LAST:event_jLabel8MouseClicked
-
-    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        System.exit(0);
-    }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
        Main mn = new Main();
@@ -590,6 +635,38 @@ public void showPieChart(){
        pay.setVisible(true);
        this.dispose();
     }//GEN-LAST:event_jLabel12MouseClicked
+
+    private void userMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userMouseEntered
+            user.setBackground(new Color (97, 103, 122));
+    }//GEN-LAST:event_userMouseEntered
+
+    private void userMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userMouseExited
+      user.setBackground(new Color(51,51,51));
+    }//GEN-LAST:event_userMouseExited
+
+    private void jPanel8MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseEntered
+        jPanel8.setBackground(new Color (97, 103, 122));
+    }//GEN-LAST:event_jPanel8MouseEntered
+
+    private void jPanel8MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseExited
+        jPanel8.setBackground(new Color(51,51,51));
+    }//GEN-LAST:event_jPanel8MouseExited
+
+    private void jPanel9MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel9MouseEntered
+       jPanel9.setBackground(new Color (97, 103, 122));
+    }//GEN-LAST:event_jPanel9MouseEntered
+
+    private void jPanel9MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel9MouseExited
+       jPanel9.setBackground(new Color(51,51,51));
+    }//GEN-LAST:event_jPanel9MouseExited
+
+    private void jPanel11MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel11MouseEntered
+       jPanel11.setBackground(new Color (97, 103, 122));
+    }//GEN-LAST:event_jPanel11MouseEntered
+
+    private void jPanel11MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel11MouseExited
+         jPanel11.setBackground(new Color(51,51,51));
+    }//GEN-LAST:event_jPanel11MouseExited
 
     /**
      * @param args the command line arguments
@@ -629,7 +706,9 @@ public void showPieChart(){
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel acc;
+    private javax.swing.JLabel date_disp;
     private javax.swing.JLabel docc;
+    private javax.swing.JLabel haha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -643,13 +722,12 @@ public void showPieChart(){
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
@@ -661,7 +739,6 @@ public void showPieChart(){
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
@@ -674,5 +751,7 @@ public void showPieChart(){
     private javax.swing.JLabel patient;
     private javax.swing.JLabel pen;
     private rojeru_san.complementos.RSTableMetro table;
+    private javax.swing.JLabel time_disp;
+    private javax.swing.JPanel user;
     // End of variables declaration//GEN-END:variables
 }
