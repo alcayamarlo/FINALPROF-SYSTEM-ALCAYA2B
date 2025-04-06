@@ -43,8 +43,8 @@ public boolean duplicateCheck() {
                 em.setText("");
             }
             String username = resultSet.getString("username");
-            if (username.equals(un.getText())) { //Error: You were comparing username with email's text field. changed to un1's text field
-                JOptionPane.showMessageDialog(null, "Username is Already used"); //Error: Changed the message to reflect username duplication
+            if (username.equals(un.getText())) { 
+                JOptionPane.showMessageDialog(null, "Username is Already used"); 
                 un.setText("");
             }
             return true;
@@ -70,8 +70,6 @@ public boolean duplicateCheck() {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         login = new rojerusan.RSMaterialButtonCircle();
         jLabel20 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -89,29 +87,21 @@ public boolean duplicateCheck() {
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
+        security = new javax.swing.JComboBox<>();
+        answer = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(51, 51, 255)));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 255), 4), "SIGN UP PAGE", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 1, 36), new java.awt.Color(51, 51, 255))); // NOI18N
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel22.setFont(new java.awt.Font("Segoe UI Semilight", 1, 16)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(51, 51, 51));
         jLabel22.setText("Do you have an account?Login");
-        jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 780, -1, -1));
-
-        jLabel19.setFont(new java.awt.Font("Arial Black", 0, 36)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel19.setText("SIGN UP PAGE");
-        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, -1, 30));
-
-        jLabel9.setFont(new java.awt.Font("Segoe UI Semilight", 0, 15)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel9.setText("Create New Account Here");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, -1, 30));
+        jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 840, -1, -1));
 
         login.setBackground(new java.awt.Color(204, 204, 255));
         login.setForeground(new java.awt.Color(51, 51, 51));
@@ -122,12 +112,12 @@ public boolean duplicateCheck() {
                 loginActionPerformed(evt);
             }
         });
-        jPanel1.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 710, 390, 60));
+        jPanel1.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 780, 390, 60));
 
         jLabel20.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
         jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/pass.png"))); // NOI18N
-        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 550, -1, 60));
+        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 500, -1, 60));
 
         jLabel3.setBackground(new java.awt.Color(204, 255, 255));
         jLabel3.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
@@ -147,13 +137,13 @@ public boolean duplicateCheck() {
         un.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         un.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
         un.setLabelText("Enter your Username");
-        jPanel1.add(un, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 460, 330, 60));
+        jPanel1.add(un, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 410, 330, 60));
 
         fn.setBackground(new java.awt.Color(204, 255, 255));
         fn.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         fn.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
         fn.setLabelText("Enter your Full Name");
-        jPanel1.add(fn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 330, 60));
+        jPanel1.add(fn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 330, 60));
 
         ct.setBackground(new java.awt.Color(204, 255, 255));
         ct.setDisabledTextColor(new java.awt.Color(255, 255, 255));
@@ -164,19 +154,19 @@ public boolean duplicateCheck() {
                 ctActionPerformed(evt);
             }
         });
-        jPanel1.add(ct, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 330, 60));
+        jPanel1.add(ct, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 330, 60));
 
         em.setBackground(new java.awt.Color(204, 255, 255));
         em.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         em.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
         em.setLabelText("Enter your Email");
-        jPanel1.add(em, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, 330, 60));
+        jPanel1.add(em, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, 330, 60));
 
         cn.setBackground(new java.awt.Color(204, 255, 255));
         cn.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         cn.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
         cn.setLabelText("Enter your Contact No");
-        jPanel1.add(cn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 370, 330, 60));
+        jPanel1.add(cn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 320, 330, 60));
 
         Signup.setBackground(new java.awt.Color(255, 51, 51));
         Signup.setText("SIGN UP");
@@ -191,7 +181,7 @@ public boolean duplicateCheck() {
                 SignupActionPerformed(evt);
             }
         });
-        jPanel1.add(Signup, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 650, 390, 60));
+        jPanel1.add(Signup, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 720, 390, 60));
 
         ps.setBackground(new java.awt.Color(204, 255, 255));
         ps.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
@@ -202,44 +192,48 @@ public boolean duplicateCheck() {
                 psActionPerformed(evt);
             }
         });
-        jPanel1.add(ps, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 540, 330, 60));
+        jPanel1.add(ps, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 490, 330, 60));
 
         utype.setBackground(new java.awt.Color(204, 255, 255));
         utype.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
-        utype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "User Type : ", "Admin", "Patient", "Doctor" }));
+        utype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "User Type : ", "Admin", "Patient" }));
         utype.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 utypeActionPerformed(evt);
             }
         });
-        jPanel1.add(utype, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 610, 150, 40));
+        jPanel1.add(utype, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 670, 150, 40));
 
         jLabel23.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(255, 255, 255));
         jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/user.png"))); // NOI18N
-        jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 470, -1, 60));
+        jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 420, -1, 60));
 
         jLabel24.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(255, 255, 255));
         jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/cnn.png"))); // NOI18N
-        jPanel1.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 380, -1, 60));
+        jPanel1.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 330, -1, 60));
 
         jLabel25.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
         jLabel25.setForeground(new java.awt.Color(255, 255, 255));
         jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/emm.png"))); // NOI18N
-        jPanel1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 300, -1, 60));
+        jPanel1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 250, -1, 60));
 
         jLabel26.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(255, 255, 255));
         jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/images-24-removebg-preview.png"))); // NOI18N
-        jPanel1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, -1, 60));
+        jPanel1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, -1, 60));
 
         jLabel21.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
         jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/full.png"))); // NOI18N
-        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, -1, 60));
+        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, -1, 60));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 820));
+        security.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "What is the name of your favorite MLBB character?", "What is the title of your favorite movie?", "What is your favorite colour?" }));
+        jPanel1.add(security, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 560, 330, 40));
+        jPanel1.add(answer, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 620, 330, 40));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 880));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -311,7 +305,7 @@ public boolean duplicateCheck() {
             }
 
             String selectedUserType = (String) utype.getSelectedItem();
-            if (!("Admin".equals(selectedUserType) || "Patient".equals(selectedUserType) || "Doctor".equals(selectedUserType))) {
+            if (!("Admin".equals(selectedUserType) || "Patient".equals(selectedUserType))) {
                 JOptionPane.showMessageDialog(null, "Please select a User Type ");
                 return;
             }
@@ -412,11 +406,11 @@ public boolean duplicateCheck() {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rojerusan.RSMaterialButtonCircle Signup;
+    private javax.swing.JTextField answer;
     private textfield.TextField cn;
     private textfield.TextField ct;
     private textfield.TextField em;
     private textfield.TextField fn;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -425,11 +419,11 @@ public boolean duplicateCheck() {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private rojerusan.RSMaterialButtonCircle login;
     private textfield.PasswordField ps;
+    private javax.swing.JComboBox<String> security;
     private textfield.TextField un;
     public javax.swing.JComboBox<String> utype;
     // End of variables declaration//GEN-END:variables

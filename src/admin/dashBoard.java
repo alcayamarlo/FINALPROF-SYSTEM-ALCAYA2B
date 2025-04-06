@@ -606,7 +606,9 @@ public void showPieChart(){
       Session sess = Session.getInstance();
        int pid = sess.getPid();
        if(sess.getPid() == 0){       
-       
+       noAccount acc = new noAccount();
+       acc.setVisible(true);
+       this.dispose();
        }else{
            name.setText(""+sess.getFn());
        }
@@ -619,9 +621,15 @@ public void showPieChart(){
     }//GEN-LAST:event_jLabel8MouseClicked
 
     private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
-       Main mn = new Main();
-       mn.setVisible(true);
-       this.dispose();
+      int a = JOptionPane.showConfirmDialog(null,"DO you want to logout the System?","Select",JOptionPane.YES_NO_OPTION);
+      if(a==0)
+      {
+          Main mn = new Main();
+        mn.setVisible(true);
+        this.dispose();
+      }
+      
+       
     }//GEN-LAST:event_jLabel13MouseClicked
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked

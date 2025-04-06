@@ -95,20 +95,12 @@ public class createUserForm extends javax.swing.JFrame {
 
         jPanel4 = new javax.swing.JPanel();
         utype = new javax.swing.JComboBox<>();
-        p_id = new textfield.TextField();
-        jLabel31 = new javax.swing.JLabel();
         fn = new textfield.TextField();
-        jLabel25 = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
         ct = new textfield.TextField();
-        jLabel28 = new javax.swing.JLabel();
         em = new textfield.TextField();
         cn = new textfield.TextField();
-        jLabel27 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
         un = new textfield.TextField();
         pass = new textfield.PasswordField();
-        jLabel33 = new javax.swing.JLabel();
         status = new javax.swing.JComboBox<>();
         clear = new rojerusan.RSMaterialButtonCircle();
         add = new rojerusan.RSMaterialButtonCircle();
@@ -118,6 +110,14 @@ public class createUserForm extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
+        p_id = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -133,7 +133,7 @@ public class createUserForm extends javax.swing.JFrame {
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         utype.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
-        utype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "User Type ", "Admin", "Patient", "Doctor" }));
+        utype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "User Type ", "Admin", "User" }));
         utype.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 utypeActionPerformed(evt);
@@ -141,32 +141,11 @@ public class createUserForm extends javax.swing.JFrame {
         });
         jPanel4.add(utype, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 640, 150, 40));
 
-        p_id.setBackground(new java.awt.Color(204, 255, 255));
-        p_id.setDisabledTextColor(new java.awt.Color(255, 255, 255));
-        p_id.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
-        p_id.setLabelText("User ID");
-        jPanel4.add(p_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 330, -1));
-
-        jLabel31.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
-        jLabel31.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/user.png"))); // NOI18N
-        jPanel4.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, -1, 60));
-
         fn.setBackground(new java.awt.Color(204, 255, 255));
         fn.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         fn.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
         fn.setLabelText("Enter your Full Name");
         jPanel4.add(fn, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 330, 60));
-
-        jLabel25.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
-        jLabel25.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/user.png"))); // NOI18N
-        jPanel4.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, -1, 60));
-
-        jLabel29.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
-        jLabel29.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/user.png"))); // NOI18N
-        jPanel4.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 250, -1, 60));
 
         ct.setBackground(new java.awt.Color(204, 255, 255));
         ct.setDisabledTextColor(new java.awt.Color(255, 255, 255));
@@ -179,11 +158,6 @@ public class createUserForm extends javax.swing.JFrame {
         });
         jPanel4.add(ct, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 240, 330, 60));
 
-        jLabel28.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
-        jLabel28.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/user.png"))); // NOI18N
-        jPanel4.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 330, -1, 60));
-
         em.setBackground(new java.awt.Color(204, 255, 255));
         em.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         em.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
@@ -195,16 +169,6 @@ public class createUserForm extends javax.swing.JFrame {
         cn.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
         cn.setLabelText("Enter your Contact No");
         jPanel4.add(cn, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 400, 330, 60));
-
-        jLabel27.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
-        jLabel27.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/user.png"))); // NOI18N
-        jPanel4.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 410, -1, 60));
-
-        jLabel26.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
-        jLabel26.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/user.png"))); // NOI18N
-        jPanel4.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 570, -1, 60));
 
         un.setBackground(new java.awt.Color(204, 255, 255));
         un.setDisabledTextColor(new java.awt.Color(255, 255, 255));
@@ -227,11 +191,6 @@ public class createUserForm extends javax.swing.JFrame {
             }
         });
         jPanel4.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 570, 320, -1));
-
-        jLabel33.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
-        jLabel33.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/user.png"))); // NOI18N
-        jPanel4.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 490, -1, 60));
 
         status.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
         status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "User Status", "Approved", "Pending" }));
@@ -313,6 +272,45 @@ public class createUserForm extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(51, 51, 255)));
         jPanel4.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 0, 40, 40));
 
+        p_id.setFont(new java.awt.Font("Segoe UI Semilight", 1, 20)); // NOI18N
+        p_id.setText("id user");
+        jPanel4.add(p_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 112, 260, 40));
+
+        jLabel27.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel27.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/idd.png"))); // NOI18N
+        jPanel4.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, -1, 60));
+
+        jLabel21.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/full.png"))); // NOI18N
+        jPanel4.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, -1, 60));
+
+        jLabel25.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel25.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/emm.png"))); // NOI18N
+        jPanel4.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 340, -1, 60));
+
+        jLabel30.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel30.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/cnn.png"))); // NOI18N
+        jPanel4.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 420, -1, 60));
+
+        jLabel23.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/user.png"))); // NOI18N
+        jPanel4.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 490, -1, 60));
+
+        jLabel26.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/images-24-removebg-preview.png"))); // NOI18N
+        jPanel4.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, -1, 60));
+
+        jLabel22.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/pass.png"))); // NOI18N
+        jPanel4.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 570, -1, 60));
+
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 790));
 
         pack();
@@ -392,7 +390,7 @@ public class createUserForm extends javax.swing.JFrame {
     }
 
     String selectedUserType = (String) utype.getSelectedItem();
-    if (!("Admin".equals(selectedUserType) || "Patient".equals(selectedUserType) || "Doctor".equals(selectedUserType))) {
+    if (!("Admin".equals(selectedUserType) || "Patient".equals(selectedUserType))) {
         JOptionPane.showMessageDialog(null, "Please select a User Type ");
         return;
     }
@@ -467,6 +465,7 @@ String insertQuery = "INSERT INTO users(fn, cityAddress, email , contactNo, user
        this.setVisible(false);
        this.dispose();
        }
+       p_id.setText(""+sess.getPid());
     }//GEN-LAST:event_formWindowActivated
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
@@ -492,49 +491,59 @@ String insertQuery = "INSERT INTO users(fn, cityAddress, email , contactNo, user
     }//GEN-LAST:event_unActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
-        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this user?", "Confirm Deletion", JOptionPane.YES_NO_OPTION);
+    int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this user?", "Confirm Deletion", JOptionPane.YES_NO_OPTION);
     if (confirm == JOptionPane.YES_OPTION) {
+        String userIdText = p_id.getText().trim(); // Get text and remove leading/trailing whitespace
+
+        if (userIdText.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please enter the User ID to delete.");
+            return; // Stop the deletion process if the field is empty
+        }
+
         try {
-            int userId = Integer.parseInt(p_id.getText()); 
+            int userId = Integer.parseInt(userIdText);
             dbConnect connect = new dbConnect();
-            Connection con = connect.getConnection();
+            try (Connection con = connect.getConnection()) {
+                String query = "DELETE FROM users WHERE p_id = ?";
+                try (PreparedStatement pst = con.prepareStatement(query)) {
+                    pst.setInt(1, userId);
+                    int rowsDeleted = pst.executeUpdate();
 
-            String query = "DELETE FROM users WHERE p_id = ?";
-            try (PreparedStatement pst = con.prepareStatement(query)) {
-                pst.setInt(1, userId);
-                int rowsDeleted = pst.executeUpdate();
+                    if (rowsDeleted > 0) {
+                        JOptionPane.showMessageDialog(null, "User deleted successfully.");
 
-                if (rowsDeleted > 0) {
-                    JOptionPane.showMessageDialog(null, "User deleted successfully.");
-                    // Clear the fields after deletion
-                    fn.setText("");
-                    ct.setText("");
-                    em.setText("");
-                    cn.setText("");
-                    un.setText("");
-                    p_id.setText("");
-                    utype.setSelectedIndex(0); //reset combo box to default index.
+                        // Clear all the fields
+                        fn.setText("");
+                        ct.setText("");
+                        em.setText("");
+                        cn.setText("");
+                        un.setText("");
+                        p_id.setText("");
+                        utype.setSelectedIndex(0);
 
-                    // Optionally, refresh a table or list of users if you have one
-                    // refreshUserTable();
-                } else {
-                    JOptionPane.showMessageDialog(null, "User not found with the specified ID.");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "User not found with the specified ID.");
+                    }
                 }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error deleting user: " + ex.getMessage());
+                ex.printStackTrace();
             }
-
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Invalid User ID format.");
+            JOptionPane.showMessageDialog(null, "Invalid User ID format. Please enter a valid number.");
             ex.printStackTrace();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error deleting user: " + ex.getMessage());
-            ex.printStackTrace();
-        } catch (Exception e){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "An unexpected error occurred: " + e.getMessage());
             e.printStackTrace();
+        } finally {
+            // Ensure resources are closed (connection is handled by try-with-resources)
+            // Open the ManageUsers window and close the current one
+            java.awt.EventQueue.invokeLater(() -> {
+                ManageUsers user = new ManageUsers();
+                user.setVisible(true);
+                this.dispose();
+            });
         }
-        ManageUsers user = new ManageUsers();
-        user.setVisible(true);
-        this.dispose();
     }
 
     }//GEN-LAST:event_deleteActionPerformed
@@ -582,19 +591,19 @@ String insertQuery = "INSERT INTO users(fn, cityAddress, email , contactNo, user
     public rojerusan.RSMaterialButtonCircle delete;
     public textfield.TextField em;
     public textfield.TextField fn;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    public textfield.TextField p_id;
+    public javax.swing.JLabel p_id;
     public textfield.PasswordField pass;
     public javax.swing.JComboBox<String> status;
     public textfield.TextField un;

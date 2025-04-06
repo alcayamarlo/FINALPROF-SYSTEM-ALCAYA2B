@@ -5,6 +5,7 @@
  */
 package login;
 
+import Authentication.ForgotPassword;
 import Successfull.adminSuccess;
 import Successfull.loginSuccess;
 import Successfull.needApproval;
@@ -14,6 +15,7 @@ import config.Session;
 import config.dbConnect;
 import config.passwordHasher;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -117,6 +119,7 @@ public class Main extends javax.swing.JFrame {
         loginAcc = new rojerusan.RSMaterialButtonCircle();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
 
@@ -183,6 +186,11 @@ public class Main extends javax.swing.JFrame {
                 passActionPerformed(evt);
             }
         });
+        pass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passKeyPressed(evt);
+            }
+        });
         loginPane.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, 300, 60));
 
         jLabel3.setBackground(new java.awt.Color(0, 0, 0));
@@ -215,9 +223,14 @@ public class Main extends javax.swing.JFrame {
         jPanel5.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 0, 2, 2, new java.awt.Color(51, 51, 255)));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel17.setFont(new java.awt.Font("Segoe UI Semilight", 1, 18)); // NOI18N
-        jLabel17.setText("Don't have an account?Signup");
-        jPanel5.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 530, -1, 30));
+        jLabel17.setFont(new java.awt.Font("Segoe UI Semilight", 0, 18)); // NOI18N
+        jLabel17.setText("Forgot Password? ");
+        jLabel17.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel17MouseClicked(evt);
+            }
+        });
+        jPanel5.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, -1, 30));
 
         jLabel9.setBackground(new java.awt.Color(0, 0, 0));
         jLabel9.setFont(new java.awt.Font("Segoe UI Semilight", 0, 15)); // NOI18N
@@ -227,8 +240,8 @@ public class Main extends javax.swing.JFrame {
         jLabel19.setBackground(new java.awt.Color(102, 102, 102));
         jLabel19.setFont(new java.awt.Font("Arial Black", 0, 45)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel19.setText("LOG IN PAGE ");
-        jPanel5.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, -1, 60));
+        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/login ani.gif"))); // NOI18N
+        jPanel5.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, -1, 100));
 
         Signup.setBackground(new java.awt.Color(204, 204, 255));
         Signup.setForeground(new java.awt.Color(51, 51, 51));
@@ -244,7 +257,7 @@ public class Main extends javax.swing.JFrame {
                 SignupActionPerformed(evt);
             }
         });
-        jPanel5.add(Signup, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 450, 360, 70));
+        jPanel5.add(Signup, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 490, 360, 70));
 
         loginAcc.setBackground(new java.awt.Color(255, 51, 51));
         loginAcc.setText("LOG IN");
@@ -259,17 +272,21 @@ public class Main extends javax.swing.JFrame {
                 loginAccActionPerformed(evt);
             }
         });
-        jPanel5.add(loginAcc, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, 360, 70));
+        jPanel5.add(loginAcc, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 400, 360, 70));
 
         jLabel20.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
         jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/pass.png"))); // NOI18N
-        jPanel5.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, -1, 60));
+        jPanel5.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, -1, 60));
 
         jLabel21.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
         jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/user.png"))); // NOI18N
-        jPanel5.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, 60));
+        jPanel5.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, 60));
+
+        jLabel18.setFont(new java.awt.Font("Segoe UI Semilight", 1, 18)); // NOI18N
+        jLabel18.setText("Don't have an account?Signup");
+        jPanel5.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 560, -1, 30));
 
         loginPane.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 420, 600));
 
@@ -278,7 +295,7 @@ public class Main extends javax.swing.JFrame {
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         loginPane.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 360, 600));
 
-        getContentPane().add(loginPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, -10, 490, 610));
+        getContentPane().add(loginPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, -10, 470, -1));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -339,13 +356,9 @@ public class Main extends javax.swing.JFrame {
                         new adminSuccess().setVisible(true);
                         this.setVisible(false);
                         this.dispose();
-                    } else if (utype.equals("Patient")) {
+                    } else if (utype.equals("User")) {
                         new loginSuccess().setVisible(true);
                         this.setVisible(false);
-                    } else if (utype.equals("Doctor")) {
-                       new loginSuccess().setVisible(true);
-                        this.setVisible(false);
-                        this.dispose();
                     } else {
                         JOptionPane.showMessageDialog(null, "No account type found, Contact the Admin");
                     }
@@ -370,6 +383,52 @@ public class Main extends javax.swing.JFrame {
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         System.exit(0);
     }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void passKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passKeyPressed
+       if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+           String username = un.getText();
+        String password = new String(pass.getPassword());
+
+        if (un.getText().isEmpty() && pass.getPassword().length == 0) {
+            JOptionPane.showMessageDialog(null, "All Fields Are Required");
+        } else if (un.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Username is required");
+        } else if (pass.getPassword().length == 0) {
+            JOptionPane.showMessageDialog(null, "Password is required");
+        } else if (pass.getPassword().length < 8) {
+            JOptionPane.showMessageDialog(null, "Password should have at least 8 characters");
+        } else {
+            if (loginAcc(username, password)) {
+
+                if (!status.equals("Approved")) {
+                   needApproval na = new needApproval();
+                            na.setVisible(true);
+                            this.dispose();
+                } else {
+                    if (utype.equals("Admin")) {
+                        new adminSuccess().setVisible(true);
+                        this.setVisible(false);
+                        this.dispose();
+                    } else if (utype.equals("User")) {
+                        new loginSuccess().setVisible(true);
+                        this.setVisible(false);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No account type found, Contact the Admin");
+                    }
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Invalid Account");
+            }
+        }
+       }
+    }//GEN-LAST:event_passKeyPressed
+
+    private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
+       ForgotPassword fp = new ForgotPassword();
+        fp.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel17MouseClicked
 
     /**
      * @param args the command line arguments
@@ -413,6 +472,7 @@ public class Main extends javax.swing.JFrame {
     private rojerusan.RSMaterialButtonCircle Signup;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;

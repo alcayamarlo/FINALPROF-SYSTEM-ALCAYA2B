@@ -177,57 +177,57 @@ public class userChangepass extends javax.swing.JFrame {
     }//GEN-LAST:event_submitMouseClicked
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
-      try {
-            dbConnect connect = new dbConnect();
-            Session sess = Session.getInstance();
+    try {
+    dbConnect connect = new dbConnect();
+    Session sess = Session.getInstance();
 
-            // Fetch the current password from the database
-            String query = "SELECT password FROM users WHERE p_id = ?";
-            try (PreparedStatement pst = connect.getConnection().prepareStatement(query)) {
-                pst.setInt(1, sess.getPid());
-                ResultSet rs = pst.executeQuery();
+    String query = "SELECT password FROM users WHERE p_id = ?";
+    try (PreparedStatement pst = connect.getConnection().prepareStatement(query)) {
+        pst.setInt(1, sess.getPid());
+        ResultSet rs = pst.executeQuery();
 
-                if (rs.next()) {
-                    String oldPassHash = rs.getString("password");
-                    String oldPassInputHash = passwordHasher.hashPassword(oldPass.getText());
+        if (rs.next()) {
+            String oldPassHash = rs.getString("password");
+            String oldPassInputHash = passwordHasher.hashPassword(oldPass.getText());
 
-                    // Verify the old password
-                    if (oldPassHash.equals(oldPassInputHash)) {
-                        // Check if the new password and confirm password match
-                        if (newPass.getText().equals(confirmPass.getText())) {
-                            // Hash the new password
-                            String newPassHash = passwordHasher.hashPassword(newPass.getText());
+            if (oldPassHash.equals(oldPassInputHash)) {
+                String newPassword = newPass.getText();
+                String confirmPassword = confirmPass.getText();
 
-                            // Update the password in the database
-                            String updateQuery = "UPDATE users SET password = ? WHERE p_id = ?";
-                            try (PreparedStatement updatePst = connect.getConnection().prepareStatement(updateQuery)) {
-                                updatePst.setString(1, newPassHash);
-                                updatePst.setInt(2, sess.getPid());
-                                int rowsUpdated = updatePst.executeUpdate();
-
-                                if (rowsUpdated > 0) {
-                                    JOptionPane.showMessageDialog(null, "Password updated successfully!");
-                                    userDashboard usd = new userDashboard();
-                                    usd.setVisible(true);
-                                    this.dispose();
-                                } else {
-                                    JOptionPane.showMessageDialog(null, "Failed to update password!");
-                                }
-                            }
-                        } else {
-                            JOptionPane.showMessageDialog(null, "New password and confirm password do not match!");
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Old password is incorrect!");
-                    }
+                if (newPassword.length() < 8) {
+                    JOptionPane.showMessageDialog(null, "New password must be at least 8 characters long!");
+                } else if (!newPassword.equals(confirmPassword)) {
+                    JOptionPane.showMessageDialog(null, "New password and confirm password do not match!");
                 } else {
-                    JOptionPane.showMessageDialog(null, "User not found!");
+                    String newPassHash = passwordHasher.hashPassword(newPassword);
+
+                    String updateQuery = "UPDATE users SET password = ? WHERE p_id = ?";
+                    try (PreparedStatement updatePst = connect.getConnection().prepareStatement(updateQuery)) {
+                        updatePst.setString(1, newPassHash);
+                        updatePst.setInt(2, sess.getPid());
+                        int rowsUpdated = updatePst.executeUpdate();
+
+                        if (rowsUpdated > 0) {
+                            JOptionPane.showMessageDialog(null, "Password updated successfully!");
+                            userDashboard usd = new userDashboard();
+                            usd.setVisible(true);
+                            this.dispose();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Failed to update password!");
+                        }
+                    }
                 }
+            } else {
+                JOptionPane.showMessageDialog(null, "Old password is incorrect!");
             }
-        } catch (SQLException | NoSuchAlgorithmException ex) {
-            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
-            ex.printStackTrace();
+        } else {
+            JOptionPane.showMessageDialog(null, "User not found!");
         }
+    }
+} catch (SQLException | NoSuchAlgorithmException ex) {
+    JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+    ex.printStackTrace();
+}
 
     }//GEN-LAST:event_submitActionPerformed
 
@@ -257,7 +257,9 @@ public class userChangepass extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        System.exit(0);
+      userForm usf = new userForm();
+      usf.setVisible(true);
+      this.dispose();
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void oldPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oldPassActionPerformed

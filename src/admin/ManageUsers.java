@@ -281,9 +281,12 @@ public class ManageUsers extends javax.swing.JFrame {
     }//GEN-LAST:event_tableMouseClicked
 
     private void add_userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_userActionPerformed
-       createUserForm crf = new createUserForm();
-       crf.setVisible(true);
+      addUser user = new addUser();
+       user.setVisible(true);
        dispose();
+       
+       
+       
     }//GEN-LAST:event_add_userActionPerformed
 
     private void add_userMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_add_userMouseClicked
@@ -314,7 +317,6 @@ public class ManageUsers extends javax.swing.JFrame {
         ResultSet rs = dbc.getData("SELECT * FROM users WHERE p_id = '" + tbl.getValueAt(rowIndex, 0) + "'");
         if(rs.next()){
          createUserForm crf = new createUserForm();
-         crf.p_id.setText(""+rs.getInt("p_id"));
          crf.fn.setText(""+rs.getString("fn")); 
          crf.ct.setText(""+rs.getString("cityAddress")); 
          crf.em.setText(""+rs.getString("email")); 

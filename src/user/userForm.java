@@ -211,7 +211,7 @@ public class userForm extends javax.swing.JFrame {
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 830, -1, 30));
 
         utype.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
-        utype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "User Type : ", "Admin", "Patient", "Doctor" }));
+        utype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "User Type :", "Admin", "Patient" }));
         utype.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 utypeActionPerformed(evt);
@@ -279,7 +279,7 @@ public class userForm extends javax.swing.JFrame {
             + "email = ?, "
             + "contactNo = ?, "
             + "username = ?, "
-            + "usertype = ? " // Added usertype
+            + "usertype = ? " 
             + "WHERE p_id = ?";
 
             try (PreparedStatement pst = connect.getConnection().prepareStatement(query)) {
@@ -384,6 +384,6 @@ public class userForm extends javax.swing.JFrame {
     public textfield.TextField p_id;
     private rojerusan.RSMaterialButtonCircle submit;
     public textfield.TextField un;
-    private javax.swing.JComboBox<String> utype;
+    public javax.swing.JComboBox<String> utype;
     // End of variables declaration//GEN-END:variables
 }
