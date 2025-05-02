@@ -6,11 +6,17 @@
 package login;
 
 import Successfull.registerSuccess;
+import config.Session;
 import config.dbConnect;
 import config.passwordHasher;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -29,11 +35,11 @@ public class registerUser extends javax.swing.JFrame {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
     }
-    
+    public static String email,username;
 public boolean duplicateCheck() {
     dbConnect dbc = new dbConnect();
     try {
-        String query = "SELECT * FROM users WHERE username = '" + un.getText() + "' OR email = '" + em.getText() + "'";
+        String query = "SELECT * FROM users WHERE username = '" + answer.getText() + "' OR email = '" + em.getText() + "'";
         ResultSet resultSet = dbc.getData(query);
 
         if (resultSet.next()) {
@@ -43,9 +49,9 @@ public boolean duplicateCheck() {
                 em.setText("");
             }
             String username = resultSet.getString("username");
-            if (username.equals(un.getText())) { 
+            if (username.equals(answer.getText())) { 
                 JOptionPane.showMessageDialog(null, "Username is Already used"); 
-                un.setText("");
+                answer.setText("");
             }
             return true;
         } else {
@@ -56,7 +62,35 @@ public boolean duplicateCheck() {
         return false;
     }
 }
-  
+    public void logEvent(int userId, String username, String description) {
+    dbConnect dbc = new dbConnect();
+    Connection con = dbc.getConnection();
+    PreparedStatement pstmt = null;
+
+    try {
+        // Fixed: include `log_description` in your INSERT
+        String sql = "INSERT INTO tbl_log (p_id, u_username, login_time, u_type, log_status) VALUES (?, ?, ?, ?, ?)";
+        pstmt = con.prepareStatement(sql);
+
+        pstmt.setInt(1, userId);
+        pstmt.setString(2, username);
+        pstmt.setTimestamp(3, new Timestamp(new Date().getTime())); // login_time
+        pstmt.setString(4, "Success - User Action"); // u_type (general category)
+        pstmt.setString(5, "Active"); // log_status
+
+        pstmt.executeUpdate();
+        System.out.println("Log event recorded successfully.");
+    } catch (SQLException e) {
+        System.out.println("Error recording log: " + e.getMessage());
+    } finally {
+        try {
+            if (pstmt != null) pstmt.close();
+            if (con != null) con.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error closing resources: " + e.getMessage());
+        }
+    }
+}
   
 
     /**
@@ -70,11 +104,10 @@ public boolean duplicateCheck() {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
-        login = new rojerusan.RSMaterialButtonCircle();
+        jLabel9 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        un = new textfield.TextField();
+        answer = new textfield.TextField();
         fn = new textfield.TextField();
         ct = new textfield.TextField();
         em = new textfield.TextField();
@@ -87,37 +120,38 @@ public boolean duplicateCheck() {
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        security = new javax.swing.JComboBox<>();
-        answer = new javax.swing.JTextField();
+        securityQ = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        un = new textfield.TextField();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 255), 4), "SIGN UP PAGE", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 1, 36), new java.awt.Color(51, 51, 255))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 255), 4), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 1, 36), new java.awt.Color(51, 51, 255))); // NOI18N
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel22.setFont(new java.awt.Font("Segoe UI Semilight", 1, 16)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(51, 51, 51));
         jLabel22.setText("Do you have an account?Login");
-        jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 840, -1, -1));
-
-        login.setBackground(new java.awt.Color(204, 204, 255));
-        login.setForeground(new java.awt.Color(51, 51, 51));
-        login.setText("LOG IN");
-        login.setFont(new java.awt.Font("Arial Black", 1, 17)); // NOI18N
-        login.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loginActionPerformed(evt);
+        jLabel22.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel22MouseClicked(evt);
             }
         });
-        jPanel1.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 780, 390, 60));
+        jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 890, -1, -1));
+
+        jLabel9.setFont(new java.awt.Font("Arial Black", 1, 36)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel9.setText("SIGN UP PAGE");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, -1, 30));
 
         jLabel20.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
         jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/pass.png"))); // NOI18N
-        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 500, -1, 60));
+        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 550, -1, 60));
 
         jLabel3.setBackground(new java.awt.Color(204, 255, 255));
         jLabel3.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
@@ -127,23 +161,19 @@ public boolean duplicateCheck() {
                 jLabel3MouseClicked(evt);
             }
         });
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 0, 40, 40));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 0, 40, 30));
 
-        jPanel2.setBackground(new java.awt.Color(204, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(51, 51, 255)));
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 0, 40, 40));
-
-        un.setBackground(new java.awt.Color(204, 255, 255));
-        un.setDisabledTextColor(new java.awt.Color(255, 255, 255));
-        un.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
-        un.setLabelText("Enter your Username");
-        jPanel1.add(un, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 410, 330, 60));
+        answer.setBackground(new java.awt.Color(204, 255, 255));
+        answer.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        answer.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        answer.setLabelText("Enter your Answer");
+        jPanel1.add(answer, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 710, 330, 60));
 
         fn.setBackground(new java.awt.Color(204, 255, 255));
         fn.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         fn.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
         fn.setLabelText("Enter your Full Name");
-        jPanel1.add(fn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 330, 60));
+        jPanel1.add(fn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 330, 60));
 
         ct.setBackground(new java.awt.Color(204, 255, 255));
         ct.setDisabledTextColor(new java.awt.Color(255, 255, 255));
@@ -154,19 +184,19 @@ public boolean duplicateCheck() {
                 ctActionPerformed(evt);
             }
         });
-        jPanel1.add(ct, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 330, 60));
+        jPanel1.add(ct, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 330, 60));
 
         em.setBackground(new java.awt.Color(204, 255, 255));
         em.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         em.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
         em.setLabelText("Enter your Email");
-        jPanel1.add(em, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, 330, 60));
+        jPanel1.add(em, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, 330, 60));
 
         cn.setBackground(new java.awt.Color(204, 255, 255));
         cn.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         cn.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
         cn.setLabelText("Enter your Contact No");
-        jPanel1.add(cn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 320, 330, 60));
+        jPanel1.add(cn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 370, 330, 60));
 
         Signup.setBackground(new java.awt.Color(255, 51, 51));
         Signup.setText("SIGN UP");
@@ -181,7 +211,7 @@ public boolean duplicateCheck() {
                 SignupActionPerformed(evt);
             }
         });
-        jPanel1.add(Signup, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 720, 390, 60));
+        jPanel1.add(Signup, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 820, 390, 60));
 
         ps.setBackground(new java.awt.Color(204, 255, 255));
         ps.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
@@ -192,7 +222,7 @@ public boolean duplicateCheck() {
                 psActionPerformed(evt);
             }
         });
-        jPanel1.add(ps, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 490, 330, 60));
+        jPanel1.add(ps, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 540, 330, 60));
 
         utype.setBackground(new java.awt.Color(204, 255, 255));
         utype.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
@@ -202,38 +232,56 @@ public boolean duplicateCheck() {
                 utypeActionPerformed(evt);
             }
         });
-        jPanel1.add(utype, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 670, 150, 40));
+        jPanel1.add(utype, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 780, 150, 40));
 
         jLabel23.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(255, 255, 255));
         jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/user.png"))); // NOI18N
-        jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 420, -1, 60));
+        jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 470, -1, 60));
 
         jLabel24.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(255, 255, 255));
         jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/cnn.png"))); // NOI18N
-        jPanel1.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 330, -1, 60));
+        jPanel1.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 380, -1, 60));
 
         jLabel25.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
         jLabel25.setForeground(new java.awt.Color(255, 255, 255));
         jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/emm.png"))); // NOI18N
-        jPanel1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 250, -1, 60));
+        jPanel1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 300, -1, 60));
 
         jLabel26.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(255, 255, 255));
         jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/images-24-removebg-preview.png"))); // NOI18N
-        jPanel1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, -1, 60));
+        jPanel1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, -1, 60));
 
         jLabel21.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
         jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/full.png"))); // NOI18N
-        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, -1, 60));
+        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, -1, 60));
 
-        security.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "What is the name of your favorite MLBB character?", "What is the title of your favorite movie?", "What is your favorite colour?" }));
-        jPanel1.add(security, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 560, 330, 40));
-        jPanel1.add(answer, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 620, 330, 40));
+        securityQ.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "What is your Nickname?", "What is your favourite movie?", "What is your favourite food?" }));
+        securityQ.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                securityQActionPerformed(evt);
+            }
+        });
+        jPanel1.add(securityQ, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 650, 330, 50));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 880));
+        jLabel1.setText("Security Question :");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 620, -1, -1));
+
+        un.setBackground(new java.awt.Color(204, 255, 255));
+        un.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        un.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        un.setLabelText("Enter your Username");
+        jPanel1.add(un, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 460, 330, 60));
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI Semilight", 0, 15)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel10.setText("Create New Account Here");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, -1, 30));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 930));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -249,117 +297,87 @@ public boolean duplicateCheck() {
     }//GEN-LAST:event_SignupMouseClicked
 
     private void SignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignupActionPerformed
-        if (fn.getText().isEmpty() || ct.getText().isEmpty() || em.getText().isEmpty() || cn.getText().isEmpty() || un.getText().isEmpty() || ps.getText().isEmpty() || utype.getSelectedItem().toString().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "All Fields Are Required");
-        } else {
-            if (fn.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Full Name is required");
-                fn.setText("");
-                return;
-            }
-            if (ct.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "City & Address is required");
-                ct.setText("");
-                return;
-            }
-            if (em.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Email is required");
-                em.setText("");
-                return;
-            }
+  // Store dropdown selections first
+String selectedUserType = (String) utype.getSelectedItem();
+String selectedSecurityQ = (String) securityQ.getSelectedItem();
 
-            String input = cn.getText();
-            if (!input.matches("[0-9]{11}")) {
-                JOptionPane.showMessageDialog(null, "Please enter a valid contact number (11 digits only)");
-                cn.setText("");
-                return;
-            }
+// Ensure all fields are filled and dropdowns are not default/blank
+if (fn.getText().trim().isEmpty() || ct.getText().trim().isEmpty() || em.getText().trim().isEmpty() ||
+    cn.getText().trim().isEmpty() || un.getText().trim().isEmpty() || ps.getText().trim().isEmpty() ||
+    selectedUserType == null || selectedUserType.trim().equals("") || selectedUserType.equals("Select") ||
+    selectedSecurityQ == null || selectedSecurityQ.trim().equals("") || selectedSecurityQ.equals("Select") ||
+    answer.getText().trim().isEmpty()) {
 
-            String email = em.getText();
-            String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-            Pattern pattern = Pattern.compile(emailRegex);
-            Matcher matcher = pattern.matcher(email);
+    JOptionPane.showMessageDialog(null, "All Fields Are Required!");
 
-            if (!matcher.matches()) {
-                JOptionPane.showMessageDialog(null, "Please enter a valid email ");
-                em.setText("");
-                return;
-            }
+} else if (!(selectedUserType.equals("Admin") || selectedUserType.equals("Patient"))) {
+    JOptionPane.showMessageDialog(null, "Invalid user type selected.");
+    
+} else if (ps.getText().length() < 8) {
+    JOptionPane.showMessageDialog(null, "Password must be at least 8 characters.");
+    ps.setText("");
 
-            if (un.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Username is required");
-                un.setText("");
-                return;
-            }
+} else if (!em.getText().matches("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$")) {
+    JOptionPane.showMessageDialog(null, "Enter a valid email address.");
+    em.setText("");
 
-            String password = ps.getText();
+} else if (!cn.getText().matches("\\d{11}")) {
+    JOptionPane.showMessageDialog(null, "Please enter a valid contact number (11 digits).");
+    cn.setText("");
 
-            if (password.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Password is required");
-                
-                return;
-            }
-            if (password.length() < 8) {
-                JOptionPane.showMessageDialog(null, "Password should have at least 8 characters");
-                return;
-            }
+} else if (duplicateCheck()) {
+    JOptionPane.showMessageDialog(null, "Duplicate entry detected!");
 
-            String selectedUserType = (String) utype.getSelectedItem();
-            if (!("Admin".equals(selectedUserType) || "Patient".equals(selectedUserType))) {
-                JOptionPane.showMessageDialog(null, "Please select a User Type ");
-                return;
-            }
-            else {
-                dbConnect dbc = new dbConnect();
-                try{
-                    String pass = passwordHasher.hashPassword(ps.getText());
-                    String checkUsernameQuery = "SELECT COUNT(*) FROM users WHERE username = '" + un.getText() + "'";
-                    int usernameCount = dbc.executeQueryForCount(checkUsernameQuery);
-                    if (usernameCount > 0) {
-                        JOptionPane.showMessageDialog(null, "Username is already taken");
-                         un.setText("");
+} else {
+    dbConnect dbc = new dbConnect();
+    Session sess = Session.getInstance();
+    int userId = sess.getPid();
 
-                        return;
+    try {
+        String hashedPassword = passwordHasher.hashPassword(ps.getText()); // ✅ Hash the password
+
+        String query = "INSERT INTO users(fn, cityAddress, email, contactNo, username, password, usertype, securityQ, answer, status, image) " +
+                       "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'Pending', 'NULL')";
+
+        try (Connection con = dbc.getConnection(); 
+             PreparedStatement stmt = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+
+            stmt.setString(1, fn.getText().trim());
+            stmt.setString(2, ct.getText().trim());
+            stmt.setString(3, em.getText().trim());
+            stmt.setString(4, cn.getText().trim());
+            stmt.setString(5, un.getText().trim());
+            stmt.setString(6, hashedPassword);
+            stmt.setString(7, selectedUserType);
+            stmt.setString(8, selectedSecurityQ);
+            stmt.setString(9, answer.getText().trim());
+
+            int rowsInserted = stmt.executeUpdate();
+            if (rowsInserted > 0) {
+                try (ResultSet rs = stmt.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        logEvent(userId, un.getText(), "New user registered: " + un.getText());
+                        JOptionPane.showMessageDialog(null, "Registration Successful!");
+                        new registerSuccess().setVisible(true);
+                        this.dispose();
                     }
-
-                    String checkEmailQuery = "SELECT COUNT(*) FROM users WHERE email = '" + em.getText() + "'";
-                    int emailCount = dbc.executeQueryForCount(checkEmailQuery);
-                    if (emailCount > 0) {
-                        JOptionPane.showMessageDialog(null, "Email is already registered");
-                        em.setText("");
-
-                        return;
-                    }
-
-                    String insertQuery = "INSERT INTO users(fn, cityAddress, email, contactNo, username, password, usertype, status) " +
-                    "VALUES('" + fn.getText() + "', '" + ct.getText() + "', '" + em.getText() + "', '" + cn.getText() + "', '" + un.getText() + "', '" + pass + "', '" + selectedUserType + "', 'Pending')";
-
-                    if (dbc.insertData(insertQuery) == 0) {
-                        
-                    }
-                    new registerSuccess().setVisible(true);
-                    this.setVisible(false);
-                    this.dispose();
-                    
-
-                }catch(NoSuchAlgorithmException ex){
-                    System.out.println(""+ex);
                 }
+            } else {
+                JOptionPane.showMessageDialog(null, "Registration Failed. Try again!");
             }
-            
         }
+    } catch (SQLException | NoSuchAlgorithmException ex) {
+        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+    }
+}
+
+
+
+
+
+    
                 
     }//GEN-LAST:event_SignupActionPerformed
-
-    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        System.exit(0);
-    }//GEN-LAST:event_jLabel3MouseClicked
-
-    private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
-        Main mn = new Main();
-        mn.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_loginActionPerformed
 
     private void psActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_psActionPerformed
         // TODO add your handling code here:
@@ -368,6 +386,20 @@ public boolean duplicateCheck() {
     private void ctActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ctActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ctActionPerformed
+
+    private void securityQActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_securityQActionPerformed
+     
+    }//GEN-LAST:event_securityQActionPerformed
+
+    private void jLabel22MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel22MouseClicked
+        Main mn = new Main();
+        mn.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel22MouseClicked
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_jLabel3MouseClicked
 
     /**
      * @param args the command line arguments
@@ -406,11 +438,13 @@ public boolean duplicateCheck() {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rojerusan.RSMaterialButtonCircle Signup;
-    private javax.swing.JTextField answer;
+    private textfield.TextField answer;
     private textfield.TextField cn;
     private textfield.TextField ct;
     private textfield.TextField em;
     private textfield.TextField fn;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -419,11 +453,10 @@ public boolean duplicateCheck() {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private rojerusan.RSMaterialButtonCircle login;
     private textfield.PasswordField ps;
-    private javax.swing.JComboBox<String> security;
+    private javax.swing.JComboBox<String> securityQ;
     private textfield.TextField un;
     public javax.swing.JComboBox<String> utype;
     // End of variables declaration//GEN-END:variables

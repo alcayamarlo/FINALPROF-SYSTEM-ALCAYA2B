@@ -100,7 +100,7 @@ public class loginSuccess extends javax.swing.JFrame {
 
         name.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
         name.setText("HI ");
-        jPanel1.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 460, 460, -1));
+        jPanel1.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 450, 460, -1));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI Semilight", 0, 18)); // NOI18N
         jLabel8.setText("HI USER WELCOME TO HOSPITAL BILLING SYSTEM");
@@ -119,15 +119,16 @@ public class loginSuccess extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        Session sess = Session.getInstance();
-       int pid = sess.getPid();
-       if(sess.getPid() == 0){       
-       new noAccount().setVisible(true);
-       this.setVisible(false);
-       this.dispose();
-       }else{
-         name.setText(""+sess.getFn());
+       Session sess = Session.getInstance();
+       
+       if(sess.getPid() == 0){
+          noAccount no= new noAccount();
+           no.setVisible(true);
+           this.dispose();
+       
        }
+       name.setText(""+sess.getFn());
+      
     }//GEN-LAST:event_formWindowActivated
 
     /**

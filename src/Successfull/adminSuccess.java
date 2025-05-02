@@ -131,7 +131,7 @@ public class adminSuccess extends javax.swing.JFrame {
 
         name.setFont(new java.awt.Font("Arial Black", 1, 36)); // NOI18N
         name.setText("HI,");
-        jPanel1.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 400, 440, -1));
+        jPanel1.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 400, 440, -1));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI Semilight", 0, 18)); // NOI18N
         jLabel8.setText("HI ADMIN WELCOME TO HOSPITAL BILLING SYSTEM");
@@ -139,7 +139,7 @@ public class adminSuccess extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Arial Black", 1, 36)); // NOI18N
         jLabel9.setText("HI,");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 400, 80, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 400, 80, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 490));
 
@@ -158,14 +158,15 @@ public class adminSuccess extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
        Session sess = Session.getInstance();
-       int pid = sess.getPid();
-       if(sess.getPid() == 0){       
-       new noAccount().setVisible(true);
-       this.setVisible(false);
-       this.dispose();
-       }else{
-           name.setText(""+sess.getFn());
-       } 
+       
+       if(sess.getPid() == 0){
+          noAccount no= new noAccount();
+           no.setVisible(true);
+           this.dispose();
+       
+       }
+       name.setText(""+sess.getFn());
+      
     }//GEN-LAST:event_formWindowActivated
 
     /**

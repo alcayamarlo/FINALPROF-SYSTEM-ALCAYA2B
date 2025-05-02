@@ -10,9 +10,12 @@ import config.Session;
 import config.dbConnect;
 import config.passwordHasher;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,7 +32,46 @@ public class userChangepass extends javax.swing.JFrame {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
     }
+  public void logEvent(int userId, String username, String action) 
+    {
+        dbConnect dbc = new dbConnect();
+        Connection con = dbc.getConnection();
+        PreparedStatement pstmt = null;
+        Timestamp time = new Timestamp(new Date().getTime());
 
+        try 
+        {
+            String sql = "INSERT INTO logs (u_id, log_action , log_date) "
+                    + "VALUES ('" + userId + "', '" + username + "', '" + time + "', '" + action + "')";
+            pstmt = con.prepareStatement(sql);
+
+            /*            pstmt.setInt(1, userId);
+            pstmt.setString(2, username);
+            pstmt.setTimestamp(3, new Timestamp(new Date().getTime()));
+            pstmt.setString(4, userType);*/
+            pstmt.executeUpdate();
+            System.out.println("Login log recorded successfully.");
+        } catch (SQLException e) 
+        {
+            JOptionPane.showMessageDialog(null, "Error recording log: " + e.getMessage());
+        } finally 
+        {
+            try 
+            {
+                if (pstmt != null) 
+                {
+                    pstmt.close();
+                }
+                if (con != null) 
+                {
+                    con.close();
+                }
+            } catch (SQLException e) 
+            {
+                JOptionPane.showMessageDialog(null, "Error closing resources: " + e.getMessage());
+            }
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

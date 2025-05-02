@@ -8,8 +8,20 @@ package user;
 import Successfull.noAccount;
 import config.Session;
 import config.dbConnect;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Date;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import login.Main;
 import net.proteanit.sql.DbUtils;
 
@@ -28,9 +40,8 @@ public class userDashboard extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         displayData();
         getPatientCount();
-        getDoctorCount();
         getPendingAccount();
-        
+        loadUserProfile();
     }
     
     public void displayData() {
@@ -67,18 +78,85 @@ public void getPendingAccount() {
             System.out.println("" + ex);
         }
     }
-public void getDoctorCount() {
-        try {
-            dbConnect dbc = new dbConnect();
-            ResultSet rs = dbc.getData("SELECT COUNT(*) FROM users WHERE usertype = 'Doctor'");
-            if (rs.next()) {
-                int count = rs.getInt(1);
-                docc.setText(String.valueOf(count));
+ 
+  private void loadUserProfile() {
+    dbConnect dbc = new dbConnect();
+    Session sess = Session.getInstance();
+
+    String query = "SELECT image FROM users WHERE p_id = ?";
+
+    try (Connection conn = dbc.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+        pstmt.setInt(1, sess.getPid());
+        ResultSet rs = pstmt.executeQuery();
+
+        if (rs.next()) {
+            String imagePath = rs.getString("image");
+
+            if (imagePath != null && !imagePath.isEmpty()) {
+                ImageIcon icon = new ImageIcon(imagePath);
+                u_image.setIcon(icon);
             }
-        } catch (SQLException ex) {
-            System.out.println("" + ex);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace(); // Log the error
+        JOptionPane.showMessageDialog(this, "Error loading profile image: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}   
+   private void logoutUser(String username) {
+    dbConnect connector = new dbConnect();
+    try (Connection con = connector.getConnection()) {
+
+        String updateQuery = "UPDATE tbl_log SET log_status = 'Inactive', logout_time = NOW() " +
+                             "WHERE LOWER(u_username) = LOWER(?) AND log_status = 'Active'";
+
+        try (PreparedStatement stmt = con.prepareStatement(updateQuery)) {
+            System.out.println("Logging out user: " + username); // Debug
+            stmt.setString(1, username);
+            int updatedRows = stmt.executeUpdate();
+
+            if (updatedRows > 0) {
+                JOptionPane.showMessageDialog(null, "User " + username + " has logged out successfully!");
+            } else {
+                JOptionPane.showMessageDialog(null, "No active session found for " + username);
+            }
+        }
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error logging out: " + ex.getMessage());
+    }
+}
+
+    
+        public void logEvent(int userId, String username, String userType, String logDescription) {
+    dbConnect dbc = new dbConnect();
+    Connection con = dbc.getConnection();
+    PreparedStatement pstmt = null;
+
+    try {
+        String sql = "INSERT INTO tbl_log (p_id, u_username, login_time, u_type, log_status) VALUES (?, ?, ?, ?, ?)";
+        pstmt = con.prepareStatement(sql);
+
+        pstmt.setInt(1, userId);
+        pstmt.setString(2, username);
+        pstmt.setTimestamp(3, new Timestamp(new Date().getTime()));
+        pstmt.setString(4, userType); // This should be "Admin" or "User"
+        pstmt.setString(5, "Active");
+
+        pstmt.executeUpdate();
+        System.out.println("Log recorded successfully.");
+    } catch (SQLException e) {
+        System.out.println("Error recording log: " + e.getMessage());
+    } finally {
+        try {
+            if (pstmt != null) pstmt.close();
+            if (con != null) con.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error closing resources: " + e.getMessage());
         }
     }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -113,10 +191,10 @@ public void getDoctorCount() {
         rSMaterialButtonCircle3 = new rojerusan.RSMaterialButtonCircle();
         jLabel6 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        un = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jPanel18 = new javax.swing.JPanel();
-        un1 = new javax.swing.JLabel();
+        u_image = new javax.swing.JLabel();
+        select = new rojerusan.RSMaterialButtonCircle();
         jLabel20 = new javax.swing.JLabel();
         jPanel15 = new javax.swing.JPanel();
         pen = new javax.swing.JLabel();
@@ -125,9 +203,6 @@ public void getDoctorCount() {
         jLabel22 = new javax.swing.JLabel();
         patient = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jPanel12 = new javax.swing.JPanel();
-        docc = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -249,7 +324,13 @@ public void getDoctorCount() {
 
         jPanel6.setBackground(new java.awt.Color(204, 204, 255));
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel6.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 610, 130, 70));
+
+        id.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                idActionPerformed(evt);
+            }
+        });
+        jPanel6.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 580, 130, 70));
 
         rSMaterialButtonCircle1.setText("EDIT PROFILE");
         rSMaterialButtonCircle1.setFont(new java.awt.Font("Arial Black", 1, 17)); // NOI18N
@@ -258,11 +339,11 @@ public void getDoctorCount() {
                 rSMaterialButtonCircle1ActionPerformed(evt);
             }
         });
-        jPanel6.add(rSMaterialButtonCircle1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, 270, 90));
+        jPanel6.add(rSMaterialButtonCircle1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 270, 50));
 
         rSMaterialButtonCircle2.setText("CURRENT ID");
         rSMaterialButtonCircle2.setFont(new java.awt.Font("Arial Black", 1, 17)); // NOI18N
-        jPanel6.add(rSMaterialButtonCircle2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 520, 270, 90));
+        jPanel6.add(rSMaterialButtonCircle2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 520, 270, 50));
 
         rSMaterialButtonCircle3.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(51, 51, 255)));
         rSMaterialButtonCircle3.setText("ACCOUNT");
@@ -272,20 +353,15 @@ public void getDoctorCount() {
                 rSMaterialButtonCircle3ActionPerformed(evt);
             }
         });
-        jPanel6.add(rSMaterialButtonCircle3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 270, 90));
+        jPanel6.add(rSMaterialButtonCircle3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 270, 50));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 2, 20)); // NOI18N
         jLabel6.setText("Account Features :");
-        jPanel6.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 240, 30));
+        jPanel6.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 240, 30));
 
         jPanel5.setBackground(new java.awt.Color(204, 204, 255));
         jPanel5.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        un.setFont(new java.awt.Font("Arial Black", 1, 16)); // NOI18N
-        un.setForeground(new java.awt.Color(153, 153, 153));
-        un.setText("username");
-        jPanel5.add(un, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, 170, -1));
 
         jLabel14.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 16)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(153, 153, 153));
@@ -306,13 +382,17 @@ public void getDoctorCount() {
         );
 
         jPanel5.add(jPanel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, -1, -1));
-
-        un1.setFont(new java.awt.Font("Arial Black", 1, 16)); // NOI18N
-        un1.setForeground(new java.awt.Color(153, 153, 153));
-        un1.setText("@");
-        jPanel5.add(un1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 30, -1));
+        jPanel5.add(u_image, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 220, 190));
 
         jPanel6.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 240, 210));
+
+        select.setText("USER");
+        select.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectActionPerformed(evt);
+            }
+        });
+        jPanel6.add(select, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 190, 50));
 
         jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 280, 690));
 
@@ -357,21 +437,6 @@ public void getDoctorCount() {
         jLabel23.setText("No. of Patient ");
         jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 70, 190, -1));
 
-        jLabel15.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
-        jLabel15.setText("No. of Doctor");
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 70, 190, -1));
-
-        jPanel12.setBackground(new java.awt.Color(204, 204, 255));
-        jPanel12.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(51, 255, 204)));
-        jPanel12.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        docc.setFont(new java.awt.Font("Segoe UI Black", 1, 36)); // NOI18N
-        docc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/icons8_Read_Online_26px.png"))); // NOI18N
-        docc.setText("10");
-        jPanel12.add(docc, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 160, -1));
-
-        jPanel1.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 100, 170, 120));
-
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1290, 730));
 
         pack();
@@ -400,21 +465,28 @@ public void getDoctorCount() {
     }//GEN-LAST:event_rSMaterialButtonCircle3ActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        Session sess = Session.getInstance();
-       int pid = sess.getPid();
-       if(sess.getPid() == 0){       
-       new noAccount().setVisible(true);
-       this.setVisible(false);
-       this.dispose();
-       }else{
-           id.setText(""+sess.getPid());
-           name.setText(""+sess.getFn());
-           ct.setText(""+sess.getCityAddress());
-           em.setText(""+sess.getEmail());
-           utype.setText(""+sess.getUsertype());
-           un.setText(""+sess.getUsername());
+Session sess = Session.getInstance();
+       
+       if(sess.getPid() == 0){
+          noAccount no= new noAccount();
+           no.setVisible(true);
+           this.dispose();
+       
        }
+       id.setText(""+sess.getPid());
+       name.setText(""+sess.getFn());
+       utype.setText(""+sess.getUsertype());
+       em.setText(""+sess.getEmail());
+       ct.setText(""+sess.getCityAddress());
     }//GEN-LAST:event_formWindowActivated
+
+    private void selectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectActionPerformed
+      // TODO add your handling code here:  // TODO add your handling code here:
+    }//GEN-LAST:event_selectActionPerformed
+
+    private void idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_idActionPerformed
 
     /**
      * @param args the command line arguments
@@ -453,14 +525,12 @@ public void getDoctorCount() {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ct;
-    private javax.swing.JLabel docc;
     private javax.swing.JLabel em;
     private rojerusan.RSMaterialButtonCircle id;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel22;
@@ -471,7 +541,6 @@ public void getDoctorCount() {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
@@ -488,9 +557,9 @@ public void getDoctorCount() {
     private rojerusan.RSMaterialButtonCircle rSMaterialButtonCircle1;
     private rojerusan.RSMaterialButtonCircle rSMaterialButtonCircle2;
     private rojerusan.RSMaterialButtonCircle rSMaterialButtonCircle3;
+    private rojerusan.RSMaterialButtonCircle select;
     private rojeru_san.complementos.RSTableMetro table;
-    private javax.swing.JLabel un;
-    private javax.swing.JLabel un1;
+    private javax.swing.JLabel u_image;
     private javax.swing.JLabel utype;
     // End of variables declaration//GEN-END:variables
 }

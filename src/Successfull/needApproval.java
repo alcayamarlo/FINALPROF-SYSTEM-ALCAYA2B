@@ -109,15 +109,7 @@ public class needApproval extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        Session sess = Session.getInstance();
-       int pid = sess.getPid();
-       if(sess.getPid() == 0){       
-       new noAccount().setVisible(true);
-       this.setVisible(false);
-       this.dispose();
-       }else{
-          
-       }
+        
     }//GEN-LAST:event_formWindowActivated
 
     /**

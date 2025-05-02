@@ -4,27 +4,172 @@
  * and open the template in the editor.
  */
 package Authentication;
-
+import java.sql.*;
 import config.Session;
 import config.dbConnect;
+import config.passwordHasher;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import login.Main;
 
 /**
  *
  * @author alcay
  */
 public class SecurityQuestion extends javax.swing.JFrame {
-
+private String correctAnswer;
     /**
      * Creates new form SecurityQuestion
      */
     public SecurityQuestion() {
         initComponents();
     }
+ private void fetchSecurityQuestion() {
+        String username = un.getText();
+        if (username.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter your username.");
+            return;
+        }
+
+        dbConnect db = new dbConnect();
+        Connection con = db.getConnection();
+
+        if (con == null) {
+            JOptionPane.showMessageDialog(this, "Database connection failed. Please try again later.");
+            return;
+        }
+
+        try {
+            PreparedStatement stmt = con.prepareStatement(
+                    "SELECT securityQ, answer FROM users WHERE username = ?"
+            );
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                sq.removeAllItems();
+                sq.addItem(rs.getString("securityQ"));
+                sq.setEnabled(true);
+                correctAnswer = rs.getString("answer");
+                submit.setEnabled(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Username not found.");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "An error occurred while fetching the security question.");
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void logEvent(int userId, String username, String description) {
+        dbConnect dbc = new dbConnect();
+        Connection con = dbc.getConnection();
+        PreparedStatement pstmt = null;
+
+        try {
+            String sql = "INSERT INTO tbl_log (p_id, u_username, login_time, u_type, log_status) VALUES (?, ?, ?, ?, ?)";
+            pstmt = con.prepareStatement(sql);
+
+            pstmt.setInt(1, userId);
+            pstmt.setString(2, username);
+            pstmt.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
+            pstmt.setString(4, "Success - User Action");
+            pstmt.setString(5, "Active");
+
+            pstmt.executeUpdate();
+            System.out.println("Log event recorded successfully.");
+        } catch (SQLException e) {
+            System.out.println("Error recording log: " + e.getMessage());
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error closing resources: " + e.getMessage());
+            }
+        }
+    }
+
+    private void resetPassword() {
+        String enteredAnswer = ans.getText();
+        String newPassword = new String(Newpass.getPassword()); // Use getPassword()
+
+        int userId = -1;
+        String uname2 = "";
+
+        if (correctAnswer == null) {
+            JOptionPane.showMessageDialog(this, "Please search for your username first.");
+            return;
+        }
+
+        // No hashing for security answer; compare as plain text
+        if (!enteredAnswer.equalsIgnoreCase(correctAnswer.trim())) {
+            JOptionPane.showMessageDialog(this, "Incorrect security answer.");
+            return;
+        }
+
+        try {
+            String hashedPassword = passwordHasher.hashPassword(newPassword);
+
+            dbConnect db = new dbConnect();
+            Connection con = db.getConnection();
+
+            if (con == null) {
+                JOptionPane.showMessageDialog(this, "Database connection failed. Please try again later.");
+                return;
+            }
+
+            try {
+                PreparedStatement stmt = con.prepareStatement(
+                        "UPDATE users SET password = ? WHERE username = ?"
+                );
+                stmt.setString(1, hashedPassword);
+                stmt.setString(2, un.getText());
+
+                int rowsUpdated = stmt.executeUpdate();
+                if (rowsUpdated > 0) {
+                    JOptionPane.showMessageDialog(this, "Password successfully reset!");
+
+                    // Log user event
+                    String query2 = "SELECT * FROM users WHERE username = ?";
+                    PreparedStatement pstmt = con.prepareStatement(query2);
+                    pstmt.setString(1, un.getText());
+                    ResultSet resultSet = pstmt.executeQuery();
+
+                    if (resultSet.next()) {
+                        userId = resultSet.getInt("p_id");
+                        uname2 = resultSet.getString("username");
+                        logEvent(userId, uname2, "User Reset Their Password");
+                    }
+
+                    dispose(); // Close the window
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error: Username not found or password update failed.");
+                }
+            } finally {
+                con.close();
+            }
+
+        } catch (NoSuchAlgorithmException ex) {
+            JOptionPane.showMessageDialog(this, "Error hashing password: " + ex.getMessage());
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "An error occurred while updating the password.");
+        }
+    }
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -43,204 +188,216 @@ public class SecurityQuestion extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        question1 = new javax.swing.JComboBox<>();
-        answerField1 = new javax.swing.JTextField();
-        question2 = new javax.swing.JComboBox<>();
-        answerField2 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        cancel = new rojerusan.RSMaterialButtonCircle();
+        un = new textfield.TextField();
+        ans = new textfield.TextField();
+        search = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        back = new rojerusan.RSMaterialButtonCircle();
         submit = new rojerusan.RSMaterialButtonCircle();
+        sq = new javax.swing.JComboBox<>();
+        Newpass = new textfield.PasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(153, 153, 255)));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel4.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(102, 102, 255));
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/logooooo.png"))); // NOI18N
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-60, 210, 340, 250));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-60, 230, 340, 250));
 
         jLabel1.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 102, 102));
         jLabel1.setText("HOSPITAL BILLING ");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 280, 30));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 280, 30));
 
         jLabel2.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 51, 51));
         jLabel2.setText("SYSTEM");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 100, 30));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 100, 30));
 
         jLabel5.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(102, 102, 255));
         jLabel5.setText("HOSPITAL BILLING ");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 280, 30));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 280, 30));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/fb.png"))); // NOI18N
         jLabel7.setText("Alcaya Marlo");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 460, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 480, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/ig.jpg"))); // NOI18N
         jLabel8.setText("@atreuz_szee");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 460, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 480, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Arial Black", 1, 36)); // NOI18N
         jLabel6.setText("SECURITY QUESTION");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, 590, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, 500, -1));
 
-        question1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        question1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "What is the name of your favorite MLBB character?", "What is the title of your favorite movie?", "What is your mother’s tongue?" }));
-        jPanel1.add(question1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 200, 280, 30));
-
-        answerField1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        answerField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                answerField1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(answerField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 240, 360, 40));
-
-        question2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        question2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "What was the name of your first pet?", "What is the name of the street you grew up on?", "What was your childhood best friend’s name?" }));
-        question2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                question2ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(question2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 300, 280, 30));
-
-        answerField2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jPanel1.add(answerField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 340, 360, 40));
-
+        jLabel3.setFont(new java.awt.Font("Malgun Gothic", 0, 24)); // NOI18N
         jLabel3.setText("Answer your Security question to reset the password.");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 140, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, -1, -1));
 
-        cancel.setText("CANCEL");
-        cancel.addMouseListener(new java.awt.event.MouseAdapter() {
+        un.setBackground(new java.awt.Color(204, 255, 255));
+        un.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        un.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        un.setLabelText("Enter your Username");
+        jPanel1.add(un, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 110, 270, 60));
+
+        ans.setBackground(new java.awt.Color(204, 255, 255));
+        ans.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        ans.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
+        ans.setLabelText("Enter your Answer");
+        jPanel1.add(ans, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 270, 260, 60));
+
+        search.setText("Search");
+        search.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cancelMouseClicked(evt);
+                searchMouseClicked(evt);
             }
         });
-        jPanel1.add(cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 400, 110, 70));
+        search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchActionPerformed(evt);
+            }
+        });
+        jPanel1.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 140, 80, -1));
+
+        jLabel13.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
+        jLabel13.setText("x");
+        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel13MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 0, 30, -1));
+
+        jLabel14.setFont(new java.awt.Font("Arial Black", 1, 36)); // NOI18N
+        jLabel14.setText("-");
+        jLabel14.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel14MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 10, 30, 20));
+
+        back.setBackground(new java.awt.Color(255, 51, 51));
+        back.setText("BACK");
+        jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 540, 280, 60));
 
         submit.setText("SUBMIT");
-        submit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                submitActionPerformed(evt);
+        submit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                submitMouseClicked(evt);
             }
         });
-        jPanel1.add(submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 400, 110, 70));
+        jPanel1.add(submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 460, 280, 60));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 630));
+        sq.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Whats your Security Question?" }));
+        jPanel1.add(sq, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 210, 260, 50));
+
+        Newpass.setBackground(new java.awt.Color(204, 255, 255));
+        Newpass.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
+        Newpass.setLabelText("Password\n");
+        Newpass.setShowAndHide(true);
+        Newpass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NewpassActionPerformed(evt);
+            }
+        });
+        Newpass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                NewpassKeyPressed(evt);
+            }
+        });
+        jPanel1.add(Newpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 370, 270, 60));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 620));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void answerField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_answerField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_answerField1ActionPerformed
+    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
+     
+    }//GEN-LAST:event_searchActionPerformed
 
-    private void question2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_question2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_question2ActionPerformed
+    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
+       Main mn = new Main();
+       mn.setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_jLabel13MouseClicked
 
-    private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
-        // Retrieve user details from session
-       Session sess = Session.getInstance();
-        Integer pid = (Integer) sess.getPid(); // Get user_id as Integer object
+    private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
+     
+    }//GEN-LAST:event_jLabel14MouseClicked
 
-        if (pid == null) {
-            JOptionPane.showMessageDialog(this, "Session expired. Please search for your account again.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+    private void submitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitMouseClicked
+        resetPassword(); 
+    }//GEN-LAST:event_submitMouseClicked
+
+    private void searchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchMouseClicked
+        String username = un.getText();  
+    if (username.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please enter your username.");
+        return;
+    }
+
+    // Create a database connection
+    dbConnect db = new dbConnect();  // Instantiate dbConnector
+    Connection con = db.getConnection(); // Get connection
+
+    if (con == null) {
+        JOptionPane.showMessageDialog(this, "Database connection failed. Please try again later.");
+        return;
+    }
+
+    try {
+        PreparedStatement stmt = con.prepareStatement(
+            "SELECT securityQ, answer FROM users WHERE username = ?"
+        );
+        stmt.setString(1, username);
+        ResultSet rs = stmt.executeQuery();
+
+        if (rs.next()) {
+            sq.removeAllItems();
+            sq.addItem(rs.getString("securityQ"));
+            sq.setEnabled(true);
+          correctAnswer = rs.getString("answer"); // still okay if hashed
+
+            submit.setEnabled(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Username not found.");
         }
 
-        String selectedQuestion1 = (String) question1.getSelectedItem();
-        String selectedQuestion2 = (String) question2.getSelectedItem();
-        String userAnswer1 = answerField1.getText().trim();
-        String userAnswer2 = answerField2.getText().trim();
-
-        if (selectedQuestion1 == null || selectedQuestion2 == null) {
-            JOptionPane.showMessageDialog(this, "Please select both security questions.", "Input Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        
-        System.out.println("Selected Question 1: [" + selectedQuestion1 + "]"); // <--- Place here
-        System.out.println("Selected Question 2: [" + selectedQuestion2 + "]"); // <--- Place here
-        System.out.println("User Answer 1: [" + userAnswer1 + "]"); // <--- Place here
-        System.out.println("User Answer 2: [" + userAnswer2 + "]"); // <--- Place here
-
-
-        if (userAnswer1.isEmpty() || userAnswer2.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter both answers.", "Input Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        Connection connection = null;
-        PreparedStatement pst = null;
-        ResultSet rs = null;
-
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "An error occurred while fetching the security question.");
+    } finally {
         try {
-            // Database connection
-            dbConnect con = new dbConnect();
-            connection = con.getConnection();
-
-            // Fetch security questions and answers using user_id from session
-            String query = "SELECT question, answer FROM securityquestion WHERE p_id = ? AND question IN (?, ?)";
-            pst = connection.prepareStatement(query);
-            pst.setInt(1, pid); // Using user_id from session
-            pst.setString(2, selectedQuestion1);
-            pst.setString(3, selectedQuestion2);
-            rs = pst.executeQuery();
-
-            int correctAnswers = 0;
-            boolean question1Found = false;
-            boolean question2Found = false;
-
-             while (rs.next()) {
-                String storedQuestion = rs.getString("question").trim();
-                String correctAnswer = rs.getString("answer").trim();
-                System.out.println("--- Database Record ---"); // <--- Place here
-                System.out.println("Stored Question: [" + storedQuestion + "]"); // <--- Place here
-                System.out.println("Correct Answer (DB): [" + correctAnswer + "]"); // <--- Place here
-
-                if (storedQuestion.equals(selectedQuestion1) && correctAnswer.equalsIgnoreCase(userAnswer1)) {
-                    correctAnswers++;
-                    question1Found = true;
-                    System.out.println("Match found for Question 1"); // <--- Place here
-                } else if (storedQuestion.equals(selectedQuestion2) && correctAnswer.equalsIgnoreCase(userAnswer2)) {
-                    correctAnswers++;
-                    question2Found = true;
-                    System.out.println("Match found for Question 2"); // <--- Place here
-                } else {
-                    System.out.println("No match for question: [" + storedQuestion + "]"); // <--- Place here
-                }
-            }
-
-            System.out.println("Correct Answers Count: " + correctAnswers); // <--- Place here
-            System.out.println("Question 1 Found: " + question1Found); // <--- Place here
-            System.out.println("Question 2 Found: " + question2Found); // <--- Place here
-
-            if (question1Found && question2Found && correctAnswers == 2) {
-                JOptionPane.showMessageDialog(this, "Answers verified! Proceed to reset password.", "Success", JOptionPane.INFORMATION_MESSAGE);
-                new ResetPassword().setVisible(true);
-                this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(this, "Incorrect answer(s). Try again.", "Verification Failed", JOptionPane.ERROR_MESSAGE);
+            if (con != null) {
+                con.close(); // Close the connection after use
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Database Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
-    
-    }//GEN-LAST:event_submitActionPerformed
+    } 
+    }//GEN-LAST:event_searchMouseClicked
 
-    private void cancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelMouseClicked
-        ForgotPassword fp = new ForgotPassword();
-        fp.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_cancelMouseClicked
+    private void NewpassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewpassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NewpassActionPerformed
+
+    private void NewpassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NewpassKeyPressed
+
+    }//GEN-LAST:event_NewpassKeyPressed
 
     /**
      * @param args the command line arguments
@@ -278,10 +435,12 @@ public class SecurityQuestion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField answerField1;
-    private javax.swing.JTextField answerField2;
-    private rojerusan.RSMaterialButtonCircle cancel;
+    private textfield.PasswordField Newpass;
+    private textfield.TextField ans;
+    private rojerusan.RSMaterialButtonCircle back;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -290,8 +449,9 @@ public class SecurityQuestion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JComboBox<String> question1;
-    private javax.swing.JComboBox<String> question2;
+    private javax.swing.JButton search;
+    private javax.swing.JComboBox<String> sq;
     private rojerusan.RSMaterialButtonCircle submit;
+    private textfield.TextField un;
     // End of variables declaration//GEN-END:variables
 }

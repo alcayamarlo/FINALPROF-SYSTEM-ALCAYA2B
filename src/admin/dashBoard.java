@@ -603,15 +603,16 @@ public void showPieChart(){
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-      Session sess = Session.getInstance();
-       int pid = sess.getPid();
-       if(sess.getPid() == 0){       
-       noAccount acc = new noAccount();
-       acc.setVisible(true);
-       this.dispose();
-       }else{
-           name.setText(""+sess.getFn());
+Session sess = Session.getInstance();
+       
+       if(sess.getPid() == 0){
+          noAccount no= new noAccount();
+           no.setVisible(true);
+           this.dispose();
+       
        }
+       name.setText(""+sess.getFn());
+         
     }//GEN-LAST:event_formWindowActivated
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked

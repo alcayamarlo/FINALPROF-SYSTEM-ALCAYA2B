@@ -8,8 +8,12 @@ package admin;
 import Successfull.noAccount;
 import config.Session;
 import config.dbConnect;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -40,9 +44,78 @@ public class ManageUsers extends javax.swing.JFrame {
         } catch (SQLException ex) {
             System.out.println("Errors: " + ex.getMessage());
         }
+        
    }
 
+     public void logEvent(int userId, String username, String userType) {
+    dbConnect dbc = new dbConnect();
+    Connection con = dbc.getConnection();
+    PreparedStatement pstmt = null;
+    String ut = null;
 
+    try {
+        // Assuming there's no 'log_time' column, remove it from the query
+        String sql = "INSERT INTO tbl_log (p_id, u_username, login_time, u_type, log_status) VALUES (?, ?, ?, ?, ?)";
+        pstmt = con.prepareStatement(sql);
+
+        pstmt.setInt(1, userId);
+        pstmt.setString(2, username);
+        pstmt.setTimestamp(3, new Timestamp(new Date().getTime())); // Make sure 'login_time' column exists
+        pstmt.setString(4, userType);
+        ut = "Active";
+        pstmt.setString(5, ut);
+
+        pstmt.executeUpdate();
+        System.out.println("Login log recorded successfully.");
+    } catch (SQLException e) {
+        System.out.println("Error recording log: " + e.getMessage());
+    } finally {
+        try {
+            if (pstmt != null) pstmt.close();
+            if (con != null) con.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error closing resources: " + e.getMessage());
+        }
+    }
+}
+
+     public String getUserTypeFromDatabase(String username) {
+    String type = "";
+    String query = "SELECT usertype FROM users WHERE LOWER(username) = LOWER(?)";
+    
+    // Use an instance of dbConnector to get the connection
+    dbConnect connector = new dbConnect();  // Create instance of dbConnector
+    try (Connection con = connector.getConnection(); 
+         PreparedStatement stmt = con.prepareStatement(query)) {
+        stmt.setString(1, username);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            type = rs.getString("usertype");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return type;
+}
+      public String getStatusFromDatabase(String username) {
+    String status = "";
+    String query = "SELECT log_status FROM tbl_log WHERE LOWER(u_username) = LOWER(?) ORDER BY login_time DESC LIMIT 1";
+    
+    // Use an instance of dbConnector to get the connection
+    dbConnect connector = new dbConnect();  // Create instance of dbConnector
+    try (Connection con = connector.getConnection(); 
+         PreparedStatement stmt = con.prepareStatement(query)) {
+        stmt.setString(1, username);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            status = rs.getString("log_status");
+            System.out.println("status: "+status);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return status;
+}
 
  
     /** This method is called from within the constructor to
@@ -316,6 +389,8 @@ public class ManageUsers extends javax.swing.JFrame {
          TableModel tbl = table.getModel();
         ResultSet rs = dbc.getData("SELECT * FROM users WHERE p_id = '" + tbl.getValueAt(rowIndex, 0) + "'");
         if(rs.next()){
+            
+            
          createUserForm crf = new createUserForm();
          crf.fn.setText(""+rs.getString("fn")); 
          crf.ct.setText(""+rs.getString("cityAddress")); 

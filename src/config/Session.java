@@ -1,8 +1,3 @@
-    /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package config;
 
 /**
@@ -10,9 +5,9 @@ package config;
  * @author alcay
  */
 public class Session {
-    
+
     public static Session instance;
-    
+
     private int pid;
     private String fn;
     private String cityAddress;
@@ -23,12 +18,11 @@ public class Session {
     private String usertype;
     private String status;
 
-    private Session(){
-    //private constructor to prevents another instance
+    private Session() {
     }
 
     public static synchronized Session getInstance() {
-        if(instance == null){
+        if (instance == null) {
             instance = new Session();
         }
         return instance;
@@ -109,5 +103,4 @@ public class Session {
     public void setStatus(String status) {
         this.status = status;
     }
-    
 }

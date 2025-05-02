@@ -10,9 +10,24 @@ import admin.ManageUsers;
 import admin.createUserForm;
 import config.Session;
 import config.dbConnect;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Date;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 import login.Main;
@@ -31,7 +46,175 @@ public class userForm extends javax.swing.JFrame {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
     }
+    
+    
+  private String userId; // Declare userId at the class level
 
+    public void setUserId(String id) {
+        this.userId = id; // Store the user ID for later use
+    }
+ public String destination = ""; 
+    File selectedFile;
+    public String oldpath;
+    public String path; 
+    
+    
+      public boolean duplicateCheck() {
+    dbConnect dbc = new dbConnect();
+    try {
+        String query = "SELECT * FROM users WHERE username = '" + un.getText() + "' OR email = '" + em.getText() + "'";
+        ResultSet resultSet = dbc.getData(query);
+
+        if (resultSet.next()) {
+            String email = resultSet.getString("email");
+            if (email.equals(em.getText())) {
+                JOptionPane.showMessageDialog(null, "Email is Already used");
+                em.setText("");
+            }
+            String username = resultSet.getString("username");
+            if (username.equals(un.getText())) { //Error: You were comparing username with email's text field. changed to un1's text field
+                JOptionPane.showMessageDialog(null, "Username is Already used"); //Error: Changed the message to reflect username duplication
+                un.setText("");
+            }
+            return true;
+        } else {
+            return false;
+        }
+    } catch (SQLException ex) {
+        System.out.println("" + ex);
+        return false;
+    }
+}
+  
+  public boolean updateCheck() {
+    dbConnect dbc = new dbConnect();
+    try {
+        String query = "SELECT * FROM users WHERE (username = '" + un.getText() + "' OR email = '" + em.getText() + "')AND p_id!= '"+p_id.getText()+"'";
+        ResultSet resultSet = dbc.getData(query);
+
+        if (resultSet.next()) {
+            String email = resultSet.getString("email");
+            if (email.equals(em.getText())) {
+                JOptionPane.showMessageDialog(null, "Email is Already used");
+                em.setText("");
+            }
+            String username = resultSet.getString("username");
+            if (username.equals(un.getText())) { //Error: You were comparing username with email's text field. changed to un1's text field
+                JOptionPane.showMessageDialog(null, "Username is Already used"); //Error: Changed the message to reflect username duplication
+                un.setText("");
+            }
+            return true;
+        } else {
+            return false;
+        }
+    } catch (SQLException ex) {
+        System.out.println("" + ex);
+        return false;
+    }
+}
+    public static int getHeightFromWidth(String imagePath, int desiredWidth) {
+        try {
+            // Read the image file
+            File imageFile = new File(imagePath);
+            BufferedImage image = ImageIO.read(imageFile);
+            
+            // Get the original width and height of the image
+            int originalWidth = image.getWidth();
+            int originalHeight = image.getHeight();
+            
+            // Calculate the new height based on the desired width and the aspect ratio
+            int newHeight = (int) ((double) desiredWidth / originalWidth * originalHeight);
+            
+            return newHeight;
+        } catch (IOException ex) {
+            System.out.println("No image found!");
+        }
+        
+        return -1;
+    }    
+    
+       public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
+        ImageIcon MyImage = null;
+            if(ImagePath !=null){
+                MyImage = new ImageIcon(ImagePath);
+            }else{
+                MyImage = new ImageIcon(pic);
+            }
+
+        int newHeight = getHeightFromWidth(ImagePath, label.getWidth());
+
+        Image img = MyImage.getImage();
+        Image newImg = img.getScaledInstance(label.getWidth(), newHeight, Image.SCALE_SMOOTH);
+        ImageIcon image = new ImageIcon(newImg);
+        return image;
+    }
+     public int FileExistenceChecker(String path){
+        File file = new File(path);
+        String fileName = file.getName();
+        
+        Path filePath = Paths.get("src/usersimages", fileName);
+        boolean fileExists = Files.exists(filePath);
+        
+        if (fileExists) {
+            return 1;
+        } else {
+            return 0;
+        }
+    
+    }
+    
+        public void imageUpdater(String existingFilePath, String newFilePath){
+        File existingFile = new File(existingFilePath);
+        if (existingFile.exists()) {
+            String parentDirectory = existingFile.getParent();
+            File newFile = new File(newFilePath);
+            String newFileName = newFile.getName();
+            File updatedFile = new File(parentDirectory, newFileName);
+            existingFile.delete();
+            try {
+                Files.copy(newFile.toPath(), updatedFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                System.out.println("Image updated successfully.");
+            } catch (IOException e) {
+                System.out.println("Error occurred while updating the image: "+e);
+            }
+        } else {
+            try{
+                Files.copy(selectedFile.toPath(), new File(destination).toPath(), StandardCopyOption.REPLACE_EXISTING);
+            }catch(IOException e){
+                System.out.println("Error on update!");
+            }
+        }
+   }
+         private String selectedImagePath = "";
+   
+        public void logEvent(int userId, String username, String userType, String logDescription) {
+    dbConnect dbc = new dbConnect();
+    Connection con = dbc.getConnection();
+    PreparedStatement pstmt = null;
+
+    try {
+        String sql = "INSERT INTO tbl_log (p_id, u_username, login_time, u_type, log_status) VALUES (?, ?, ?, ?, ?)";
+        pstmt = con.prepareStatement(sql);
+
+        pstmt.setInt(1, userId);
+        pstmt.setString(2, username);
+        pstmt.setTimestamp(3, new Timestamp(new Date().getTime()));
+        pstmt.setString(4, userType); // This should be "Admin" or "User"
+        pstmt.setString(5, "Active");
+
+        pstmt.executeUpdate();
+        System.out.println("Log recorded successfully.");
+    } catch (SQLException e) {
+        System.out.println("Error recording log: " + e.getMessage());
+    } finally {
+        try {
+            if (pstmt != null) pstmt.close();
+            if (con != null) con.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error closing resources: " + e.getMessage());
+        }
+    }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,9 +224,6 @@ public class userForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel3 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel19 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
@@ -53,7 +233,6 @@ public class userForm extends javax.swing.JFrame {
         ct = new textfield.TextField();
         em = new textfield.TextField();
         cn = new textfield.TextField();
-        jLabel10 = new javax.swing.JLabel();
         p_id = new textfield.TextField();
         jLabel27 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -64,6 +243,14 @@ public class userForm extends javax.swing.JFrame {
         utype = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        u_image = new javax.swing.JLabel();
+        remove = new rojerusan.RSMaterialButtonCircle();
+        select = new rojerusan.RSMaterialButtonCircle();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -74,25 +261,6 @@ public class userForm extends javax.swing.JFrame {
             }
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel3.setBackground(new java.awt.Color(51, 51, 255));
-        jLabel3.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
-        jLabel3.setText("  X");
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel3MouseClicked(evt);
-            }
-        });
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 0, 40, 30));
-
-        jPanel2.setBackground(new java.awt.Color(204, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(51, 51, 255)));
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 0, 40, 40));
-
-        jLabel19.setFont(new java.awt.Font("Arial Black", 0, 36)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel19.setText("EDIT YOUR DETAILS");
-        getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, -1, 30));
 
         jLabel21.setFont(new java.awt.Font("Segoe UI Semilight", 0, 17)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
@@ -149,13 +317,9 @@ public class userForm extends javax.swing.JFrame {
         cn.setLabelText("Enter your Contact No");
         getContentPane().add(cn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 460, 330, 60));
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI Semilight", 0, 15)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel10.setText("Edit your information");
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, -1, 30));
-
         p_id.setBackground(new java.awt.Color(204, 255, 255));
         p_id.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        p_id.setEnabled(false);
         p_id.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
         p_id.setLabelText("User ID");
         getContentPane().add(p_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 330, 60));
@@ -228,13 +392,61 @@ public class userForm extends javax.swing.JFrame {
         jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/images-24-removebg-preview.png"))); // NOI18N
         jPanel1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 300, -1, 60));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 870));
+        jLabel3.setBackground(new java.awt.Color(51, 51, 255));
+        jLabel3.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
+        jLabel3.setText("  X");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 0, 40, 40));
+
+        jPanel2.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(51, 51, 255)));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 0, 40, 40));
+
+        jLabel19.setFont(new java.awt.Font("Arial Black", 0, 36)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel19.setText("EDIT YOUR DETAILS");
+        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, -1, 30));
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI Semilight", 0, 15)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel10.setText("Edit your information");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, -1, 30));
+
+        jPanel3.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel3.add(u_image, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 260, 190));
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 120, 280, 210));
+
+        remove.setText("REMOVE");
+        remove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeActionPerformed(evt);
+            }
+        });
+        jPanel1.add(remove, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 410, 250, 60));
+
+        select.setText("ADD PROFILE");
+        select.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectActionPerformed(evt);
+            }
+        });
+        jPanel1.add(select, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 350, 260, 60));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 780, 870));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        System.exit(0);
+      userDashboard usd = new userDashboard();
+      usd.setVisible(true);
+      this.dispose();
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void ctActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ctActionPerformed
@@ -263,57 +475,76 @@ public class userForm extends javax.swing.JFrame {
     }//GEN-LAST:event_utypeActionPerformed
 
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
-        Main mn = new Main();
-        mn.setVisible(true);
+        userDashboard ud = new userDashboard();
+        ud.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_cancelActionPerformed
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
-        dbConnect connect = new dbConnect();
+      dbConnect dbc = new dbConnect();
+Session sess = Session.getInstance();
+int userId = 0;
+String uname2 = null;
 
-        try {
+// Check if username or email already exists
+if (updateCheck()) {
+    return;
+}
 
-            String query = "UPDATE users SET "
-            + "fn = ?, "
-            + "cityAddress = ?, "
-            + "email = ?, "
-            + "contactNo = ?, "
-            + "username = ?, "
-            + "usertype = ? " 
-            + "WHERE p_id = ?";
+// Validate inputs
+if (fn.getText().isEmpty() || ct.getText().isEmpty() ||
+    em.getText().isEmpty() || cn.getText().isEmpty() || un.getText().isEmpty()) {
+    JOptionPane.showMessageDialog(this, "All fields are required!", "Error", JOptionPane.ERROR_MESSAGE);
+    return;
+}
 
-            try (PreparedStatement pst = connect.getConnection().prepareStatement(query)) {
-                pst.setString(1, fn.getText());
-                pst.setString(2, ct.getText());
-                pst.setString(3, em.getText());
-                pst.setString(4, cn.getText());
-                pst.setString(5, un.getText());
-                String userType = (String) utype.getSelectedItem();
-                if (userType == null || userType.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Please select a user type.");
-                    return;
-                }
-                pst.setString(6, userType);
-                pst.setInt(7, Integer.parseInt(p_id.getText()));
+String query = "UPDATE users SET fn = ?, cityAddress = ?, email = ?, contactNo = ?, username = ?, image = ? WHERE p_id = ?";
 
-                int rowsUpdated = pst.executeUpdate();
+try (Connection conn = dbc.getConnection();
+     PreparedStatement pstmt = conn.prepareStatement(query)) {
 
-                if (rowsUpdated > 0) {
-                    userDashboard usd = new userDashboard();
-                    JOptionPane.showMessageDialog(this, "User details updated successfully!");
-                    this.dispose();
-                    usd.setVisible(true);
-                } else {
-                    JOptionPane.showMessageDialog(this, "No user found with the specified ID.");
+    pstmt.setString(1, fn.getText());
+    pstmt.setString(2, ct.getText());
+    pstmt.setString(3, em.getText());
+    pstmt.setString(4, cn.getText());
+    pstmt.setString(5, un.getText());
+    pstmt.setString(6, selectedImagePath);
+    pstmt.setInt(7, sess.getPid());
+
+    int rowsAffected = pstmt.executeUpdate();
+
+    if (rowsAffected > 0) {
+        JOptionPane.showMessageDialog(this, "Profile updated successfully!");
+
+        // Reuse the same connection to get updated data
+        String query2 = "SELECT * FROM users WHERE p_id = ?";
+        try (PreparedStatement pstmt2 = conn.prepareStatement(query2)) {
+            pstmt2.setInt(1, sess.getPid());
+
+            try (ResultSet resultSet = pstmt2.executeQuery()) {
+                if (resultSet.next()) {
+                    userId = resultSet.getInt("p_id");
+                    uname2 = resultSet.getString("username");
                 }
             }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error updating user details: " + ex.getMessage());
-            ex.printStackTrace();
-        } catch (NumberFormatException ex){
-            JOptionPane.showMessageDialog(this, "Invalid User ID format.");
-            ex.printStackTrace();
         }
+
+        logEvent(userId, uname2, sess.getUsertype(), "User Changed Their Details");
+
+    } else {
+        JOptionPane.showMessageDialog(this, "Failed to update profile!", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+} catch (SQLException ex) {
+    System.out.println("SQL Error: " + ex.getMessage());
+    JOptionPane.showMessageDialog(this, "Database Error!", "Error", JOptionPane.ERROR_MESSAGE);
+}
+
+// Optional: redirect back to dashboard after update
+userDashboard ud = new userDashboard();
+ud.setVisible(true);
+this.dispose();
+
     }//GEN-LAST:event_submitActionPerformed
 
     private void submitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitMouseClicked
@@ -325,6 +556,38 @@ public class userForm extends javax.swing.JFrame {
         user.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
+        remove.setEnabled(false);
+        select.setEnabled(true);
+        u_image.setIcon(null);
+        destination = "";
+        path = "";
+    }//GEN-LAST:event_removeActionPerformed
+
+    private void selectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        int returnValue = fileChooser.showOpenDialog(null);
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            try {
+                selectedFile = fileChooser.getSelectedFile();
+                destination = "src/usersimages/" + selectedFile.getName();
+                path  = selectedFile.getAbsolutePath();
+
+                if(FileExistenceChecker(path) == 1){
+                    JOptionPane.showMessageDialog(null, "File Already Exist, Rename or Choose another!");
+                    destination = "";
+                    path= "";
+                }else{
+                    u_image.setIcon(ResizeImage(path, null, u_image));
+                    select.setEnabled(false);
+                    remove.setEnabled(true);
+                }
+            } catch (Exception ex) {
+                System.out.println("File Error!");
+            }
+        }
+    }//GEN-LAST:event_selectActionPerformed
 
     /**
      * @param args the command line arguments
@@ -381,8 +644,12 @@ public class userForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     public textfield.TextField p_id;
+    private rojerusan.RSMaterialButtonCircle remove;
+    private rojerusan.RSMaterialButtonCircle select;
     private rojerusan.RSMaterialButtonCircle submit;
+    private javax.swing.JLabel u_image;
     public textfield.TextField un;
     public javax.swing.JComboBox<String> utype;
     // End of variables declaration//GEN-END:variables
