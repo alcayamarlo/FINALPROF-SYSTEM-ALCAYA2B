@@ -465,10 +465,9 @@ if (un.getText().isEmpty() && pass.getPassword().length == 0) {
         Session sess = Session.getInstance();
         int userId = sess.getPid();
 
-        String status = getStatusFromDatabase(username);  // e.g., Approved, Pending
-        String type = getUserTypeFromDatabase(username);  // e.g., Admin, Patient
+        String status = getStatusFromDatabase(username);  
+        String type = getUserTypeFromDatabase(username); 
 
-        // ✅ Skip status check if user is Admin
         if (!"Admin".equalsIgnoreCase(type)) {
             dbConnect connector = new dbConnect();
             try {
@@ -487,17 +486,15 @@ if (un.getText().isEmpty() && pass.getPassword().length == 0) {
                 System.out.println("SQL Exception: " + ex);
             }
 
-            // Block non-admins if not approved
             if (!"Approved".equalsIgnoreCase(status)) {
                 needApproval na = new needApproval();
                 na.setVisible(true);
                 this.dispose();
                 logEvent(userId, username, "Failed - Inactive Account");
-                return; // ❌ Skip login continuation
+                return; 
             }
         }
 
-        // ✅ Handle logins based on type
         if ("Admin".equalsIgnoreCase(type)) {
             adminSuccess ad = new adminSuccess();
             ad.setVisible(true);
