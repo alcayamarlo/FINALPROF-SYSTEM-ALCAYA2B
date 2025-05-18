@@ -335,7 +335,7 @@ if (fn.getText().trim().isEmpty() || ct.getText().trim().isEmpty() || em.getText
 
     try {
         String hashedPassword = passwordHasher.hashPassword(ps.getText()); // ✅ Hash the password
-
+        String status = selectedUserType.equalsIgnoreCase("Admin") ? "Approved" : "Pending";
         String query = "INSERT INTO users(fn, cityAddress, email, contactNo, username, password, usertype, securityQ, answer, status, image) " +
                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'Pending', 'NULL')";
 
@@ -398,7 +398,9 @@ if (fn.getText().trim().isEmpty() || ct.getText().trim().isEmpty() || em.getText
     }//GEN-LAST:event_jLabel22MouseClicked
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        System.exit(0);
+Main mn = new Main();
+mn.setVisible(true);
+this.dispose();
     }//GEN-LAST:event_jLabel3MouseClicked
 
     /**

@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -465,47 +465,51 @@ if (un.getText().isEmpty() && pass.getPassword().length == 0) {
         Session sess = Session.getInstance();
         int userId = sess.getPid();
 
-        String status = getStatusFromDatabase(username);  // Method to get status (e.g., Approved, Pending)
-        String type = getUserTypeFromDatabase(username);  // Method to get user type (e.g., Admin, Patient)
+        String status = getStatusFromDatabase(username);  // e.g., Approved, Pending
+        String type = getUserTypeFromDatabase(username);  // e.g., Admin, Patient
 
-        dbConnect connector = new dbConnect();
+        // ✅ Skip status check if user is Admin
+        if (!"Admin".equalsIgnoreCase(type)) {
+            dbConnect connector = new dbConnect();
+            try {
+                String query2 = "SELECT status FROM users WHERE username = ?";
+                PreparedStatement pstmt = connector.getConnection().prepareStatement(query2);
+                pstmt.setString(1, username);
 
-        try {
-            String query2 = "SELECT status FROM users WHERE username = ?";
-            PreparedStatement pstmt = connector.getConnection().prepareStatement(query2);
-            pstmt.setString(1, username);
+                ResultSet resultSet = pstmt.executeQuery();
+                if (resultSet.next()) {
+                    status = resultSet.getString("status");
+                }
 
-            ResultSet resultSet = pstmt.executeQuery();
-
-            if (resultSet.next()) {
-                status = resultSet.getString("status"); // Overwrite if necessary
+                resultSet.close();
+                pstmt.close();
+            } catch (SQLException ex) {
+                System.out.println("SQL Exception: " + ex);
             }
 
-            resultSet.close();
-            pstmt.close();
-        } catch (SQLException ex) {
-            System.out.println("SQL Exception: " + ex);
+            // Block non-admins if not approved
+            if (!"Approved".equalsIgnoreCase(status)) {
+                needApproval na = new needApproval();
+                na.setVisible(true);
+                this.dispose();
+                logEvent(userId, username, "Failed - Inactive Account");
+                return; // ❌ Skip login continuation
+            }
         }
 
-        if (!"Approved".equalsIgnoreCase(status)) {
-            needApproval na = new needApproval();
-            na.setVisible(true);
+        // ✅ Handle logins based on type
+        if ("Admin".equalsIgnoreCase(type)) {
+            adminSuccess ad = new adminSuccess();
+            ad.setVisible(true);
             this.dispose();
-            logEvent(userId, username, "Failed - Inactive Account");
+            logEvent(userId, username, "Success - Admin Login");
+        } else if ("Patient".equalsIgnoreCase(type)) {
+            loginSuccess log = new loginSuccess();
+            log.setVisible(true);
+            this.dispose();
+            logEvent(userId, username, "Success - User Login");
         } else {
-            if ("Admin".equalsIgnoreCase(type)) {
-                adminSuccess ad = new adminSuccess();
-                ad.setVisible(true);
-                this.dispose();
-                logEvent(userId, username, "Success - Admin Login");
-            } else if ("Patient".equalsIgnoreCase(type)) {
-                loginSuccess log = new loginSuccess();
-                log.setVisible(true);
-                this.dispose();
-                logEvent(userId, username, "Success - User Login");
-            } else {
-                JOptionPane.showMessageDialog(null, "No account type found, Contact the Admin");
-            }
+            JOptionPane.showMessageDialog(null, "No account type found, Contact the Admin");
         }
 
     } else {
@@ -513,6 +517,7 @@ if (un.getText().isEmpty() && pass.getPassword().length == 0) {
         logEvent(-1, username, "Failed - Invalid Login");
     }
 }
+
 
 
 

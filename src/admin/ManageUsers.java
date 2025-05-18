@@ -141,10 +141,10 @@ public class ManageUsers extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        table = new rojeru_san.complementos.RSTableMetro();
         jLabel3 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        table = new rojeru_san.complementos.RSTableMetro();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -159,7 +159,8 @@ public class ManageUsers extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 0, new java.awt.Color(51, 51, 255)));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        id.setBackground(new java.awt.Color(153, 153, 255));
+        id.setBackground(new java.awt.Color(204, 255, 255));
+        id.setForeground(new java.awt.Color(0, 0, 0));
         id.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 idMouseClicked(evt);
@@ -172,7 +173,8 @@ public class ManageUsers extends javax.swing.JFrame {
         });
         jPanel1.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 700, 140, 60));
 
-        add_user.setBackground(new java.awt.Color(153, 153, 255));
+        add_user.setBackground(new java.awt.Color(204, 255, 255));
+        add_user.setForeground(new java.awt.Color(0, 0, 0));
         add_user.setText("ADD");
         add_user.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -186,7 +188,8 @@ public class ManageUsers extends javax.swing.JFrame {
         });
         jPanel1.add(add_user, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 410, 90));
 
-        update.setBackground(new java.awt.Color(153, 153, 255));
+        update.setBackground(new java.awt.Color(204, 255, 255));
+        update.setForeground(new java.awt.Color(0, 0, 0));
         update.setText("UPDATE");
         update.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -200,7 +203,8 @@ public class ManageUsers extends javax.swing.JFrame {
         });
         jPanel1.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 410, 90));
 
-        delete.setBackground(new java.awt.Color(153, 153, 255));
+        delete.setBackground(new java.awt.Color(204, 255, 255));
+        delete.setForeground(new java.awt.Color(0, 0, 0));
         delete.setText("DELETE");
         delete.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -215,7 +219,7 @@ public class ManageUsers extends javax.swing.JFrame {
         jPanel1.add(delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 530, 410, 90));
 
         name.setFont(new java.awt.Font("Arial Black", 1, 20)); // NOI18N
-        name.setForeground(new java.awt.Color(255, 255, 255));
+        name.setForeground(new java.awt.Color(51, 51, 51));
         name.setText("   Welcome ,");
         jPanel1.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, 220, -1));
 
@@ -223,7 +227,8 @@ public class ManageUsers extends javax.swing.JFrame {
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/person12.png"))); // NOI18N
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, -1, -1));
 
-        clear2.setBackground(new java.awt.Color(153, 153, 255));
+        clear2.setBackground(new java.awt.Color(204, 255, 255));
+        clear2.setForeground(new java.awt.Color(0, 0, 0));
         clear2.setText("CURRENT USER ID");
         clear2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -290,37 +295,11 @@ public class ManageUsers extends javax.swing.JFrame {
 
         jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 0, 40, 40));
 
-        table.setForeground(new java.awt.Color(255, 255, 255));
-        table.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "p_id", "fn", "ct", "email", "contactNo", "username", "pass"
-            }
-        ));
-        table.setColorFilasBackgound2(new java.awt.Color(255, 255, 255));
-        table.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
-        table.setRowHeight(34);
-        table.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tableMouseClicked(evt);
-            }
-        });
-        jScrollPane2.setViewportView(table);
-
-        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 940, 670));
-
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 36)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 51, 51));
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/icons8_Conference_26px.png"))); // NOI18N
         jLabel3.setText("Manage Users");
-        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, 320, 50));
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 320, 50));
 
         jPanel5.setBackground(new java.awt.Color(255, 0, 51));
 
@@ -335,7 +314,33 @@ public class ManageUsers extends javax.swing.JFrame {
             .addGap(0, 5, Short.MAX_VALUE)
         );
 
-        jPanel3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 70, 280, 5));
+        jPanel3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, 280, 5));
+
+        table.setForeground(new java.awt.Color(255, 255, 255));
+        table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        table.setColorBackgoundHead(new java.awt.Color(255, 204, 51));
+        table.setColorBordeFilas(new java.awt.Color(255, 204, 51));
+        table.setColorBordeHead(new java.awt.Color(255, 204, 51));
+        table.setColorFilasBackgound2(new java.awt.Color(255, 255, 255));
+        table.setColorFilasForeground1(new java.awt.Color(102, 102, 102));
+        table.setColorFilasForeground2(new java.awt.Color(102, 102, 102));
+        table.setColorSelBackgound(new java.awt.Color(102, 102, 102));
+        table.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
+        table.setIntercellSpacing(new java.awt.Dimension(2, 2));
+        table.setRowHeight(34);
+        jScrollPane2.setViewportView(table);
+
+        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 940, 660));
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 960, 780));
 
@@ -347,11 +352,6 @@ public class ManageUsers extends javax.swing.JFrame {
       dbd.setVisible(true);
       this.dispose();
     }//GEN-LAST:event_jLabel1MouseClicked
-
-    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
-     
-      
-    }//GEN-LAST:event_tableMouseClicked
 
     private void add_userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_userActionPerformed
       addUser user = new addUser();

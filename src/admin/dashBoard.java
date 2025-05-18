@@ -12,8 +12,11 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -57,6 +60,7 @@ public class dashBoard extends javax.swing.JFrame {
         showLineChart();
         showPieChart();
         displayData();
+        displayData1();
         showHistogram();
           Timer timer = new Timer(0, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -64,12 +68,23 @@ public class dashBoard extends javax.swing.JFrame {
             }
         });
         timer.start();
+        
     }
       public void displayData() {
         try {
             dbConnect dbc = new dbConnect();
             ResultSet rs = dbc.getData("SELECT p_id,fn,cityAddress,contactNo,username,usertype,status FROM users");
             table.setModel(DbUtils.resultSetToTableModel(rs));
+            rs.close();
+        } catch (SQLException ex) {
+            System.out.println("Errors: " + ex.getMessage());
+        }
+    }
+        public void displayData1() {
+        try {
+            dbConnect dbc = new dbConnect();
+            ResultSet rs = dbc.getData("SELECT b_id,Name,treatmentType,TotalAmount FROM billings");
+            table1.setModel(DbUtils.resultSetToTableModel(rs));
             rs.close();
         } catch (SQLException ex) {
             System.out.println("Errors: " + ex.getMessage());
@@ -211,6 +226,76 @@ public void showPieChart(){
         date_disp.setText(date);
         haha.setText(time);
     }
+   
+     public void logEvent(int userId, String username, String userType) {
+    dbConnect dbc = new dbConnect();
+    Connection con = dbc.getConnection();
+    PreparedStatement pstmt = null;
+    String ut = null;
+
+    try {
+        // Assuming there's no 'log_time' column, remove it from the query
+        String sql = "INSERT INTO tbl_log (p_id, u_username, login_time, u_type, log_status) VALUES (?, ?, ?, ?, ?)";
+        pstmt = con.prepareStatement(sql);
+
+        pstmt.setInt(1, userId);
+        pstmt.setString(2, username);
+        pstmt.setTimestamp(3, new Timestamp(new Date().getTime())); // Make sure 'login_time' column exists
+        pstmt.setString(4, userType);
+        ut = "Active";
+        pstmt.setString(5, ut);
+
+        pstmt.executeUpdate();
+        System.out.println("Login log recorded successfully.");
+    } catch (SQLException e) {
+        System.out.println("Error recording log: " + e.getMessage());
+    } finally {
+        try {
+            if (pstmt != null) pstmt.close();
+            if (con != null) con.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error closing resources: " + e.getMessage());
+        }
+    }
+}
+
+     public String getUserTypeFromDatabase(String username) {
+    String type = "";
+    String query = "SELECT usertype FROM users WHERE LOWER(username) = LOWER(?)";
+    
+    // Use an instance of dbConnector to get the connection
+    dbConnect connector = new dbConnect();  // Create instance of dbConnector
+    try (Connection con = connector.getConnection(); 
+         PreparedStatement stmt = con.prepareStatement(query)) {
+        stmt.setString(1, username);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            type = rs.getString("usertype");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return type;
+}
+      public String getStatusFromDatabase(String username) {
+    String status = "";
+    String query = "SELECT log_status FROM tbl_log WHERE LOWER(u_username) = LOWER(?) ORDER BY login_time DESC LIMIT 1";
+    
+    // Use an instance of dbConnector to get the connection
+    dbConnect connector = new dbConnect();  // Create instance of dbConnector
+    try (Connection con = connector.getConnection(); 
+         PreparedStatement stmt = con.prepareStatement(query)) {
+        stmt.setString(1, username);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            status = rs.getString("log_status");
+            System.out.println("status: "+status);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return status;
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -221,7 +306,6 @@ public void showPieChart(){
     private void initComponents() {
 
         jPanel5 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         haha = new javax.swing.JLabel();
@@ -241,12 +325,16 @@ public void showPieChart(){
         jPanel8 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jPanel19 = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
         name = new javax.swing.JLabel();
         jPanel18 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
         jPanel16 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
@@ -268,6 +356,9 @@ public void showPieChart(){
         panel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         table = new rojeru_san.complementos.RSTableMetro();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        table1 = new rojeru_san.complementos.RSTableMetro();
+        jLabel21 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -278,11 +369,8 @@ public void showPieChart(){
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel5.setBackground(new java.awt.Color(102, 102, 255));
+        jPanel5.setBackground(new java.awt.Color(51, 51, 255));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/menu.png"))); // NOI18N
-        jPanel5.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 60, 60));
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -290,19 +378,19 @@ public void showPieChart(){
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
+            .addGap(0, 20, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 60, Short.MAX_VALUE)
         );
 
-        jPanel5.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 10, 60));
+        jPanel5.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 20, 60));
 
         jLabel11.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 25)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setText("Hospital Billing System");
-        jPanel5.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, -1, -1));
+        jLabel11.setText("HOSPITAL BILLING SYSTEM");
+        jPanel5.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, -1, -1));
 
         haha.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         haha.setForeground(new java.awt.Color(255, 255, 255));
@@ -426,16 +514,16 @@ public void showPieChart(){
         });
         jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel12.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/icons8_View_Details_26px.png"))); // NOI18N
-        jLabel12.setText("Payment Records");
-        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel16.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/icons8_View_Details_26px.png"))); // NOI18N
+        jLabel16.setText("Reports");
+        jLabel16.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel12MouseClicked(evt);
+                jLabel16MouseClicked(evt);
             }
         });
-        jPanel9.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 170, -1));
+        jPanel9.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 170, -1));
 
         jPanel2.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 410, 280, 60));
 
@@ -450,18 +538,42 @@ public void showPieChart(){
         });
         jPanel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel13.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/icons8_Exit_26px.png"))); // NOI18N
-        jLabel13.setText("Logout");
-        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel12.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/icons8_Sell_26px.png"))); // NOI18N
+        jLabel12.setText("Activiy Logs");
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel13MouseClicked(evt);
+                jLabel12MouseClicked(evt);
             }
         });
-        jPanel11.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 90, -1));
+        jPanel11.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 170, -1));
 
-        jPanel2.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 480, 270, 60));
+        jPanel19.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel19.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel19MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel19MouseExited(evt);
+            }
+        });
+        jPanel19.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel17.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/icons8_View_Details_26px.png"))); // NOI18N
+        jLabel17.setText("Reports");
+        jLabel17.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel17MouseClicked(evt);
+            }
+        });
+        jPanel19.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 170, -1));
+
+        jPanel11.add(jPanel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 490, 270, 60));
+
+        jPanel2.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 490, 270, 60));
 
         name.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         name.setForeground(new java.awt.Color(255, 255, 255));
@@ -489,14 +601,56 @@ public void showPieChart(){
         jLabel14.setText("Online");
         jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, -1, -1));
 
+        jPanel6.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel6MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel6MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel6MouseExited(evt);
+            }
+        });
+
+        jLabel13.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/icons8_Exit_26px.png"))); // NOI18N
+        jLabel13.setText("Logout");
+        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel13MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(127, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jLabel13)
+                .addContainerGap(29, Short.MAX_VALUE))
+        );
+
+        jPanel2.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 540, 260, 80));
+
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 250, 840));
 
         jPanel16.setBackground(new java.awt.Color(255, 255, 255));
         jPanel16.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel18.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
-        jLabel18.setText("Accounts Overview :");
-        jPanel16.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 190, -1));
+        jLabel18.setText("Bills Overview :");
+        jPanel16.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 490, 190, -1));
 
         jPanel12.setBackground(new java.awt.Color(204, 204, 255));
         jPanel12.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(255, 51, 51)));
@@ -590,12 +744,45 @@ public void showPieChart(){
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        table.setColorBackgoundHead(new java.awt.Color(255, 204, 51));
+        table.setColorBordeFilas(new java.awt.Color(255, 204, 51));
+        table.setColorBordeHead(new java.awt.Color(255, 204, 51));
         table.setColorFilasBackgound2(new java.awt.Color(255, 255, 255));
+        table.setColorFilasForeground1(new java.awt.Color(102, 102, 102));
+        table.setColorFilasForeground2(new java.awt.Color(102, 102, 102));
+        table.setColorSelBackgound(new java.awt.Color(102, 102, 102));
         table.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
+        table.setIntercellSpacing(new java.awt.Dimension(2, 2));
         table.setRowHeight(34);
         jScrollPane2.setViewportView(table);
 
-        jPanel16.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 830, 620));
+        jPanel16.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 830, 260));
+
+        table1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(255, 51, 51)));
+        table1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "b_id", "p_id", "Name", "treatmentType", "TotalAmount", "AmountPaid", "Status"
+            }
+        ));
+        table1.setColorBackgoundHead(new java.awt.Color(255, 204, 51));
+        table1.setColorBordeFilas(new java.awt.Color(255, 204, 51));
+        table1.setColorBordeHead(new java.awt.Color(255, 204, 51));
+        table1.setColorFilasBackgound2(new java.awt.Color(255, 255, 255));
+        table1.setColorFilasForeground1(new java.awt.Color(102, 102, 102));
+        table1.setColorFilasForeground2(new java.awt.Color(102, 102, 102));
+        table1.setColorSelBackgound(new java.awt.Color(102, 102, 102));
+        table1.setIntercellSpacing(new java.awt.Dimension(2, 2));
+        table1.setRowHeight(34);
+        jScrollPane1.setViewportView(table1);
+
+        jPanel16.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 520, 830, 320));
+
+        jLabel21.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
+        jLabel21.setText("Accounts Overview :");
+        jPanel16.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 190, -1));
 
         getContentPane().add(jPanel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 1350, 860));
 
@@ -621,28 +808,17 @@ Session sess = Session.getInstance();
        dispose();
     }//GEN-LAST:event_jLabel8MouseClicked
 
-    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
-      int a = JOptionPane.showConfirmDialog(null,"DO you want to logout the System?","Select",JOptionPane.YES_NO_OPTION);
-      if(a==0)
-      {
-          Main mn = new Main();
-        mn.setVisible(true);
-        this.dispose();
-      }
-      
-       
-    }//GEN-LAST:event_jLabel13MouseClicked
-
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
-       manageBills bill = new manageBills();
+      addBills bill = new addBills  ();
        bill.setVisible(true);
        this.dispose();
     }//GEN-LAST:event_jLabel10MouseClicked
 
     private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
-       paymentRecord pay = new paymentRecord();
-       pay.setVisible(true);
-       this.dispose();
+Logs log = new Logs();
+log.setVisible(true);
+this.dispose();
+
     }//GEN-LAST:event_jLabel12MouseClicked
 
     private void userMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userMouseEntered
@@ -676,6 +852,46 @@ Session sess = Session.getInstance();
     private void jPanel11MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel11MouseExited
          jPanel11.setBackground(new Color(51,51,51));
     }//GEN-LAST:event_jPanel11MouseExited
+
+    private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
+       Transaction tt = new Transaction();
+       tt.setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_jLabel16MouseClicked
+
+    private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel17MouseClicked
+
+    private void jPanel19MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel19MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel19MouseEntered
+
+    private void jPanel19MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel19MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel19MouseExited
+
+    private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel6MouseClicked
+
+    private void jPanel6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseEntered
+        jPanel6.setBackground(new Color (97, 103, 122));
+    }//GEN-LAST:event_jPanel6MouseEntered
+
+    private void jPanel6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseExited
+       jPanel6.setBackground(new Color(51,51,51));
+    }//GEN-LAST:event_jPanel6MouseExited
+
+    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
+int a = JOptionPane.showConfirmDialog(null,"DO you want to logout the System?","Select",JOptionPane.YES_NO_OPTION);
+        if(a==0)
+        {
+            Main mn = new Main();
+            mn.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_jLabel13MouseClicked
 
     /**
      * @param args the command line arguments
@@ -718,17 +934,19 @@ Session sess = Session.getInstance();
     private javax.swing.JLabel date_disp;
     private javax.swing.JLabel docc;
     private javax.swing.JLabel haha;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
@@ -744,13 +962,16 @@ Session sess = Session.getInstance();
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel name;
     private javax.swing.JPanel panel1;
@@ -760,6 +981,7 @@ Session sess = Session.getInstance();
     private javax.swing.JLabel patient;
     private javax.swing.JLabel pen;
     private rojeru_san.complementos.RSTableMetro table;
+    private rojeru_san.complementos.RSTableMetro table1;
     private javax.swing.JLabel time_disp;
     private javax.swing.JPanel user;
     // End of variables declaration//GEN-END:variables
