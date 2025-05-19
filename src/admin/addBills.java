@@ -51,10 +51,12 @@ public int finalTotal=0;
        
     }
     
+    
+    
     public void displayData() {
         try {
             dbConnect dbc = new dbConnect();
-            ResultSet rs = dbc.getData("SELECT b_id,Name,treatmentType,Rate,Quantity,TotalAmount FROM billings");
+            ResultSet rs = dbc.getData("SELECT treatmentType,Description,Rate,Quantity,TotalAmount FROM billings");
             table.setModel(DbUtils.resultSetToTableModel(rs));
             rs.close();
         } catch (SQLException ex) {
@@ -244,7 +246,6 @@ private void loadBillingTable() {
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         rate = new javax.swing.JTextField();
-        quan = new javax.swing.JTextField();
         rSMaterialButtonCircle1 = new rojerusan.RSMaterialButtonCircle();
         rSMaterialButtonCircle2 = new rojerusan.RSMaterialButtonCircle();
         rSMaterialButtonCircle3 = new rojerusan.RSMaterialButtonCircle();
@@ -256,6 +257,9 @@ private void loadBillingTable() {
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new rojeru_san.complementos.RSTableMetro();
         jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        quan = new javax.swing.JTextField();
+        med = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -273,7 +277,7 @@ private void loadBillingTable() {
         jLabel19.setFont(new java.awt.Font("Arial Black", 0, 36)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(102, 102, 102));
         jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboardImage/Billing ani.gif"))); // NOI18N
-        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 110));
+        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 0, -1, 110));
 
         time.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         time.setText("TIME :");
@@ -294,7 +298,7 @@ private void loadBillingTable() {
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 16)); // NOI18N
         jLabel5.setText("ID :");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel6.setText("CALCULATION :");
@@ -308,11 +312,11 @@ private void loadBillingTable() {
                 fnActionPerformed(evt);
             }
         });
-        jPanel1.add(fn, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 197, 230, 40));
+        jPanel1.add(fn, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 230, 40));
 
         jLabel7.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 16)); // NOI18N
         jLabel7.setText("Email :");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, -1, -1));
 
         cn.setBackground(new java.awt.Color(204, 255, 255));
         cn.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
@@ -322,47 +326,47 @@ private void loadBillingTable() {
                 cnActionPerformed(evt);
             }
         });
-        jPanel1.add(cn, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 297, 230, 40));
+        jPanel1.add(cn, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, 230, 40));
 
         jLabel8.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 16)); // NOI18N
         jLabel8.setText("City Address :");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, -1));
 
         em.setBackground(new java.awt.Color(204, 255, 255));
         em.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
         em.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
-        jPanel1.add(em, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 347, 230, 40));
+        jPanel1.add(em, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 330, 230, 40));
 
         jLabel9.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 16)); // NOI18N
         jLabel9.setText("Usertype :");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 410, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, -1, -1));
 
         ut.setBackground(new java.awt.Color(204, 255, 255));
         ut.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
         ut.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
-        jPanel1.add(ut, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 397, 230, 40));
+        jPanel1.add(ut, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 380, 230, 40));
 
         jLabel11.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel11.setText("PATIENT DETAILS :");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
 
         tt.setBackground(new java.awt.Color(204, 255, 255));
         tt.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
         tt.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
-        jPanel1.add(tt, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 152, 240, 30));
+        jPanel1.add(tt, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 150, 240, 30));
 
         jLabel13.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 16)); // NOI18N
-        jLabel13.setText("Quantiy :");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 270, -1, -1));
+        jLabel13.setText("Quantity :");
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 310, -1, -1));
 
         des.setBackground(new java.awt.Color(204, 255, 255));
         des.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
         des.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
-        jPanel1.add(des, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 320, 250, 70));
+        jPanel1.add(des, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 360, 250, 70));
 
         Date.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 16)); // NOI18N
         Date.setText("Date :");
-        jPanel1.add(Date, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 410, -1, -1));
+        jPanel1.add(Date, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 450, -1, -1));
 
         addBilling.setBackground(new java.awt.Color(102, 102, 255));
         addBilling.setText("ADD");
@@ -371,16 +375,16 @@ private void loadBillingTable() {
                 addBillingActionPerformed(evt);
             }
         });
-        jPanel1.add(addBilling, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 440, 280, 50));
+        jPanel1.add(addBilling, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 430, 220, 50));
 
         jLabel10.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 16)); // NOI18N
         jLabel10.setText("Name :");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, -1, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, -1));
 
         id.setBackground(new java.awt.Color(204, 255, 255));
         id.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
         id.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
-        jPanel1.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 147, 230, 40));
+        jPanel1.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 230, 40));
 
         search.setBackground(new java.awt.Color(153, 153, 153));
         search.setText("SEARCH");
@@ -389,7 +393,7 @@ private void loadBillingTable() {
                 searchActionPerformed(evt);
             }
         });
-        jPanel1.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 150, 90, 50));
+        jPanel1.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 140, 90, 50));
 
         clearFields.setBackground(new java.awt.Color(255, 102, 102));
         clearFields.setText("clear");
@@ -398,16 +402,16 @@ private void loadBillingTable() {
                 clearFieldsActionPerformed(evt);
             }
         });
-        jPanel1.add(clearFields, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 440, 240, 50));
+        jPanel1.add(clearFields, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 430, 240, 50));
 
         jLabel20.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 16)); // NOI18N
         jLabel20.setText("Description :");
-        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 330, -1, -1));
+        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 370, -1, -1));
 
         date.setBackground(new java.awt.Color(204, 255, 255));
         date.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
         date.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
-        jPanel1.add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 402, 250, 30));
+        jPanel1.add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 440, 250, 30));
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
         jLabel2.setText("Return Amount :");
@@ -447,12 +451,12 @@ private void loadBillingTable() {
         jPanel1.add(AmountPaid, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 630, 180, 30));
 
         jLabel15.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 16)); // NOI18N
-        jLabel15.setText("Treatment Type :");
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 160, -1, -1));
+        jLabel15.setText("Medication :");
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 210, -1, -1));
 
         jLabel16.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 16)); // NOI18N
         jLabel16.setText("Rate :");
-        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 220, -1, -1));
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 260, -1, -1));
 
         rate.setBackground(new java.awt.Color(204, 255, 255));
         rate.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
@@ -462,12 +466,7 @@ private void loadBillingTable() {
                 rateActionPerformed(evt);
             }
         });
-        jPanel1.add(rate, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 212, 240, 30));
-
-        quan.setBackground(new java.awt.Color(204, 255, 255));
-        quan.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
-        quan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
-        jPanel1.add(quan, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 262, 240, 30));
+        jPanel1.add(rate, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 250, 240, 30));
 
         rSMaterialButtonCircle1.setBackground(new java.awt.Color(51, 51, 255));
         rSMaterialButtonCircle1.setText("SAVE");
@@ -498,12 +497,12 @@ private void loadBillingTable() {
 
         jLabel17.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 16)); // NOI18N
         jLabel17.setText("Contact Number :");
-        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, -1, -1));
+        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, -1, -1));
 
         address.setBackground(new java.awt.Color(204, 255, 255));
         address.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
         address.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
-        jPanel1.add(address, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 257, 230, 40));
+        jPanel1.add(address, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, 230, 40));
 
         jLabel18.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
         jLabel18.setText("Amount Paid :");
@@ -542,7 +541,20 @@ private void loadBillingTable() {
 
         jLabel21.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel21.setText("BILLING DETAILS :");
-        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 120, -1, -1));
+        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 110, -1, -1));
+
+        jLabel22.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 16)); // NOI18N
+        jLabel22.setText("Treatment Type :");
+        jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 160, -1, -1));
+
+        quan.setBackground(new java.awt.Color(204, 255, 255));
+        quan.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
+        quan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
+        jPanel1.add(quan, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 300, 240, 30));
+
+        med.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
+        med.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Add Medication :", "Paracetamol", "Ibuprofen", "Amoxicillin", "Metformin", "Amlodipine", "Atenolol", "Omeprazole", "Salbutamol", "Cetirizine", "Loratadine", "Ciprofloxacin", "Losartan", "Simvastatin", "Furosemide", "Metoprolol", "Tramadol", "Diclofenac", "Clopidogrel", "Insulin (e.g., Lantus)", "Hydrocortisone" }));
+        jPanel1.add(med, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 210, 240, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1240, 840));
 
@@ -642,34 +654,73 @@ this.dispose();
 
     private void rSMaterialButtonCircle1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSMaterialButtonCircle1ActionPerformed
 
-    String query = "INSERT INTO billings (p_id, Name, treatmentType, TotalAmount, AmountPaid, Date, BillingStatus, Description, rate, quantity, returnAmount) " +
-               "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+ String query = "INSERT INTO billings (p_id, Name, treatmentType, TotalAmount, AmountPaid, Date, BillingStatus, Description, rate, quantity, returnAmount, medication) " +
+               "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-// First, validate all required fields
-if (
-    id.getText().trim().isEmpty() ||
-    fn.getText().trim().isEmpty() ||
-    tt.getText().trim().isEmpty() ||
-    amount.getText().trim().isEmpty() ||
-    AmountPaid.getText().trim().isEmpty() ||
-    date.getText().trim().isEmpty() ||
-    des.getText().trim().isEmpty() ||
-    rate.getText().trim().isEmpty() ||
-    quan.getText().trim().isEmpty() ||
-    returnA.getText().trim().isEmpty() ||
-    address.getText().trim().isEmpty() ||
-    cn.getText().trim().isEmpty() ||
-    em.getText().trim().isEmpty() ||
-    status.getSelectedItem() == null
-) {
-    JOptionPane.showMessageDialog(null, "Please fill in all required fields.");
-    return;
+// Field-by-field validation
+if (id.getText().trim().isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Patient ID is required.");
+    id.requestFocus(); return;
+}
+if (fn.getText().trim().isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Full Name is required.");
+    fn.requestFocus(); return;
+}
+if (tt.getText().trim().isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Treatment Type is required.");
+    tt.requestFocus(); return;
+}
+if (amount.getText().trim().isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Total Amount is required.");
+    amount.requestFocus(); return;
+}
+if (AmountPaid.getText().trim().isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Amount Paid is required.");
+    AmountPaid.requestFocus(); return;
+}
+if (date.getText().trim().isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Billing Date is required.");
+    date.requestFocus(); return;
+}
+if (status.getSelectedItem() == null) {
+    JOptionPane.showMessageDialog(null, "Billing Status is required.");
+    status.requestFocus(); return;
+}
+if (des.getText().trim().isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Description is required.");
+    des.requestFocus(); return;
+}
+if (rate.getText().trim().isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Rate is required.");
+    rate.requestFocus(); return;
+}
+if (quan.getText().trim().isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Quantity is required.");
+    quan.requestFocus(); return;
+}
+if (returnA.getText().trim().isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Return Amount is required.");
+    returnA.requestFocus(); return;
+}
+if (med.getSelectedItem() == null || med.getSelectedItem().toString().trim().isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Medication is required.");
+    med.requestFocus(); return;
+}
+if (address.getText().trim().isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Address is required.");
+    address.requestFocus(); return;
+}
+if (cn.getText().trim().isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Contact Number is required.");
+    cn.requestFocus(); return;
+}
+if (em.getText().trim().isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Email is required.");
+    em.requestFocus(); return;
 }
 
-int patientId;
+int patientId, quantity;
 double totalAmount, amountPaid, rateValue, returnAmount;
-int quantity;
-
 try {
     patientId = Integer.parseInt(id.getText().trim());
     totalAmount = Double.parseDouble(amount.getText().trim());
@@ -678,39 +729,36 @@ try {
     quantity = Integer.parseInt(quan.getText().trim());
     returnAmount = Double.parseDouble(returnA.getText().trim());
 } catch (NumberFormatException e) {
-    JOptionPane.showMessageDialog(null, "Please enter valid numeric values for ID, Amount, Rate, Quantity, and Return Amount.");
+    JOptionPane.showMessageDialog(null, "Invalid numeric input: " + e.getMessage());
     return;
 }
 
-try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hospital_bill", "root", "")){
+String medication = med.getSelectedItem().toString().trim();
+
+try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hospital_bill", "root", "")) {
 
     String checkQuery = "SELECT COUNT(*) FROM billings WHERE p_id = ?";
     PreparedStatement checkStmt = conn.prepareStatement(checkQuery);
     checkStmt.setInt(1, patientId);
     ResultSet rs = checkStmt.executeQuery();
     if (rs.next() && rs.getInt(1) > 0) {
-        JOptionPane.showMessageDialog(null, "This patient already has billing records. You can no longer add new bills.");
+        JOptionPane.showMessageDialog(null, "This patient already has billing records.");
         return;
     }
-     PreparedStatement stmt = conn.prepareStatement(query);
 
-    String patientName = fn.getText().trim();
-    String treatmentType = tt.getText().trim();
-    String billingDate = date.getText().trim();
-    String billingStatus = status.getSelectedItem().toString();
-    String description = des.getText().trim();
-
+    PreparedStatement stmt = conn.prepareStatement(query);
     stmt.setInt(1, patientId);
-    stmt.setString(2, patientName);
-    stmt.setString(3, treatmentType);
+    stmt.setString(2, fn.getText().trim());
+    stmt.setString(3, tt.getText().trim());
     stmt.setDouble(4, totalAmount);
     stmt.setDouble(5, amountPaid);
-    stmt.setString(6, billingDate);
-    stmt.setString(7, billingStatus);
-    stmt.setString(8, description);
+    stmt.setString(6, date.getText().trim());
+    stmt.setString(7, status.getSelectedItem().toString());
+    stmt.setString(8, des.getText().trim());
     stmt.setDouble(9, rateValue);
     stmt.setInt(10, quantity);
     stmt.setDouble(11, returnAmount);
+    stmt.setString(12, medication);
 
     int rowsInserted = stmt.executeUpdate();
 
@@ -718,20 +766,19 @@ try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/
         String cityAddress = address.getText().trim();
         String contactNo = cn.getText().trim();
         String email = em.getText().trim();
+        String patientName = fn.getText().trim();
+        String billingDate = date.getText().trim();
         String path = System.getProperty("user.home") + "\\Downloads\\";
-
-
         new File(path).mkdirs();
-        com.itextpdf.text.Document doc = new com.itextpdf.text.Document();
 
+        com.itextpdf.text.Document doc = new com.itextpdf.text.Document();
         try {
-            String pdfFileName = path + patientName + " Bill.pdf";
-            PdfWriter.getInstance(doc, new FileOutputStream(pdfFileName));
+            PdfWriter.getInstance(doc, new FileOutputStream(path + patientName + "_Bill.pdf"));
             doc.open();
 
             Paragraph header = new Paragraph(
                 "                                           ALCAYA MARLO (HOSPITAL BILLING SYSTEM)\n" +
-                "                                                CONTACT NUMBER:0914410936\n\n"
+                "                                               \n CONTACT NUMBER: 0914410936\n\n"
             );
             doc.add(header);
 
@@ -744,55 +791,59 @@ try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/
                 "City Address: " + cityAddress + "\n\n"
             );
             doc.add(patientDetails);
-
-            PdfPTable tb1 = new PdfPTable(5);
-            tb1.addCell("Treatment Type");
-            tb1.addCell("Description");
-            tb1.addCell("Rate");
-            tb1.addCell("Quantity");
-            tb1.addCell("TotalAmount");
-
             
-            for (int i = 0; i < table.getRowCount(); i++) {
-    if (table.getValueAt(i, 0) == null || table.getValueAt(i, 1) == null || 
-        table.getValueAt(i, 2) == null || table.getValueAt(i, 3) == null || 
+            DefaultTableModel model = (DefaultTableModel) table.getModel();
+model.addRow(new Object[] {
+    med.getSelectedItem().toString(),  
+    tt.getText(),                      
+    des.getText(),                     
+    rate.getText(),                   
+    quan.getText()                    
+});
+
+  PdfPTable tb1 = new PdfPTable(5); 
+tb1.setWidthPercentage(100);
+
+tb1.addCell("Medication");
+tb1.addCell("Treatment Type");
+tb1.addCell("Description");
+tb1.addCell("Rate");
+tb1.addCell("Quantity");
+
+for (int i = 1; i < table.getRowCount(); i++) {
+    System.out.println("Medication at row " + i + ": " + table.getValueAt(i, 0));
+
+    if (table.getValueAt(i, 0) == null || table.getValueAt(i, 1) == null ||
+        table.getValueAt(i, 2) == null || table.getValueAt(i, 3) == null ||
         table.getValueAt(i, 4) == null) continue;
 
-    String n = table.getValueAt(i, 0).toString();
-    String tt = table.getValueAt(i, 1).toString();
-    String r = table.getValueAt(i, 2).toString();
-    String q = table.getValueAt(i, 3).toString();
-    String t = table.getValueAt(i, 4).toString();
-
-    tb1.addCell(n);
-    tb1.addCell(tt);
-    tb1.addCell(r);
-    tb1.addCell(q);
-    tb1.addCell(t);
-    break; 
+    tb1.addCell(table.getValueAt(i, 0).toString()); 
+    tb1.addCell(table.getValueAt(i, 1).toString());
+    tb1.addCell(table.getValueAt(i, 2).toString());
+    tb1.addCell(table.getValueAt(i, 3).toString()); 
+    tb1.addCell(table.getValueAt(i, 4).toString());
 }
+
 
             doc.add(tb1);
 
             Paragraph summary = new Paragraph(
-    "\nTotal: " + totalAmount +
-    "\nPaid Amount: " + amountPaid +
-    "\nReturn Amount: " + returnAmount +
-    "\n\nTHANK YOU FOR VISITING MY SYSTEM!!\nAlcaya Marlo\nOwner"
-);
-doc.add(summary);
+                "\nTotal: " + totalAmount +
+                "\nPaid Amount: " + amountPaid +
+                "\nReturn Amount: " + returnAmount +
+                "\n\nTHANK YOU FOR VISITING MY SYSTEM!!"
+            );
+            doc.add(summary);
 
-// ➕ Signature block
-Paragraph signature = new Paragraph(
-    "\n\n______________________________\n" +
-    "  Signature\n" +
-    "  Hospital Billing System"
-);
-signature.setAlignment(Element.ALIGN_RIGHT);
-doc.add(signature);
+            Paragraph signature = new Paragraph(
+                "\n\n______________________________\n" +
+                " Signature\n\n "
+            );
+            signature.setAlignment(Element.ALIGN_RIGHT);
+            doc.add(signature);
 
+            JOptionPane.showMessageDialog(null, "Done Bill Generated!!");
 
-            JOptionPane.showMessageDialog(null, "Bill Generated and Inserted Successfully!");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "PDF Generation Error: " + e.getMessage());
         } finally {
@@ -801,6 +852,7 @@ doc.add(signature);
 
         setVisible(false);
         new dashBoard().setVisible(true);
+
     } else {
         JOptionPane.showMessageDialog(null, "Failed to insert bill into the database.");
     }
@@ -808,6 +860,7 @@ doc.add(signature);
 } catch (Exception e) {
     JOptionPane.showMessageDialog(null, "Database Error: " + e.getMessage());
 }
+
 
     }//GEN-LAST:event_rSMaterialButtonCircle1ActionPerformed
 
@@ -882,6 +935,7 @@ doc.add(signature);
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -892,6 +946,7 @@ doc.add(signature);
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JComboBox<String> med;
     private javax.swing.JLabel ondate;
     private javax.swing.JTextField quan;
     private rojerusan.RSMaterialButtonCircle rSMaterialButtonCircle1;

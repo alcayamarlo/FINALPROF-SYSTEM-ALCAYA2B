@@ -5,9 +5,14 @@
         <group>
             <file>file:/C:/Users/alcay/OneDrive/Documents/hospitalBill/2B-ALCAYA-GUI-MAIN/src/admin/ManageUsers.java</file>
             <file>file:/C:/Users/alcay/OneDrive/Documents/hospitalBill/2B-ALCAYA-GUI-MAIN/src/admin/addBills.java</file>
-            <file>file:/C:/Users/alcay/OneDrive/Documents/hospitalBill/2B-ALCAYA-GUI-MAIN/src/admin/addUser.java</file>
+            <file>file:/C:/Users/alcay/OneDrive/Documents/hospitalBill/2B-ALCAYA-GUI-MAIN/src/admin/Logs.java</file>
+            <file>file:/C:/Users/alcay/OneDrive/Documents/hospitalBill/2B-ALCAYA-GUI-MAIN/src/admin/Transaction.java</file>
+            <file>file:/C:/Users/alcay/OneDrive/Documents/hospitalBill/2B-ALCAYA-GUI-MAIN/src/user/userDashboard.java</file>
             <file>file:/C:/Users/alcay/OneDrive/Documents/hospitalBill/2B-ALCAYA-GUI-MAIN/src/admin/dashBoard.java</file>
+            <file>file:/C:/Users/alcay/OneDrive/Documents/hospitalBill/2B-ALCAYA-GUI-MAIN/src/user/userForm.java</file>
+            <file>file:/C:/Users/alcay/OneDrive/Documents/hospitalBill/2B-ALCAYA-GUI-MAIN/src/Successfull/loginSuccess.java</file>
             <file>file:/C:/Users/alcay/OneDrive/Documents/hospitalBill/2B-ALCAYA-GUI-MAIN/src/login/Main.java</file>
+            <file>file:/C:/Users/alcay/OneDrive/Documents/hospitalBill/2B-ALCAYA-GUI-MAIN/src/Authentication/SecurityQuestion.java</file>
             <file>file:/C:/Users/alcay/OneDrive/Documents/hospitalBill/2B-ALCAYA-GUI-MAIN/src/login/registerUser.java</file>
         </group>
     </open-files>
